@@ -1,0 +1,54 @@
+:root {
+  --die-size: 2em;
+  --die-text: white;
+  --die-bg: darkgrey;
+  --rolled-bg: black;
+  --success-bg: green;
+  --failure-bg: red;
+}
+
+.chosen {
+  font-weight: bold;
+}
+
+.dice {
+  padding: 0
+}
+
+.dice li {
+  display: inline-block;
+}
+
+.die {
+  display: inline-block;
+  height: var(--die-size);
+  width: var(--die-size);
+  line-height: var(--die-size);
+  font-weight: bold;
+  color: var(--die-text);
+  background-color: var(--die-bg);
+}
+
+.dice li .die {
+  margin-left: 0.5em;
+}
+
+.dice li:first-of-type .die {
+  margin-left: 0;
+}
+
+.die.rolled {
+  background-color: var(--rolled-bg);
+}
+
+.challenge .success {
+  background-color: var(--success-bg);
+}
+
+.challenge .failure {
+  background-color: var(--failure-bg);
+}
+
+.outcome {
+  height: 1.4em;
+}
