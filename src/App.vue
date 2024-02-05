@@ -161,5 +161,5 @@ export default {
   </MoveLayout>
 
   <p class="outcome">{{ outcome }}{{ match }}</p>
-  <button type="button" id="clear" @click="clearAll">Clear</button>
+  <button type="button" @click="clearAll">Clear</button>
 </template>
