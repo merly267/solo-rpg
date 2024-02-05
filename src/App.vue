@@ -1,32 +1,12 @@
 <script>
 import BaseDie from './components/BaseDie.vue'
+import StatsList from './components/StatsList.vue'
 export default {
   components: {
-    BaseDie
+    BaseDie,
+    StatsList
   },
   data: () => ({
-    statsList: [
-      {
-        name: 'Edge',
-        score: 3
-      },
-      {
-        name: 'Heart',
-        score: 2
-      },
-      {
-        name: 'Iron',
-        score: 1
-      },
-      {
-        name: 'Shadow',
-        score: 2
-      },
-      {
-        name: 'Wits',
-        score: 1
-      }
-    ],
     selectedStat: {
       name: '',
       score: null
@@ -105,8 +85,8 @@ export default {
         }
       })
     },
-    setSelectedStat(s) {
-      this.selectedStat = s
+    setSelectedStat(stat) {
+      this.selectedStat = stat
       this.clearAllDice()
     },
     clearSelectedStat() {
@@ -150,22 +130,7 @@ export default {
 
 <template>
   <h1>Solo RPG</h1>
-  <h2>Stats</h2>
-  <p v-if="statsList.length === 0">Please select your character's stats</p>
-  <ul v-else>
-    <li v-for="(stat, index) in statsList" :key="`stat-${index}`">
-      <button
-        type="button"
-        class="aspect"
-        @click="setSelectedStat(stat)"
-        :class="{ chosen: stat.name === selectedStat.name }"
-      >
-        <span class="name">{{ stat.name }}</span
-        >:
-        <span class="stat">{{ stat.score }}</span>
-      </button>
-    </li>
-  </ul>
+  <StatsList :selected="selectedStat" @setSelected="setSelectedStat" />
 
   <button type="button" @click="rollAllDice">
     <h2>Action score</h2>
