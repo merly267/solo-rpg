@@ -190,7 +190,3 @@ export default {
   <p class="outcome">{{ outcome }}{{ match }}</p>
   <button type="button" id="clear" @click="clearAll">Clear</button>
 </template>
-
-<style>
-@import './assets/dice.css';
-</style>
