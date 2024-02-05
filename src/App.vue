@@ -182,14 +182,7 @@ export default {
       <h2>Challenge dice</h2>
       <ul class="dice">
         <li v-for="die in challengeDice" :key="die.id">
-          <span
-            v-if="die.result"
-            class="die rolled"
-            :class="{ success: die.isSuccess === true, failure: die.isSuccess === false }"
-          >
-            {{ die.result }}
-          </span>
-          <span v-else class="die">?</span>
+          <BaseDie :die="die" />
         </li>
       </ul>
     </div>
