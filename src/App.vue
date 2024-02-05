@@ -1,5 +1,9 @@
 <script>
+import BaseDie from './components/BaseDie.vue'
 export default {
+  components: {
+    BaseDie
+  },
   data: () => ({
     statsList: [
       {
@@ -166,8 +170,7 @@ export default {
   <button type="button" @click="rollAllDice">
     <h2>Action score</h2>
     <p>
-      <span v-if="actionDie.result" class="die rolled">{{ actionDie.result }}</span>
-      <span v-else class="die">?</span>
+      <BaseDie :die="actionDie" />
       +
       <span v-if="selectedStat.score">{{ selectedStat.score }}</span>
       <span v-else>?</span>
