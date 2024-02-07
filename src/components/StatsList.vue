@@ -1,37 +1,37 @@
-<script>
-export default {
-  props: {
-    selected: {
-      type: Object,
-      required: true
-    }
+<script setup>
+import { defineEmits, defineProps } from 'vue'
+
+const emits = defineEmits(['setSelected'])
+
+const props = defineProps({
+  selected: {
+    type: Object,
+    required: true
+  }
+})
+
+const statsList = [
+  {
+    name: 'Edge',
+    score: 3
   },
-  emits: ['setSelected'],
-  data: () => ({
-    statsList: [
-      {
-        name: 'Edge',
-        score: 3
-      },
-      {
-        name: 'Heart',
-        score: 2
-      },
-      {
-        name: 'Iron',
-        score: 1
-      },
-      {
-        name: 'Shadow',
-        score: 2
-      },
-      {
-        name: 'Wits',
-        score: 1
-      }
-    ]
-  })
-}
+  {
+    name: 'Heart',
+    score: 2
+  },
+  {
+    name: 'Iron',
+    score: 1
+  },
+  {
+    name: 'Shadow',
+    score: 2
+  },
+  {
+    name: 'Wits',
+    score: 1
+  }
+]
 </script>
 <template>
   <h2>Stats</h2>
