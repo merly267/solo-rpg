@@ -1,7 +1,7 @@
 <script>
 import BaseDie from './BaseDie.vue'
 import MoveLayout from './MoveLayout.vue'
-import StatsList from './StatsList.vue'
+import StatsList from './StatSelector.vue'
 export default {
   components: {
     BaseDie,
