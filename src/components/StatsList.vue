@@ -1,9 +1,7 @@
 <script setup>
-import { defineEmits, defineProps } from 'vue'
+defineEmits(['setSelected'])
 
-const emits = defineEmits(['setSelected'])
-
-const props = defineProps({
+defineProps({
   selected: {
     type: Object,
     required: true
