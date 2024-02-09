@@ -1,12 +1,10 @@
-<script>
-export default {
-  props: {
-    die: {
-      type: Object,
-      required: true
-    }
+<script setup>
+defineProps({
+  die: {
+    type: Object,
+    required: true
   }
-}
+})
 </script>
 <template>
   <span
