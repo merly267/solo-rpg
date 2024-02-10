@@ -10,6 +10,26 @@ import {
   debilities
 } from '../composables/characterStats.js'
 import StatsList from './StatsList.vue'
+
+const checkedDebilities = []
+
+const checkForDebilities = () => {
+  debilities.value.forEach((group) => {
+    const markedDebilities = []
+    group.debilitiesList.forEach((debility) => {
+      if (debility.status) {
+        markedDebilities.push(debility.name)
+      }
+    })
+    if (markedDebilities.length) {
+      group.debilitiesChecked = true
+      checkedDebilities.push(group)
+    }
+  })
+  console.log(checkedDebilities)
+}
+
+checkForDebilities()
 </script>
 <template>
   <h1>{{ name }}</h1>
