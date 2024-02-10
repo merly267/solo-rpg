@@ -6,7 +6,7 @@ import BaseDie from './BaseDie.vue'
   <div class="challenge">
     <h2>Action score</h2>
     <BaseDie :die="actionDie" />
-    <button type="button" @click="roll(actionDie)">Roll</button>
-    <button type="button" @click="clear(actionDie)">Clear</button>
+    <!-- <button type="button" @click="roll(actionDie)">Roll</button>
+    <button type="button" @click="clear(actionDie)">Clear</button> -->
   </div>
 </template>

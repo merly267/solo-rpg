@@ -10,7 +10,7 @@ import BaseDie from './BaseDie.vue'
         <BaseDie :die="die" />
       </li>
     </ul>
-    <button
+    <!-- <button
       type="button"
       @click="
         challengeDice.forEach((die) => {
@@ -29,7 +29,7 @@ import BaseDie from './BaseDie.vue'
       "
     >
       Clear
-    </button>
+    </button> -->
   </div>
 </template>
 <style>
