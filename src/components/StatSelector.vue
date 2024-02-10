@@ -1,5 +1,5 @@
 <script setup>
-import statsList from '../composables/stats.js'
+import { stats as statsList } from '../composables/characterStats.js'
 
 defineEmits(['setSelected'])
 
