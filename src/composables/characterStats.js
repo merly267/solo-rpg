@@ -25,8 +25,6 @@ export const stats = ref([
   }
 ])
 
-export const momentum = ref(0)
-
 export const health = ref(5)
 
 export const spirit = ref(5)

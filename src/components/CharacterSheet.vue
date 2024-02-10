@@ -3,14 +3,16 @@ import {
   name,
   experience,
   vows,
-  momentum,
   health,
   spirit,
   supply,
   debilities
 } from '../composables/characterStats.js'
+
 import StatsList from './StatsList.vue'
+import { momentum } from '../composables/momentumStore.js'
 </script>
+
 <template>
   <h1>{{ name }}</h1>
   <p>Experience: {{ experience }}</p>
