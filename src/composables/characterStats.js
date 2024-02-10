@@ -1,6 +1,8 @@
 import { ref } from 'vue'
 
-const stats = ref([
+export const name = ref('Edda')
+
+export const stats = ref([
   {
     name: 'Edge',
     score: 3
@@ -22,5 +24,3 @@ const stats = ref([
     score: 1
   }
 ])
-
-export default stats

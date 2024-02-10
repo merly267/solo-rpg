@@ -1,5 +1,5 @@
 <script setup>
-import statsList from '../composables/characterStats.js'
+import { stats as statsList } from '../composables/characterStats.js'
 </script>
 <template>
   <h2>Stats</h2>
