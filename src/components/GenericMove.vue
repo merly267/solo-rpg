@@ -1,140 +1,133 @@
-<script setup>
+<script>
 import BaseDie from './BaseDie.vue'
 import MoveLayout from './MoveLayout.vue'
 import StatsList from './StatSelector.vue'
-import { momentum } from '../composables/momentumStore.js'
-
-import { computed, ref } from 'vue'
-
-const selectedStat = ref({
-  name: '',
-  score: null
-})
-
-const actionDie = {
-  id: 'actionDie',
-  max: 6,
-  result: null
-}
-
-const challengeDice = [
-  {
-    id: 'challengeDie-0',
-    max: 10,
-    result: null,
-    isSuccess: null
+export default {
+  components: {
+    BaseDie,
+    MoveLayout,
+    StatsList
   },
-  {
-    id: 'challengeDie-1',
-    max: 10,
-    result: null,
-    isSuccess: null
-  }
-]
-
-const checkSuccess = () => {
-  challengeDice.forEach((die) => {
-    if (actionScore.value > die.result) {
-      die.isSuccess = true
-    } else {
-      die.isSuccess = false
-    }
-  })
-}
-
-const setSelectedStat = (stat) => {
-  selectedStat.value = stat
-  clearAllDice()
-}
-
-const clearSelectedStat = () => {
-  selectedStat.value = {
-    name: '',
-    score: null
-  }
-}
-
-const roll = (die) => {
-  die.result = Math.ceil(Math.random() * die.max)
-}
-
-const clearDie = (die) => {
-  die.result = null
-}
-
-const rollChallenge = () => {
-  challengeDice.forEach((die) => {
-    roll(die)
-  })
-}
-
-const clearChallenge = () => {
-  challengeDice.forEach((die) => {
-    clearDie(die)
-  })
-}
-
-const rollAllDice = () => {
-  rollChallenge()
-  roll(actionDie)
-  checkSuccess()
-}
-
-const clearAllDice = () => {
-  clearChallenge()
-  clearDie(actionDie)
-}
-
-const clearAll = () => {
-  clearSelectedStat()
-  clearAllDice()
-}
-
-const actionScore = computed(() => {
-  if (actionDie.result) {
-    return actionDie.result + selectedStat.value.score
-  } else {
-    return null
-  }
-})
-
-const successes = computed(() => {
-  return filter((die) => die.isSuccess === true)
-})
-
-const outcome = computed(() => {
-  if (actionDie.result) {
-    switch (successes.value.length) {
-      case 0:
-        return 'Miss'
-      case 1:
-        return 'Weak hit'
-      case 2:
-        return 'Strong hit'
-    }
-    return null
-  } else {
-    return null
-  }
-})
-
-const match = computed(() => {
-  if (challengeDice[0].result) {
-    const toMatch = challengeDice[0].result
-    const matches = challengeDice.filter((die) => die.result === toMatch)
-    if (matches.length > 1) {
-      if (toMatch === 10) {
-        return ' and a match on 10, the worst possible result...'
-      } else {
-        return ' and a match!'
+  data: () => ({
+    selectedStat: {
+      name: '',
+      score: null
+    },
+    actionDie: {
+      id: 'actionDie',
+      max: 6,
+      result: null
+    },
+    challengeDice: [
+      {
+        id: 'challengeDie-0',
+        max: 10,
+        result: null,
+        isSuccess: null
+      },
+      {
+        id: 'challengeDie-1',
+        max: 10,
+        result: null,
+        isSuccess: null
       }
-    } else {
-      return null
+    ]
+  }),
+  computed: {
+    actionScore() {
+      if (this.actionDie.result) {
+        return this.actionDie.result + this.selectedStat.score
+      } else {
+        return null
+      }
+    },
+    successes() {
+      return this.challengeDice.filter((die) => die.isSuccess === true)
+    },
+    outcome() {
+      if (this.actionDie.result) {
+        switch (this.successes.length) {
+          case 0:
+            return 'Miss'
+          case 1:
+            return 'Weak hit'
+          case 2:
+            return 'Strong hit'
+        }
+        return null
+      } else {
+        return null
+      }
+    },
+    match() {
+      if (this.challengeDice[0].result) {
+        const toMatch = this.challengeDice[0].result
+        const matches = this.challengeDice.filter((die) => die.result === toMatch)
+        if (matches.length > 1) {
+          if (toMatch === 10) {
+            return ' and a match on 10, the worst possible result...'
+          } else {
+            return ' and a match!'
+          }
+        } else {
+          return null
+        }
+      } else {
+        return null
+      }
     }
-  } else {
-    return null
+  },
+  methods: {
+    checkSuccess() {
+      this.challengeDice.forEach((die) => {
+        if (this.actionScore > die.result) {
+          die.isSuccess = true
+        } else {
+          die.isSuccess = false
+        }
+      })
+    },
+    setSelectedStat(stat) {
+      this.selectedStat = stat
+      this.clearAllDice()
+    },
+    clearSelectedStat() {
+      this.selectedStat = {
+        name: '',
+        score: null
+      }
+    },
+    roll(die) {
+      die.result = Math.ceil(Math.random() * die.max)
+    },
+    clearDie(die) {
+      die.result = null
+    },
+    rollChallenge() {
+      this.challengeDice.forEach((die) => {
+        this.roll(die)
+      })
+    },
+    clearChallenge() {
+      this.challengeDice.forEach((die) => {
+        this.clearDie(die)
+      })
+    },
+    rollAllDice() {
+      this.rollChallenge()
+      this.roll(this.actionDie)
+      this.checkSuccess()
+    },
+    clearAllDice() {
+      this.clearChallenge()
+      this.clearDie(this.actionDie)
+    },
+    clearAll() {
+      this.clearSelectedStat()
+      this.clearAllDice()
+    }
   }
-})
+}
 </script>
 
 <template>
@@ -169,6 +162,4 @@ const match = computed(() => {
 
   <p class="outcome">{{ outcome }}{{ match }}</p>
   <button type="button" @click="clearAll">Clear</button>
-  <h3>Momentum</h3>
-  <button type="button">{{ momentum }}</button>
 </template>
