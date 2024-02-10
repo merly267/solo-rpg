@@ -25,6 +25,14 @@ export const stats = ref([
   }
 ])
 
-export const experience = 0
+export const momentum = ref(0)
 
-export const vows = []
+export const health = ref(5)
+
+export const spirit = ref(5)
+
+export const supply = ref(0)
+
+export const experience = ref(0)
+
+export const vows = ref([])
