@@ -6,7 +6,8 @@ import {
   momentum,
   health,
   spirit,
-  supply
+  supply,
+  debilities
 } from '../composables/characterStats.js'
 import StatsList from './StatsList.vue'
 </script>
@@ -20,4 +21,15 @@ import StatsList from './StatsList.vue'
   <p>Health: {{ health }}</p>
   <p>Spirit: {{ spirit }}</p>
   <p>Supply: {{ supply }}</p>
+  <h2>Debilities</h2>
+  <ul>
+    <li v-for="group in debilities" :key="group.group">
+      <h3>{{ group.group }}</h3>
+      <ul>
+        <li v-for="debility in group.debilitiesList" :key="debility.name">
+          {{ debility.name }}: {{ debility.status }}
+        </li>
+      </ul>
+    </li>
+  </ul>
 </template>
