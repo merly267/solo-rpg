@@ -1,14 +1,16 @@
 <script>
 import CharacterSheet from './components/CharacterSheet.vue'
 import GenericMove from './components/GenericMove.vue'
+import NewMove from './components/NewMove.vue'
 export default {
   components: {
     CharacterSheet,
-    GenericMove
+    GenericMove,
+    NewMove
   },
   data: () => ({
     currentTab: 'CharacterSheet',
-    tabs: ['CharacterSheet', 'GenericMove']
+    tabs: ['CharacterSheet', 'GenericMove', 'NewMove']
   })
 }
 </script>
