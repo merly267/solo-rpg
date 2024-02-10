@@ -2,6 +2,8 @@ import { ref } from 'vue'
 
 export const name = ref('Edda')
 
+export const experience = 0
+
 export const stats = ref([
   {
     name: 'Edge',
