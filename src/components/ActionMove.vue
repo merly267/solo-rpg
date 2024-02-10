@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '../composables/diceStore.js'
+import ActionDie from './ActionDie.vue'
 import ChallengeDice from './ChallengeDice.vue'
-import ActionScore from './ActionScore.vue'
 import StatSelector from './StatSelector.vue'
+import MoveOutcome from './MoveOutcome.vue'
 
 let selectedStat = ref({
   name: '',
@@ -19,6 +20,13 @@ const clearSelectedStat = () => {
     score: null
   }
 }
+
+const actionScore = computed(() => {
+  if (actionDie.value.result) {
+    return actionDie.value.result + selectedStat.value.score
+  }
+  return null
+})
 
 const rollAllDice = () => {
   challengeDice.value.forEach((die) => roll(die))
@@ -37,10 +45,17 @@ const clearAll = () => {
 <template>
   <h3>Action move</h3>
   <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
-  <!-- <ActionScore :selectedStat="selectedStat" /> -->
-  <ActionScore :selectedStat="selectedStat" />
+
+  <h3>ActionScore</h3>
+  <ActionDie />
+  + <span v-if="selectedStat.score">{{ selectedStat.score }}</span>
+  <span v-else>?</span>
+  + <span class="add">?</span> = <span v-if="actionScore">{{ actionScore }}</span>
+  <span v-else>?</span>
 
   <ChallengeDice />
   <button type="button" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAll()">Clear</button>
+
+  <MoveOutcome :playerScore="3" />
 </template>
