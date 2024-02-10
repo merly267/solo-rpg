@@ -10,26 +10,6 @@ import {
   debilities
 } from '../composables/characterStats.js'
 import StatsList from './StatsList.vue'
-
-const checkedDebilities = []
-
-const checkForDebilities = () => {
-  debilities.value.forEach((group) => {
-    const markedDebilities = []
-    group.debilitiesList.forEach((debility) => {
-      if (debility.status) {
-        markedDebilities.push(debility.name)
-      }
-    })
-    if (markedDebilities.length) {
-      group.debilitiesChecked = true
-      checkedDebilities.push(group)
-    }
-  })
-  console.log(checkedDebilities)
-}
-
-checkForDebilities()
 </script>
 <template>
   <h1>{{ name }}</h1>
@@ -46,10 +26,25 @@ checkForDebilities()
     <li v-for="group in debilities" :key="group.group">
       <h3>{{ group.group }}</h3>
       <ul>
-        <li v-for="debility in group.debilitiesList" :key="debility.name">
+        <li
+          class="debility"
+          v-for="debility in group.debilitiesList"
+          :key="debility.name"
+          :class="{ marked: debility.status }"
+        >
           {{ debility.name }}: {{ debility.status }}
         </li>
       </ul>
     </li>
   </ul>
 </template>
+
+<style>
+.debility {
+  color: grey;
+}
+.marked {
+  color: black;
+  font-weight: bold;
+}
+</style>

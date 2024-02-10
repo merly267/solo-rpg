@@ -36,11 +36,10 @@ export const supply = ref(0)
 export const debilities = ref([
   {
     group: 'Conditions',
-    debilitiesChecked: false,
     debilitiesList: [
       {
         name: 'Wounded',
-        status: true
+        status: false
       },
       {
         name: 'Shaken',
@@ -48,7 +47,7 @@ export const debilities = ref([
       },
       {
         name: 'Unprepared',
-        status: true
+        status: false
       },
       {
         name: 'Encumbered',
@@ -58,11 +57,10 @@ export const debilities = ref([
   },
   {
     group: 'Banes',
-    debilitiesChecked: false,
     debilitiesList: [
       {
         name: 'Maimed',
-        status: true
+        status: false
       },
       {
         name: 'Corrupted',
@@ -72,7 +70,6 @@ export const debilities = ref([
   },
   {
     group: 'Burdens',
-    debilitiesChecked: false,
     debilitiesList: [
       {
         name: 'Cursed',
