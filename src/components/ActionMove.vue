@@ -27,7 +27,7 @@ const clearAllDice = () => {
 <template>
   <h3>Action move</h3>
   <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
-  <ActionScore />
+  <ActionScore :selectedStat="selectedStat" />
   <ChallengeDice />
   <button type="button" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAllDice()">Clear</button>
