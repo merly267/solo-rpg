@@ -9,10 +9,15 @@ let selectedStat = ref({
   name: '',
   score: null
 })
-
 const setSelectedStat = (stat) => {
   selectedStat.value = stat
   clearAllDice()
+}
+const clearSelectedStat = () => {
+  selectedStat.value = {
+    name: '',
+    score: null
+  }
 }
 
 const rollAllDice = () => {
@@ -23,6 +28,11 @@ const clearAllDice = () => {
   challengeDice.value.forEach((die) => clear(die))
   clear(actionDie.value)
 }
+
+const clearAll = () => {
+  clearSelectedStat()
+  clearAllDice()
+}
 </script>
 <template>
   <h3>Action move</h3>
@@ -30,5 +40,5 @@ const clearAllDice = () => {
   <ActionScore :selectedStat="selectedStat" />
   <ChallengeDice />
   <button type="button" @click="rollAllDice()">Roll</button>
-  <button type="button" @click="clearAllDice()">Clear</button>
+  <button type="button" @click="clearAll()">Clear</button>
 </template>

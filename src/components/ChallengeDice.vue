@@ -1,5 +1,5 @@
 <script setup>
-import { challengeDice, clear, roll } from '../composables/diceStore.js'
+import { challengeDice } from '../composables/diceStore.js'
 import BaseDie from './BaseDie.vue'
 </script>
 <template>
@@ -10,26 +10,6 @@ import BaseDie from './BaseDie.vue'
         <BaseDie :die="die" />
       </li>
     </ul>
-    <!-- <button
-      type="button"
-      @click="
-        challengeDice.forEach((die) => {
-          roll(die)
-        })
-      "
-    >
-      Roll
-    </button>
-    <button
-      type="button"
-      @click="
-        challengeDice.forEach((die) => {
-          clear(die)
-        })
-      "
-    >
-      Clear
-    </button> -->
   </div>
 </template>
 <style>
