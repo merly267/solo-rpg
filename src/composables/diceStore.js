@@ -24,3 +24,7 @@ export const challengeDice = ref([
 export function roll(die) {
   die.result = Math.ceil(Math.random() * die.max)
 }
+
+export function clear(die) {
+  die.result = null
+}

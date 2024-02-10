@@ -1,5 +1,5 @@
 <script setup>
-import { actionDie, roll } from '../composables/diceStore.js'
+import { actionDie, clear, roll } from '../composables/diceStore.js'
 import BaseDie from './BaseDie.vue'
 </script>
 <template>
@@ -7,5 +7,6 @@ import BaseDie from './BaseDie.vue'
     <h2>Action score</h2>
     <BaseDie :die="actionDie" />
     <button type="button" @click="roll(actionDie)">Roll</button>
+    <button type="button" @click="clear(actionDie)">Clear</button>
   </div>
 </template>
