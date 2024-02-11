@@ -43,6 +43,6 @@ const match = computed(() => {
 </script>
 
 <template>
-  <h4>Move outcome</h4>
+  <h3>Move outcome</h3>
   <p>{{ outcome }}{{ match }}</p>
 </template>

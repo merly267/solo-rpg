@@ -14,7 +14,7 @@ import { momentum } from '../composables/momentumStore.js'
 </script>
 
 <template>
-  <h1>{{ name }}</h1>
+  <h2>{{ name }}</h2>
   <p>Experience: {{ experience }}</p>
   <p v-if="vows.length">Vows: {{ vows }}</p>
   <p v-else>Make a vow</p>

@@ -4,7 +4,7 @@ import BaseDie from './BaseDie.vue'
 </script>
 <template>
   <div class="challenge">
-    <h2>Challenge dice</h2>
+    <h3>Challenge dice</h3>
     <ul class="dice">
       <li v-for="die in challengeDice" :key="die.id">
         <BaseDie :die="die" />

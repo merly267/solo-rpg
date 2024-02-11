@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '../composables/diceStore.js'
+import MoveLayout from './MoveLayout.vue'
 import ActionDie from './ActionDie.vue'
 import ChallengeDice from './ChallengeDice.vue'
 import StatSelector from './StatSelector.vue'
@@ -59,19 +60,28 @@ const clearAll = () => {
 }
 </script>
 <template>
-  <h3>Action move</h3>
-  <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
-
-  <h3>ActionScore</h3>
-  <ActionDie />
-  + <span v-if="selectedStat.score">{{ selectedStat.score }}</span>
-  <span v-else>?</span>
-  + <span class="add">?</span> = <span v-if="actionScore">{{ actionScore }}</span>
-  <span v-else>?</span>
-
-  <ChallengeDice />
-  <button type="button" @click="rollAllDice()">Roll</button>
-  <button type="button" @click="clearAll()">Clear</button>
-
-  <MoveOutcome v-if="actionDie.result" :successes="successes" />
+  <h2>Action move</h2>
+  <MoveLayout>
+    <template #stats>
+      <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
+    </template>
+    <template #playerScore>
+      <h3>ActionScore</h3>
+      <ActionDie />
+      + <span v-if="selectedStat.score">{{ selectedStat.score }}</span>
+      <span v-else>?</span>
+      + <span class="add">?</span> = <span v-if="actionScore">{{ actionScore }}</span>
+      <span v-else>?</span>
+    </template>
+    <template #challengeScore>
+      <ChallengeDice />
+    </template>
+    <template #actions>
+      <button type="button" @click="rollAllDice()">Roll</button>
+      <button type="button" @click="clearAll()">Clear</button>
+    </template>
+    <template #outcome>
+      <MoveOutcome v-if="actionDie.result" :successes="successes" />
+    </template>
+  </MoveLayout>
 </template>
