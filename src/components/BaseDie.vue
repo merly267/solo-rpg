@@ -10,7 +10,11 @@ defineProps({
   <span
     v-if="die.result"
     class="die rolled"
-    :class="{ success: die.isSuccess === true, failure: die.isSuccess === false }"
+    :class="{
+      success: die.isSuccess === true,
+      failure: die.isSuccess === false,
+      cancellable: die.isCancellable === true
+    }"
     >{{ die.result }}</span
   >
   <span v-else class="die">?</span>
@@ -46,5 +50,9 @@ defineProps({
 
 .challenge .failure {
   background-color: var(--failure-bg);
+}
+
+.cancellable.failure {
+  border: 2px solid black;
 }
 </style>

@@ -12,12 +12,3 @@ import BaseDie from './BaseDie.vue'
     </ul>
   </div>
 </template>
-<style>
-.challenge .success {
-  background-color: var(--success-bg);
-}
-
-.challenge .failure {
-  background-color: var(--failure-bg);
-}
-</style>

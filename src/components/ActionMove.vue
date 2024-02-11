@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '../composables/diceStore.js'
+import { momentum } from '../composables/momentumStore.js'
 import MoveLayout from './MoveLayout.vue'
 import ActionDie from './ActionDie.vue'
 import AdjustMomentum from './AdjustMomentum.vue'
@@ -34,6 +35,7 @@ const rollAllDice = () => {
   challengeDice.value.forEach((die) => roll(die))
   roll(actionDie.value)
   checkSuccess()
+  checkCancellable()
 }
 
 const checkSuccess = () => {
@@ -49,6 +51,19 @@ const checkSuccess = () => {
 const successes = computed(() => {
   return challengeDice.value.filter((die) => die.isSuccess === true)
 })
+
+const checkCancellable = () => {
+  if (actionDie.value.result && momentum.value > 0) {
+    challengeDice.value.forEach((die) => {
+      if (momentum.value > die.result) {
+        die.isCancellable = true
+      } else {
+        die.isCancellable = false
+      }
+    })
+    console.log(challengeDice.value)
+  }
+}
 
 const clearAllDice = () => {
   challengeDice.value.forEach((die) => clear(die))
