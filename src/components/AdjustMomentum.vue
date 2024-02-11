@@ -1,8 +1,20 @@
 <script setup>
+import { actionDie, challengeDice, clear } from '../composables/diceStore.js'
 import { momentum, addMomentum, loseMomentum, resetMomentum } from '../composables/momentumStore.js'
 
+// need to work out if it's cancellable during actionroll, and then let you cancel it here
 const burnMomentum = () => {
-  resetMomentum()
+  if (actionDie.value.result && momentum.value > 0) {
+    challengeDice.value.forEach((die) => {
+      if (momentum.value > die.result) {
+        die.isCancellable = true
+      } else {
+        die.isCancellable = false
+      }
+    })
+    console.log(challengeDice.value)
+    // resetMomentum()
+  }
 }
 </script>
 <template>
