@@ -100,8 +100,7 @@ const clearAll = () => {
       <button type="button" @click="clearAll()">Clear</button>
     </template>
     <template #momentum>
-      <AdjustMomentum />
-      <pre>{{ anyCancellable.length }}</pre>
+      <AdjustMomentum :numberCancellable="anyCancellable.length" />
     </template>
 
     <template #outcome>
