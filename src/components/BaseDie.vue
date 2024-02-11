@@ -21,6 +21,7 @@ defineProps({
   display: inline-block;
   height: var(--die-size);
   width: var(--die-size);
+  text-align: center;
   line-height: var(--die-size);
   font-weight: bold;
   color: var(--die-text);
