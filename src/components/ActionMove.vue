@@ -31,7 +31,23 @@ const actionScore = computed(() => {
 const rollAllDice = () => {
   challengeDice.value.forEach((die) => roll(die))
   roll(actionDie.value)
+  checkSuccess()
 }
+
+const checkSuccess = () => {
+  challengeDice.value.forEach((die) => {
+    if (actionScore.value > die.result) {
+      die.isSuccess = true
+    } else {
+      die.isSuccess = false
+    }
+  })
+}
+
+const successes = computed(() => {
+  return challengeDice.value.filter((die) => die.isSuccess === true)
+})
+
 const clearAllDice = () => {
   challengeDice.value.forEach((die) => clear(die))
   clear(actionDie.value)
@@ -57,5 +73,5 @@ const clearAll = () => {
   <button type="button" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAll()">Clear</button>
 
-  <MoveOutcome :playerScore="3" />
+  <MoveOutcome v-if="actionDie.result" :successes="successes" />
 </template>
