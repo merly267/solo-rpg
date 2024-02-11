@@ -55,15 +55,18 @@ const successes = computed(() => {
 const checkCancellable = () => {
   if (actionDie.value.result && momentum.value > 0) {
     challengeDice.value.forEach((die) => {
-      if (momentum.value > die.result) {
+      if (!die.isSuccess && momentum.value > die.result) {
         die.isCancellable = true
       } else {
         die.isCancellable = false
       }
     })
-    console.log(challengeDice.value)
   }
 }
+
+const anyCancellable = computed(() => {
+  return challengeDice.value.filter((die) => die.isCancellable === true)
+})
 
 const clearAllDice = () => {
   challengeDice.value.forEach((die) => clear(die))
@@ -98,6 +101,7 @@ const clearAll = () => {
     </template>
     <template #momentum>
       <AdjustMomentum />
+      <pre>{{ anyCancellable.length }}</pre>
     </template>
 
     <template #outcome>
