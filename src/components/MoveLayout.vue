@@ -11,6 +11,9 @@
   <div class="actions">
     <slot name="actions" />
   </div>
+  <div class="momentum">
+    <slot name="momentum" />
+  </div>
   <div class="outcome">
     <slot name="outcome" />
   </div>

@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '../composables/diceStore.js'
 import MoveLayout from './MoveLayout.vue'
 import ActionDie from './ActionDie.vue'
+import AdjustMomentum from './AdjustMomentum.vue'
 import ChallengeDice from './ChallengeDice.vue'
 import StatSelector from './StatSelector.vue'
 import MoveOutcome from './MoveOutcome.vue'
@@ -80,6 +81,10 @@ const clearAll = () => {
       <button type="button" @click="rollAllDice()">Roll</button>
       <button type="button" @click="clearAll()">Clear</button>
     </template>
+    <template #momentum>
+      <AdjustMomentum />
+    </template>
+
     <template #outcome>
       <MoveOutcome v-if="actionDie.result" :successes="successes" />
     </template>
