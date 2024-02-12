@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '../composables/diceStore.js'
-import { momentum } from '../composables/momentumStore.js'
+import { momentum, resetMomentum } from '../composables/momentumStore.js'
 import MoveLayout from './MoveLayout.vue'
 import ActionDie from './ActionDie.vue'
 import AdjustMomentum from './AdjustMomentum.vue'
@@ -68,6 +68,11 @@ const anyCancellable = computed(() => {
   return challengeDice.value.filter((die) => die.isCancellable === true)
 })
 
+const burnMomentum = () => {
+  resetMomentum()
+  checkCancellable()
+}
+
 const clearAllDice = () => {
   challengeDice.value.forEach((die) => clear(die))
   clear(actionDie.value)
@@ -100,7 +105,7 @@ const clearAll = () => {
       <button type="button" @click="clearAll()">Clear</button>
     </template>
     <template #momentum>
-      <AdjustMomentum :numberCancellable="anyCancellable.length" />
+      <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />
     </template>
 
     <template #outcome>
