@@ -48,8 +48,8 @@ const checkSuccess = () => {
   })
 }
 
-const successes = computed(() => {
-  return challengeDice.value.filter((die) => die.isSuccess === true)
+const failures = computed(() => {
+  return challengeDice.value.filter((die) => die.isSuccess === false)
 })
 
 const checkCancellable = () => {
@@ -71,9 +71,10 @@ const anyCancellable = computed(() => {
 const burnMomentum = () => {
   anyCancellable.value.forEach((die) => {
     die.result = null
+    die.isSuccess = null
   })
-  // resetMomentum()
-  // checkCancellable()
+  resetMomentum()
+  checkCancellable()
 }
 
 const clearAllDice = () => {
@@ -112,7 +113,7 @@ const clearAll = () => {
     </template>
 
     <template #outcome>
-      <MoveOutcome v-if="actionDie.result" :successes="successes" />
+      <MoveOutcome v-if="actionDie.result" :failures="failures" />
     </template>
   </MoveLayout>
 </template>

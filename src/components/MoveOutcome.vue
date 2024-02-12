@@ -2,20 +2,20 @@
 import { computed } from 'vue'
 import { actionDie, challengeDice } from '../composables/diceStore.js'
 const props = defineProps({
-  successes: {
+  failures: {
     type: Array
   }
 })
 
 const outcome = computed(() => {
   if (actionDie.value.result) {
-    switch (props.successes.length) {
+    switch (props.failures.length) {
       case 0:
-        return 'Miss'
+        return 'Strong hit'
       case 1:
         return 'Weak hit'
       case 2:
-        return 'Strong hit'
+        return 'Miss'
     }
     return null
   } else {
