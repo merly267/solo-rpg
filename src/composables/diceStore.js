@@ -12,14 +12,16 @@ export const challengeDice = ref([
     max: 10,
     result: null,
     isSuccess: null,
-    isCancellable: null
+    isCancellable: null,
+    cancelled: false
   },
   {
     id: 'challengeDie-1',
     max: 10,
     result: null,
     isSuccess: null,
-    isCancellable: null
+    isCancellable: null,
+    cancelled: false
   }
 ])
 

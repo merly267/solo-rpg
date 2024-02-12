@@ -69,8 +69,11 @@ const anyCancellable = computed(() => {
 })
 
 const burnMomentum = () => {
-  resetMomentum()
-  checkCancellable()
+  anyCancellable.value.forEach((die) => {
+    die.result = null
+  })
+  // resetMomentum()
+  // checkCancellable()
 }
 
 const clearAllDice = () => {

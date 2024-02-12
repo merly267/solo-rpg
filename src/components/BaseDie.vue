@@ -13,7 +13,8 @@ defineProps({
     :class="{
       success: die.isSuccess === true,
       failure: die.isSuccess === false,
-      cancellable: die.isCancellable === true
+      cancellable: die.isCancellable === true,
+      cancelled: die.cancelled === true
     }"
     >{{ die.result }}</span
   >
@@ -54,5 +55,9 @@ defineProps({
 
 .cancellable.failure {
   border: 2px solid black;
+}
+
+.die.cancelled {
+  background-color: var(--die-bg);
 }
 </style>
