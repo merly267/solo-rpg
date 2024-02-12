@@ -7,14 +7,14 @@ defineProps({
 })
 </script>
 <template>
+  <span v-if="die.cancelled" class="die cancelled">x</span>
   <span
-    v-if="die.result"
+    v-else-if="die.result"
     class="die rolled"
     :class="{
       success: die.isSuccess === true,
       failure: die.isSuccess === false,
-      cancellable: die.isCancellable === true,
-      cancelled: die.cancelled === true
+      cancellable: die.isCancellable === true
     }"
     >{{ die.result }}</span
   >

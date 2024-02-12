@@ -31,4 +31,7 @@ export function roll(die) {
 
 export function clear(die) {
   die.result = null
+  die.isSuccess = null
+  die.isCancellable = null
+  die.cancelled = false
 }
