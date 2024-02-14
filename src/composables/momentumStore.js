@@ -11,9 +11,14 @@ if (debilitiesTotal.value > 1) {
 
 const minMomentum = -6
 
+export const maxMomentum = ref(10)
+
 export let momentum = ref(2)
 
 export const addMomentum = (x) => {
+  if (momentum.value == maxMomentum.value) {
+    return
+  }
   momentum.value += x
 }
 

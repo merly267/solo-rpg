@@ -1,6 +1,7 @@
 <script setup>
 import {
   momentum,
+  maxMomentum,
   addMomentum,
   loseMomentum,
   momentumOutcome
@@ -18,7 +19,9 @@ defineEmits(['burnMomentum'])
 
 <template>
   <p>Current momentum: {{ momentum }}</p>
-  <button type="button" @click="addMomentum(1)">Add momentum</button>
+  <button type="button" :disabled="momentum == maxMomentum" @click="addMomentum(1)">
+    Add momentum
+  </button>
   <button type="button" @click="loseMomentum(1)">Lose momentum</button>
   <button type="button" :disabled="props.numberCancellable < 1" @click="$emit('burnMomentum')">
     Burn momentum
