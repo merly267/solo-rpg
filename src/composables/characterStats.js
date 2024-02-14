@@ -81,6 +81,8 @@ export const debilities = ref([
   }
 ])
 
+export const debilitiesTotal = 0
+
 export const experience = ref(0)
 
 export const vows = ref([])
