@@ -9,6 +9,8 @@ if (debilitiesTotal.value > 1) {
   momentumResetValue = 1
 }
 
+const minMomentum = -6
+
 export let momentum = ref(2)
 
 export const addMomentum = (x) => {
@@ -16,9 +18,15 @@ export const addMomentum = (x) => {
 }
 
 export const loseMomentum = (x) => {
-  momentum.value -= x
+  if (momentum.value == minMomentum) {
+    momentumOutcome.value = 'Your momentum is already at minumum. Face a setback instead.'
+  } else {
+    momentum.value -= x
+  }
 }
 
 export const resetMomentum = () => {
   momentum.value = momentumResetValue
 }
+
+export let momentumOutcome = ref('')

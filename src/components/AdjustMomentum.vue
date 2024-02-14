@@ -1,5 +1,10 @@
 <script setup>
-import { momentum, addMomentum, loseMomentum } from '../composables/momentumStore.js'
+import {
+  momentum,
+  addMomentum,
+  loseMomentum,
+  momentumOutcome
+} from '../composables/momentumStore.js'
 
 const props = defineProps({
   numberCancellable: {
@@ -18,4 +23,5 @@ defineEmits(['burnMomentum'])
   <button type="button" :disabled="props.numberCancellable < 1" @click="$emit('burnMomentum')">
     Burn momentum
   </button>
+  <p>{{ momentumOutcome }}</p>
 </template>
