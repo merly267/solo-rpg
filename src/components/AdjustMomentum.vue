@@ -1,5 +1,4 @@
 <script setup>
-import { actionDie, challengeDice, clear } from '../composables/diceStore.js'
 import { momentum, addMomentum, loseMomentum } from '../composables/momentumStore.js'
 
 const props = defineProps({
