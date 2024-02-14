@@ -3,9 +3,9 @@ import { debilitiesTotal } from './characterStats'
 
 let momentumResetValue = 2
 
-if (debilitiesTotal > 1) {
+if (debilitiesTotal.value > 1) {
   momentumResetValue = 0
-} else if (debilitiesTotal > 0) {
+} else if (debilitiesTotal.value > 0) {
   momentumResetValue = 1
 }
 

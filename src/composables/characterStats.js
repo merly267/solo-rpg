@@ -81,7 +81,18 @@ export const debilities = ref([
   }
 ])
 
-export const debilitiesTotal = 0
+export let debilitiesTotal = ref(0)
+
+const countMarkedDebilities = () => {
+  const debilitiesList = []
+  debilities.value.forEach((group) => {
+    const markedDebilities = group.debilitiesList.filter((debility) => debility.status === true)
+    markedDebilities.forEach((debility) => debilitiesList.push(debility.name))
+  })
+  debilitiesTotal.value = debilitiesList.length
+}
+
+countMarkedDebilities()
 
 export const experience = ref(0)
 
