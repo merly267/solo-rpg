@@ -3,7 +3,8 @@ import { ref } from 'vue'
 export const actionDie = ref({
   id: 'actionDie',
   max: 6,
-  result: null
+  result: null,
+  cancelled: false
 })
 
 export const challengeDice = ref([

@@ -25,15 +25,18 @@ const clearSelectedStat = () => {
 }
 
 const actionScore = computed(() => {
-  if (actionDie.value.result + momentum.value == 0) {
-    return selectedStat.value.score
-  } else if (actionDie.value.result) {
+  if (actionDie.value.result) {
+    if (actionDie.value.result + momentum.value == 0) {
+      actionDie.value.cancelled = true
+      return selectedStat.value.score
+    }
     return actionDie.value.result + selectedStat.value.score
   }
   return null
 })
 
 const rollAllDice = () => {
+  clearAllDice()
   challengeDice.value.forEach((die) => roll(die))
   roll(actionDie.value)
   checkSuccess()
