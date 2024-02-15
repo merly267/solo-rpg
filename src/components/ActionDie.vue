@@ -1,5 +1,5 @@
 <script setup>
-import { actionDie } from '../composables/diceStore.js'
+import { actionDie } from '../composables/useDiceStore.js'
 import BaseDie from './BaseDie.vue'
 </script>
 <template>

@@ -5,7 +5,7 @@ import {
   addMomentum,
   loseMomentum,
   momentumOutcome
-} from '../composables/momentumStore.js'
+} from '../composables/useMomentumStore.js'
 
 const props = defineProps({
   numberCancellable: {

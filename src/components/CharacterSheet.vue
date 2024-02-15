@@ -7,10 +7,10 @@ import {
   spirit,
   supply,
   debilities
-} from '../composables/characterStats.js'
+} from '../composables/useCharacterStats.js'
 
 import StatsList from './StatsList.vue'
-import { momentum } from '../composables/momentumStore.js'
+import { momentum } from '../composables/useMomentumStore.js'
 </script>
 
 <template>

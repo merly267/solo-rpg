@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { actionDie, challengeDice, clear, roll } from '../composables/diceStore.js'
-import { momentum, resetMomentum } from '../composables/momentumStore.js'
+import { actionDie, challengeDice, clear, roll } from '../composables/useDiceStore.js'
+import { momentum, resetMomentum } from '../composables/useMomentumStore.js'
 import MoveLayout from './MoveLayout.vue'
 import ActionDie from './ActionDie.vue'
 import AdjustMomentum from './AdjustMomentum.vue'
