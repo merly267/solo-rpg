@@ -19,3 +19,14 @@ export default {
   <button v-for="tab in tabs" :key="tab" @click="currentTab = tab">{{ tab }}</button>
   <component :is="currentTab" />
 </template>
+
+<style>
+:root {
+  --die-size: 2em;
+  --die-text: white;
+  --die-bg: darkgrey;
+  --rolled-bg: black;
+  --success-bg: green;
+  --failure-bg: red;
+}
+</style>

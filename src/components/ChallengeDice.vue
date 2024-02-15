@@ -12,3 +12,13 @@ import BaseDie from './BaseDie.vue'
     </ul>
   </div>
 </template>
+
+<style scoped>
+.dice {
+  padding: 0;
+}
+
+.dice li {
+  display: inline-block;
+}
+</style>

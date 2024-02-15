@@ -21,7 +21,7 @@ defineProps({
   <span v-else class="die">?</span>
 </template>
 
-<style>
+<style scoped>
 .die {
   display: inline-block;
   height: var(--die-size);
