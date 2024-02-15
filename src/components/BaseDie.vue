@@ -31,6 +31,7 @@ defineProps({
   font-weight: bold;
   color: var(--die-text);
   background-color: var(--die-bg);
+  border-radius: 2px;
 }
 
 .dice li .die {
@@ -43,6 +44,11 @@ defineProps({
 
 .die.rolled {
   background-color: var(--rolled-bg);
+  color: var(--app-bg);
+}
+
+.challenge .die.rolled {
+  color: var(--app-text);
 }
 
 .challenge .success {

@@ -43,10 +43,10 @@ import { momentum } from '../composables/useMomentumStore.js'
 
 <style>
 .debility {
-  color: grey;
+  color: var(--grey-text);
 }
 .marked {
-  color: black;
+  color: var(--app-text);
   font-weight: bold;
 }
 </style>
