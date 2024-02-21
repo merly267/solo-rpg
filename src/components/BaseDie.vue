@@ -21,7 +21,7 @@ defineProps({
   <span v-else class="die">?</span>
 </template>
 
-<style>
+<style scoped>
 .die {
   display: inline-block;
   height: var(--die-size);
@@ -31,6 +31,7 @@ defineProps({
   font-weight: bold;
   color: var(--die-text);
   background-color: var(--die-bg);
+  border-radius: 2px;
 }
 
 .dice li .die {
@@ -43,6 +44,11 @@ defineProps({
 
 .die.rolled {
   background-color: var(--rolled-bg);
+  color: var(--app-bg);
+}
+
+.challenge .die.rolled {
+  color: var(--app-text);
 }
 
 .challenge .success {
@@ -54,7 +60,7 @@ defineProps({
 }
 
 .cancellable.failure {
-  border: 2px solid black;
+  border: 2px solid var(--app-text);
 }
 
 .die.cancelled {

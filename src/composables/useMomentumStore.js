@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { debilitiesTotal } from './characterStats'
+import { debilitiesTotal } from './useCharacterStats'
 
 let momentumResetValue = 2
 

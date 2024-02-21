@@ -7,10 +7,10 @@ import {
   spirit,
   supply,
   debilities
-} from '../composables/characterStats.js'
+} from '../composables/useCharacterStats.js'
 
 import StatsList from './StatsList.vue'
-import { momentum } from '../composables/momentumStore.js'
+import { momentum } from '../composables/useMomentumStore.js'
 </script>
 
 <template>
@@ -43,10 +43,10 @@ import { momentum } from '../composables/momentumStore.js'
 
 <style>
 .debility {
-  color: grey;
+  color: var(--grey-text);
 }
 .marked {
-  color: black;
+  color: var(--app-text);
   font-weight: bold;
 }
 </style>
