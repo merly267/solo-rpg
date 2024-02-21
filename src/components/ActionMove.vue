@@ -83,6 +83,14 @@ const burnMomentum = () => {
   resetMomentum()
 }
 
+const anyClearable = computed(() => {
+  const challengeClearable = challengeDice.value.filter((die) => die.result)
+  if (challengeClearable.length && actionDie.value.result) {
+    return true
+  }
+  return false
+})
+
 const clearAllDice = () => {
   challengeDice.value.forEach((die) => clear(die))
   clear(actionDie.value)
@@ -112,7 +120,7 @@ const clearAll = () => {
     </template>
     <template #actions>
       <button type="button" @click="rollAllDice()">Roll</button>
-      <button type="button" @click="clearAll()">Clear</button>
+      <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
     </template>
     <template #momentum>
       <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />

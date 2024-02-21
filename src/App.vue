@@ -44,4 +44,7 @@ button {
   margin: 0.25em;
   padding: 0.25em 0.5em;
 }
+button:disabled {
+  opacity: 0.5;
+}
 </style>
