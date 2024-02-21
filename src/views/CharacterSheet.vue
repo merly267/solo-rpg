@@ -9,7 +9,7 @@ import {
   debilities
 } from '../composables/useCharacterStats.js'
 
-import StatsList from './StatsList.vue'
+import StatsList from '../components/StatsList.vue'
 import { momentum } from '../composables/useMomentumStore.js'
 </script>
 

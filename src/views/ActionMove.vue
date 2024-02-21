@@ -2,12 +2,12 @@
 import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '../composables/useDiceStore.js'
 import { momentum, resetMomentum } from '../composables/useMomentumStore.js'
-import MoveLayout from './MoveLayout.vue'
-import ActionDie from './ActionDie.vue'
-import AdjustMomentum from './AdjustMomentum.vue'
-import ChallengeDice from './ChallengeDice.vue'
-import StatSelector from './StatSelector.vue'
-import MoveOutcome from './MoveOutcome.vue'
+import MoveLayout from '../components/MoveLayout.vue'
+import ActionDie from '../components/ActionDie.vue'
+import AdjustMomentum from '../components/AdjustMomentum.vue'
+import ChallengeDice from '../components/ChallengeDice.vue'
+import StatSelector from '../components/StatSelector.vue'
+import MoveOutcome from '../components/MoveOutcome.vue'
 
 let selectedStat = ref({
   name: '',
