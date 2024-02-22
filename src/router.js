@@ -1,17 +1,14 @@
-import CharacterSheet from './views/CharacterSheet.vue'
-import ActionMove from './views/ActionMove.vue'
-
 export const routes = [
   {
     path: '/',
-    component: CharacterSheet
+    component: () => import('./views/CharacterSheet.vue')
   },
   {
     path: '/character',
-    component: CharacterSheet
+    component: () => import('./views/CharacterSheet.vue')
   },
   {
     path: '/action-move',
-    component: ActionMove
+    component: () => import('./views/ActionMove.vue')
   }
 ]
