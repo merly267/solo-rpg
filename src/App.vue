@@ -3,6 +3,7 @@
   <nav>
     <router-link to="/character">Character sheet</router-link>
     <router-link to="/action-move">Action move</router-link>
+    <router-link to="/moves">Moves</router-link>
   </nav>
   <router-view />
 </template>
