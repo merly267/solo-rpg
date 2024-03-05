@@ -1,5 +1,5 @@
 <script setup>
-import { challengeDice } from '../composables/useDiceStore.js'
+import { challengeDice } from '@/composables/useDiceStore.js'
 import BaseDie from './BaseDie.vue'
 </script>
 <template>

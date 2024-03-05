@@ -1,23 +1,11 @@
-<script>
-import CharacterSheet from './components/CharacterSheet.vue'
-import ActionMove from './components/ActionMove.vue'
-export default {
-  components: {
-    CharacterSheet,
-    ActionMove
-  },
-  data: () => ({
-    currentTab: 'CharacterSheet',
-    tabs: ['CharacterSheet', 'ActionMove']
-  })
-}
-</script>
-
 <template>
   <h1>Solo RPG</h1>
-
-  <button v-for="tab in tabs" :key="tab" @click="currentTab = tab">{{ tab }}</button>
-  <component :is="currentTab" />
+  <nav>
+    <router-link to="/character">Character sheet</router-link>
+    <router-link to="/action-move">Action move</router-link>
+    <router-link to="/moves">Moves</router-link>
+  </nav>
+  <router-view />
 </template>
 
 <style>
@@ -34,6 +22,11 @@ export default {
 
   color: var(--app-text);
   background-color: var(--app-bg);
+}
+
+nav a {
+  margin-right: 0.5em;
+  color: var(--app-text);
 }
 
 button {
