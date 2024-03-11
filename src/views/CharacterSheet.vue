@@ -10,7 +10,9 @@ import {
 } from '@/composables/useCharacterStats.js'
 
 import StatsList from '@/components/StatsList.vue'
-import { momentum } from '@/composables/useMomentumStore.js'
+import { useMomentumStore } from '@/stores/MomentumStore'
+
+const momentumStore = useMomentumStore()
 </script>
 
 <template>
@@ -19,7 +21,7 @@ import { momentum } from '@/composables/useMomentumStore.js'
   <p v-if="vows.length">Vows: {{ vows }}</p>
   <p v-else>Make a vow</p>
   <StatsList />
-  <p>Momentum: {{ momentum }}</p>
+  <p>Momentum: {{ momentumStore.momentum }}</p>
   <p>Health: {{ health }}</p>
   <p>Spirit: {{ spirit }}</p>
   <p>Supply: {{ supply }}</p>
