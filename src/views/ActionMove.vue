@@ -1,13 +1,16 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore.js'
-import { momentum, resetMomentum } from '@/composables/useMomentumStore.js'
+// import { momentum, resetMomentum } from '@/composables/useMomentumStore.js'
+import { useMomentumStore } from '@/stores/MomentumStore'
 import MoveLayout from '@/components/MoveLayout.vue'
 import ActionDie from '@/components/ActionDie.vue'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import StatSelector from '@/components/StatSelector.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
+
+const momentumStore = useMomentumStore()
 
 let selectedStat = ref({
   name: '',
@@ -26,7 +29,7 @@ const clearSelectedStat = () => {
 
 const actionScore = computed(() => {
   if (actionDie.value.result) {
-    if (actionDie.value.result + momentum.value == 0) {
+    if (actionDie.value.result + momentumStore.momentum == 0) {
       actionDie.value.cancelled = true
       return selectedStat.value.score
     }
@@ -58,9 +61,9 @@ const failures = computed(() => {
 })
 
 const checkCancellable = () => {
-  if (actionDie.value.result && momentum.value > 0) {
+  if (actionDie.value.result && momentumStore.momentum > 0) {
     challengeDice.value.forEach((die) => {
-      if (!die.isSuccess && momentum.value > die.result) {
+      if (!die.isSuccess && momentumStore.momentum > die.result) {
         die.isCancellable = true
       } else {
         die.isCancellable = false
@@ -80,7 +83,7 @@ const burnMomentum = () => {
     die.isCancellable = null
     die.cancelled = true
   })
-  resetMomentum()
+  momentumStore.resetMomentum()
 }
 
 const anyClearable = computed(() => {

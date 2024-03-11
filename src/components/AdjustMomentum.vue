@@ -1,11 +1,7 @@
 <script setup>
-import {
-  momentum,
-  maxMomentum,
-  addMomentum,
-  loseMomentum,
-  momentumOutcome
-} from '@/composables/useMomentumStore.js'
+import { useMomentumStore } from '@/stores/MomentumStore'
+
+const momentumStore = useMomentumStore()
 
 const props = defineProps({
   numberCancellable: {
@@ -18,13 +14,17 @@ defineEmits(['burnMomentum'])
 </script>
 
 <template>
-  <p>Current momentum: {{ momentum }}</p>
-  <button type="button" :disabled="momentum == maxMomentum" @click="addMomentum(1)">
+  <p>Current momentum: {{ momentumStore.momentum }}</p>
+  <button
+    type="button"
+    :disabled="momentumStore.momentum == momentumStore.maxMomentum"
+    @click="momentumStore.addMomentum(1)"
+  >
     Add momentum
   </button>
-  <button type="button" @click="loseMomentum(1)">Lose momentum</button>
+  <button type="button" @click="momentumStore.loseMomentum(1)">Lose momentum</button>
   <button type="button" :disabled="props.numberCancellable < 1" @click="$emit('burnMomentum')">
     Burn momentum
   </button>
-  <p>{{ momentumOutcome }}</p>
+  <p>{{ momentumStore.momentumOutcome }}</p>
 </template>
