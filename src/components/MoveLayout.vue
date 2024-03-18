@@ -1,4 +1,7 @@
 <template>
+  <div class="text">
+    <slot name="text" />
+  </div>
   <div class="stats">
     <slot name="stats" />
   </div>

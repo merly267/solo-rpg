@@ -106,6 +106,16 @@ const clearAll = () => {
 <template>
   <h2>Gather information</h2>
   <MoveLayout>
+    <template #text>
+      <p>
+        When you <strong>search an area</strong>, <strong>ask questions</strong>,
+        <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +wits.
+      </p>
+      <p>
+        If you act within a community or ask questions of a person with whom you share a bond, add
+        +1.
+      </p>
+    </template>
     <template #stats>
       <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
     </template>
