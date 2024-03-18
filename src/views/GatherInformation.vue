@@ -26,13 +26,23 @@ const clearSelectedStat = () => {
   }
 }
 
+const moveAdds = ref(1)
+const bondAadds = ref(false)
+const setMoveAdds = (bondAadds) => {
+  if (bondAadds) {
+    // moveAdds.value += 1
+    moveAdds.value = 5
+  }
+}
+
 const actionScore = computed(() => {
+  setMoveAdds(bondAadds)
   if (actionDie.value.result) {
     if (actionDie.value.result + momentumStore.momentum == 0) {
       actionDie.value.cancelled = true
       return selectedStat.value.score
     }
-    return actionDie.value.result + selectedStat.value.score
+    return actionDie.value.result + selectedStat.value.score + moveAdds.value
   }
   return null
 })
@@ -111,10 +121,11 @@ const clearAll = () => {
         When you <strong>search an area</strong>, <strong>ask questions</strong>,
         <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +wits.
       </p>
-      <p>
-        If you act within a community or ask questions of a person with whom you share a bond, add
-        +1.
-      </p>
+      <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
+      <label for="bondAadds"
+        >{{ bondAadds }} If you act within a community or ask questions of a person with whom you
+        share a bond, add +1.</label
+      >
     </template>
     <template #stats>
       <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
@@ -124,7 +135,9 @@ const clearAll = () => {
       <ActionDie />
       + <span v-if="selectedStat.score">{{ selectedStat.score }}</span>
       <span v-else>?</span>
-      + <span class="add">?</span> = <span v-if="actionScore">{{ actionScore }}</span>
+      + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
+      <span v-else>?</span>
+      = <span v-if="actionScore">{{ actionScore }}</span>
       <span v-else>?</span>
     </template>
     <template #challengeScore>
