@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore.js'
+import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import MoveLayout from '@/components/MoveLayout.vue'
 import ActionDie from '@/components/ActionDie.vue'
@@ -11,19 +12,11 @@ import MoveOutcome from '@/components/MoveOutcome.vue'
 
 const momentumStore = useMomentumStore()
 
-let selectedStat = ref({
-  name: '',
-  score: null
-})
+let selectedStat = statsList.value.find((stat) => stat.name === 'Wits')
+
 const setSelectedStat = (stat) => {
-  selectedStat.value = stat
+  selectedStat = stat
   clearAllDice()
-}
-const clearSelectedStat = () => {
-  selectedStat.value = {
-    name: '',
-    score: null
-  }
 }
 
 const bondAadds = ref(false)
@@ -39,9 +32,9 @@ const actionScore = computed(() => {
   if (actionDie.value.result) {
     if (actionDie.value.result + momentumStore.momentum == 0) {
       actionDie.value.cancelled = true
-      return selectedStat.value.score
+      return selectedStat.score
     }
-    return actionDie.value.result + selectedStat.value.score + moveAdds.value
+    return actionDie.value.result + selectedStat.score + moveAdds.value
   }
   return null
 })
@@ -108,7 +101,6 @@ const clearAllDice = () => {
 }
 
 const clearAll = () => {
-  clearSelectedStat()
   clearAllDice()
 }
 </script>
@@ -118,16 +110,16 @@ const clearAll = () => {
     <template #text>
       <p>
         When you <strong>search an area</strong>, <strong>ask questions</strong>,
-        <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +wits.
+        <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +{{
+          selectedStat.name
+        }}
+        ({{ selectedStat.score }}).
       </p>
       <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
       <label for="bondAadds"
         >If you act within a community or ask questions of a person with whom you share a bond, add
         +1.</label
       >
-    </template>
-    <template #stats>
-      <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
     </template>
     <template #playerScore>
       <h3>ActionScore</h3>
