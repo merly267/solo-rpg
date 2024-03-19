@@ -7,17 +7,11 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import ActionDie from '@/components/ActionDie.vue'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
-import StatSelector from '@/components/StatSelector.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 
 const momentumStore = useMomentumStore()
 
 let selectedStat = statsList.value.find((stat) => stat.name === 'Wits')
-
-const setSelectedStat = (stat) => {
-  selectedStat = stat
-  clearAllDice()
-}
 
 const bondAadds = ref(false)
 
