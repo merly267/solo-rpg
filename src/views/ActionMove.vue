@@ -126,7 +126,11 @@ const clearAll = () => {
       <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
     </template>
     <template #momentum>
-      <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />
+      <AdjustMomentum
+        :manual="true"
+        :numberCancellable="anyCancellable.length"
+        @burnMomentum="burnMomentum"
+      />
     </template>
 
     <template #outcome>
