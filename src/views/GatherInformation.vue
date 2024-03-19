@@ -26,17 +26,16 @@ const clearSelectedStat = () => {
   }
 }
 
-const moveAdds = ref(1)
 const bondAadds = ref(false)
-const setMoveAdds = (bondAadds) => {
-  if (bondAadds) {
-    // moveAdds.value += 1
-    moveAdds.value = 5
+
+const moveAdds = computed(() => {
+  if (bondAadds.value) {
+    return 1
   }
-}
+  return 0
+})
 
 const actionScore = computed(() => {
-  setMoveAdds(bondAadds)
   if (actionDie.value.result) {
     if (actionDie.value.result + momentumStore.momentum == 0) {
       actionDie.value.cancelled = true
@@ -123,8 +122,8 @@ const clearAll = () => {
       </p>
       <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
       <label for="bondAadds"
-        >{{ bondAadds }} If you act within a community or ask questions of a person with whom you
-        share a bond, add +1.</label
+        >If you act within a community or ask questions of a person with whom you share a bond, add
+        +1.</label
       >
     </template>
     <template #stats>
@@ -137,7 +136,10 @@ const clearAll = () => {
       <span v-else>?</span>
       + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
       <span v-else>?</span>
-      = <span v-if="actionScore">{{ actionScore }}</span>
+      =
+      <span v-if="actionScore"
+        ><strong>{{ actionScore }}</strong></span
+      >
       <span v-else>?</span>
     </template>
     <template #challengeScore>
