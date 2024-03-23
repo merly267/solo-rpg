@@ -12,15 +12,18 @@ import MoveOutcome from '@/components/MoveOutcome.vue'
 const outcomes = {
   strong: {
     type: 'Strong hit',
-    message: 'This is a strong hit message'
+    message:
+      'You discover something helpful and specific. The path you must follow or action you must take to make progress is made clear. Envision what you learn (Ask the Oracle if unsure), and take +2 momentum'
   },
   weak: {
     type: 'Weak hit',
-    message: 'This is a weak hit message'
+    message:
+      'The information complicates your quest or introduces a new danger. Envision what you discover (Ask the Oracle if unsure), and take +1 momentum'
   },
   miss: {
     type: 'Miss',
-    message: 'This is a miss message'
+    message:
+      'Your investigation unearths a dire threat or reveals an unwelcome truth that undermines your quest. Pay the Price'
   }
 }
 
