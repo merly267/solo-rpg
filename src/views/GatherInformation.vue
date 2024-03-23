@@ -116,7 +116,7 @@ const clearAll = () => {
       >
     </template>
     <template #playerScore>
-      <h3>ActionScore</h3>
+      <h3>Action Score</h3>
       <ActionDie />
       + <span v-if="selectedStat.score">{{ selectedStat.score }}</span>
       <span v-else>?</span>
