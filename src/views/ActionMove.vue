@@ -10,6 +10,18 @@ import ChallengeDice from '@/components/ChallengeDice.vue'
 import StatSelector from '@/components/StatSelector.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 
+const outcomes = {
+  strong: {
+    type: 'Strong hit'
+  },
+  weak: {
+    type: 'Weak hit'
+  },
+  miss: {
+    type: 'Miss'
+  }
+}
+
 const momentumStore = useMomentumStore()
 
 let selectedStat = ref({
@@ -134,7 +146,7 @@ const clearAll = () => {
     </template>
 
     <template #outcome>
-      <MoveOutcome v-if="actionDie.result" :failures="failures" />
+      <MoveOutcome v-if="actionDie.result" :failures="failures" :outcomes="outcomes" />
     </template>
   </MoveLayout>
 </template>

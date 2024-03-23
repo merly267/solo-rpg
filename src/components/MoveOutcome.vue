@@ -4,6 +4,9 @@ import { actionDie, challengeDice } from '@/composables/useDiceStore.js'
 const props = defineProps({
   failures: {
     type: Array
+  },
+  outcomes: {
+    type: Object
   }
 })
 
@@ -11,11 +14,11 @@ const outcome = computed(() => {
   if (actionDie.value.result) {
     switch (props.failures.length) {
       case 0:
-        return 'Strong hit'
+        return props.outcomes.strong
       case 1:
-        return 'Weak hit'
+        return props.outcomes.weak
       case 2:
-        return 'Miss'
+        return props.outcomes.miss
     }
     return null
   } else {
@@ -44,5 +47,8 @@ const match = computed(() => {
 
 <template>
   <h3>Move outcome</h3>
-  <p>{{ outcome }}{{ match }}</p>
+  <p>{{ outcome.type }}{{ match }}</p>
+  <div v-if="outcome.message">
+    {{ outcome.message }}
+  </div>
 </template>

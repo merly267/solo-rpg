@@ -9,6 +9,21 @@ import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 
+const outcomes = {
+  strong: {
+    type: 'Strong hit',
+    message: 'This is a strong hit message'
+  },
+  weak: {
+    type: 'Weak hit',
+    message: 'This is a weak hit message'
+  },
+  miss: {
+    type: 'Miss',
+    message: 'This is a miss message'
+  }
+}
+
 const momentumStore = useMomentumStore()
 
 let selectedStat = statsList.value.find((stat) => stat.name === 'Wits')
@@ -140,7 +155,7 @@ const clearAll = () => {
     </template>
 
     <template #outcome>
-      <MoveOutcome v-if="actionDie.result" :failures="failures" />
+      <MoveOutcome v-if="actionDie.result" :failures="failures" :outcomes="outcomes" />
     </template>
   </MoveLayout>
 </template>
