@@ -25,6 +25,9 @@ export const useMomentumStore = defineStore('momentumStore', {
       if (this.momentum == this.maxMomentum) {
         return
       }
+      if (this.momentum + x > this.maxMomentum) {
+        return (this.momentum = this.maxMomentum)
+      }
       this.momentum += x
     },
     loseMomentum(x) {
