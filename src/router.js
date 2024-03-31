@@ -14,5 +14,9 @@ export const routes = [
   {
     path: '/moves',
     component: () => import('./views/MovesList.vue')
+  },
+  {
+    path: '/moves/gather-information',
+    component: () => import('./views/moves/GatherInformation.vue')
   }
 ]

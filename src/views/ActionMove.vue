@@ -8,7 +8,19 @@ import ActionDie from '@/components/ActionDie.vue'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import StatSelector from '@/components/StatSelector.vue'
-import MoveOutcome from '@/components/MoveOutcome.vue'
+import MoveOutcome from '@/components/OldMoveOutcome.vue'
+
+const outcomes = {
+  strong: {
+    type: 'Strong hit'
+  },
+  weak: {
+    type: 'Weak hit'
+  },
+  miss: {
+    type: 'Miss'
+  }
+}
 
 const momentumStore = useMomentumStore()
 
@@ -111,7 +123,7 @@ const clearAll = () => {
       <StatSelector :selected="selectedStat" @setSelected="setSelectedStat" />
     </template>
     <template #playerScore>
-      <h3>ActionScore</h3>
+      <h3>Action Score</h3>
       <ActionDie />
       + <span v-if="selectedStat.score">{{ selectedStat.score }}</span>
       <span v-else>?</span>
@@ -126,11 +138,15 @@ const clearAll = () => {
       <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
     </template>
     <template #momentum>
-      <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />
+      <AdjustMomentum
+        :manual="true"
+        :numberCancellable="anyCancellable.length"
+        @burnMomentum="burnMomentum"
+      />
     </template>
 
     <template #outcome>
-      <MoveOutcome v-if="actionDie.result" :failures="failures" />
+      <MoveOutcome v-if="actionDie.result" :failures="failures" :outcomes="outcomes" />
     </template>
   </MoveLayout>
 </template>

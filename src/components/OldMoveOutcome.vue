@@ -1,26 +1,31 @@
 <script setup>
 import { computed } from 'vue'
 import { actionDie, challengeDice } from '@/composables/useDiceStore.js'
-
-const failures = computed(() => {
-  return challengeDice.value.filter((die) => die.isSuccess === false)
+const props = defineProps({
+  failures: {
+    type: Array
+  },
+  outcomes: {
+    type: Object
+  }
 })
 
 const outcome = computed(() => {
   if (actionDie.value.result) {
-    switch (failures.value.length) {
+    switch (props.failures.length) {
       case 0:
-        return 'Strong hit'
+        return props.outcomes.strong
       case 1:
-        return 'Weak hit'
+        return props.outcomes.weak
       case 2:
-        return 'Miss'
+        return props.outcomes.miss
     }
     return null
   } else {
     return null
   }
 })
+
 const match = computed(() => {
   if (challengeDice.value[0].result) {
     const toMatch = challengeDice.value[0].result
@@ -39,11 +44,11 @@ const match = computed(() => {
   }
 })
 </script>
+
 <template>
-  <div v-if="actionDie.result">
-    <h3>{{ outcome }}{{ match }}</h3>
-    <slot name="strong" v-if="failures.length == 0"></slot>
-    <slot name="weak" v-if="failures.length == 1"></slot>
-    <slot name="miss" v-if="failures.length == 2"></slot>
+  <h3>Move outcome</h3>
+  <h4>{{ outcome.type }}{{ match }}</h4>
+  <div v-if="outcome.message">
+    {{ outcome.message }}
   </div>
 </template>

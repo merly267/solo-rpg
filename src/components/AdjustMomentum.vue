@@ -7,6 +7,10 @@ const props = defineProps({
   numberCancellable: {
     type: Number,
     default: 0
+  },
+  manual: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -15,14 +19,16 @@ defineEmits(['burnMomentum'])
 
 <template>
   <p>Current momentum: {{ momentumStore.momentum }}</p>
-  <button
-    type="button"
-    :disabled="momentumStore.momentum == momentumStore.maxMomentum"
-    @click="momentumStore.addMomentum(1)"
+  <span v-if="manual">
+    <button
+      type="button"
+      :disabled="momentumStore.momentum == momentumStore.maxMomentum"
+      @click="momentumStore.addMomentum(1)"
+    >
+      Add momentum
+    </button>
+    <button type="button" @click="momentumStore.loseMomentum(1)">Lose momentum</button></span
   >
-    Add momentum
-  </button>
-  <button type="button" @click="momentumStore.loseMomentum(1)">Lose momentum</button>
   <button type="button" :disabled="props.numberCancellable < 1" @click="$emit('burnMomentum')">
     Burn momentum
   </button>
