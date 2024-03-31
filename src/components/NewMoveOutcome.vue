@@ -42,5 +42,8 @@ const match = computed(() => {
 <template>
   <div v-if="actionDie.result">
     <h3>{{ outcome }}{{ match }}</h3>
+    <slot name="strong" v-if="failures.length == 0"></slot>
+    <slot name="weak" v-if="failures.length == 1"></slot>
+    <slot name="miss" v-if="failures.length == 2"></slot>
   </div>
 </template>
