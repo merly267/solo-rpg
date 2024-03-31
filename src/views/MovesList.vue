@@ -10,6 +10,10 @@
   <p>
     If you act within a community or ask questions of a person with whom you share a bond, add +1.
   </p>
+
+  <h3>
+    <button @click="$router.push('/moves/gather-information')">New! Gather information</button>
+  </h3>
 </template>
 
 <style>
