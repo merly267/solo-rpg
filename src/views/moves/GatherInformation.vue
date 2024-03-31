@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
+import { useMomentumStore } from '@/stores/MomentumStore'
 import ActionMove from '@/components/ActionMove.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
@@ -15,6 +16,7 @@ const moveAdds = computed(() => {
   }
   return 0
 })
+const momentumStore = useMomentumStore()
 </script>
 
 <template>
@@ -41,13 +43,27 @@ const moveAdds = computed(() => {
           <p>
             You discover something helpful and specific. The path you must follow or action you must
             take to make progress is made clear. Envision what you learn (Ask the Oracle if unsure),
-            and take +2 momentum.
+            and
+            <button
+              type="button"
+              :disabled="momentumStore.momentum == momentumStore.maxMomentum"
+              @click="momentumStore.addMomentum(2)"
+            >
+              take +2 momentum</button
+            >.
           </p>
         </template>
         <template v-slot:weak>
           <p>
             The information complicates your quest or introduces a new danger. Envision what you
-            discover (Ask the Oracle if unsure), and take +1 momentum.
+            discover (Ask the Oracle if unsure), and
+            <button
+              type="button"
+              :disabled="momentumStore.momentum == momentumStore.maxMomentum"
+              @click="momentumStore.addMomentum(1)"
+            >
+              take +1 momentum</button
+            >.
           </p>
         </template>
         <template v-slot:miss>
