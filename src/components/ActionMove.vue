@@ -7,17 +7,20 @@ const props = defineProps({
   },
   stat: {
     type: Number
+  },
+  adds: {
+    type: Number
   }
 })
 </script>
 <template>
-  <h2>{{ props.title }}</h2>
+  <h2>{{ title }}</h2>
   <slot></slot>
   <h3>Action Score</h3>
   <ActionDie />
   + <span v-if="stat">{{ stat }}</span>
   <span v-else>?</span>
-  + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
+  + <span v-if="adds > 0">{{ adds }}</span>
   <span v-else>?</span>
   =
   <span v-if="actionScore"
