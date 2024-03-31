@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
-import NewMoveOutcome from '@/components/NewMoveOutcome.vue'
+import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 
 const title = 'Gather Information'
@@ -36,7 +36,7 @@ const moveAdds = computed(() => {
       </ActionMove>
     </template>
     <template #outcome>
-      <NewMoveOutcome>
+      <MoveOutcome>
         <template v-slot:strong>
           <p>
             You discover something helpful and specific. The path you must follow or action you must
@@ -56,7 +56,7 @@ const moveAdds = computed(() => {
             your quest. Pay the Price.
           </p>
         </template>
-      </NewMoveOutcome>
+      </MoveOutcome>
     </template>
   </MoveLayout>
 </template>
