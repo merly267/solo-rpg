@@ -38,13 +38,23 @@ const moveAdds = computed(() => {
     <template #outcome>
       <NewMoveOutcome>
         <template v-slot:strong>
-          <p>strong hit text goes here</p>
+          <p>
+            You discover something helpful and specific. The path you must follow or action you must
+            take to make progress is made clear. Envision what you learn (Ask the Oracle if unsure),
+            and take +2 momentum.
+          </p>
         </template>
         <template v-slot:weak>
-          <p>weak hit text goes here</p>
+          <p>
+            The information complicates your quest or introduces a new danger. Envision what you
+            discover (Ask the Oracle if unsure), and take +1 momentum.
+          </p>
         </template>
         <template v-slot:miss>
-          <p>miss text goes here</p>
+          <p>
+            Your investigation unearths a dire threat or reveals an unwelcome truth that undermines
+            your quest. Pay the Price.
+          </p>
         </template>
       </NewMoveOutcome>
     </template>
