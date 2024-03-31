@@ -16,10 +16,6 @@ export const routes = [
     component: () => import('./views/MovesList.vue')
   },
   {
-    path: '/gather-information',
-    component: () => import('./views/GatherInformation.vue')
-  },
-  {
     path: '/moves/gather-information',
     component: () => import('./views/moves/GatherInformation.vue')
   }

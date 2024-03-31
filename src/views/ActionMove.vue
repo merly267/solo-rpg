@@ -8,7 +8,7 @@ import ActionDie from '@/components/ActionDie.vue'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import StatSelector from '@/components/StatSelector.vue'
-import MoveOutcome from '@/components/MoveOutcome.vue'
+import MoveOutcome from '@/components/OldMoveOutcome.vue'
 
 const outcomes = {
   strong: {
