@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
+import NewMoveOutcome from '@/components/NewMoveOutcome.vue'
 
 const title = 'Gather Information'
 
@@ -30,4 +31,5 @@ const moveAdds = computed(() => {
       +1.</label
     >
   </ActionMove>
+  <NewMoveOutcome />
 </template>

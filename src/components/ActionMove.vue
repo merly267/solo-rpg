@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import ActionDie from '@/components/ActionDie.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
@@ -47,10 +47,6 @@ const checkSuccess = () => {
     }
   })
 }
-
-const failures = computed(() => {
-  return challengeDice.value.filter((die) => die.isSuccess === false)
-})
 
 const checkCancellable = () => {
   if (actionDie.value.result && momentumStore.momentum > 0) {
