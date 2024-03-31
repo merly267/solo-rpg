@@ -9,6 +9,12 @@ const selectedStat = statsList.value.find((stat) => stat.name === 'Wits')
 
 <template>
   <ActionMove :title="title" :stat="selectedStat.score">
-    <p>This is the move instructions passed as slots</p>
+    <p>
+      When you <strong>search an area</strong>, <strong>ask questions</strong>,
+      <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +{{
+        selectedStat.name
+      }}
+      ({{ selectedStat.score }}).
+    </p>
   </ActionMove>
 </template>

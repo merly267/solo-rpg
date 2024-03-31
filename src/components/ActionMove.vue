@@ -20,9 +20,9 @@ const props = defineProps({
   + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
   <span v-else>?</span>
   =
-  <!-- <span v-if="actionScore"
+  <span v-if="actionScore"
     ><strong>{{ actionScore }}</strong></span
   >
-  <span v-else>?</span> -->
+  <span v-else>?</span>
   <ChallengeDice />
 </template>
