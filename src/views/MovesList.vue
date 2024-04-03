@@ -14,7 +14,8 @@
 
 <style>
 h3 button {
-  font-size: 1.05rem;
+  padding: 0 0.5rem 0.1rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
   font-variant: all-small-caps;
   cursor: pointer;

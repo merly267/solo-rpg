@@ -54,6 +54,7 @@ button {
   border-radius: 0.25em;
   margin: 0.25em;
   padding: 0.25em 0.5em;
+  font-size: 1rem;
 }
 button:disabled {
   opacity: 0.5;
