@@ -1,19 +1,19 @@
 import { ref } from 'vue'
 
-export const name = ref('Edda')
+export const name = ref('Yorath')
 
 export const stats = ref([
   {
     name: 'Edge',
-    score: 3
+    score: 1
   },
   {
     name: 'Heart',
-    score: 2
+    score: 1
   },
   {
     name: 'Iron',
-    score: 1
+    score: 3
   },
   {
     name: 'Shadow',
@@ -21,7 +21,7 @@ export const stats = ref([
   },
   {
     name: 'Wits',
-    score: 1
+    score: 2
   }
 ])
 
@@ -29,7 +29,7 @@ export const health = ref(5)
 
 export const spirit = ref(5)
 
-export const supply = ref(0)
+export const supply = ref(5)
 
 export const debilities = ref([
   {
