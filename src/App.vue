@@ -9,7 +9,11 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
+  --noto: 'Noto Sans', sans-serif;
+  --mukta: 'Mukta', sans-serif;
   --app-text: #eeeeee;
   --app-bg: #222222;
   --grey-text: #b0b0b0;
@@ -24,12 +28,26 @@
   background-color: var(--app-bg);
 }
 
+html,
+body {
+  font-family: var(--mukta);
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--noto);
+  }
+}
+
 nav a {
   margin-right: 0.5em;
   color: var(--app-text);
 }
 
 button {
+  font-family: var(--mukta);
   color: var(--app-text);
   background-color: var(--app-bg);
   border: 1px solid var(--app-text);
