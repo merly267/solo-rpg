@@ -25,7 +25,7 @@ export const stats = ref([
   }
 ])
 
-export const health = ref(5)
+export const health = ref(4)
 
 export const spirit = ref(5)
 

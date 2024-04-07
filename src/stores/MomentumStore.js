@@ -5,7 +5,7 @@ export const useMomentumStore = defineStore('momentumStore', {
   state: () => ({
     defaultMomentumResetValue: 2,
     minMomentum: -6,
-    momentum: 2,
+    momentum: 1,
     momentumOutcome: ''
   }),
   getters: {
