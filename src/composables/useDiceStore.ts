@@ -1,13 +1,14 @@
 import { ref } from 'vue'
+import type { Die } from '@/types'
 
-export const actionDie = ref({
+export const actionDie = ref<Die>({
   id: 'actionDie',
   max: 6,
   result: null,
   cancelled: false
 })
 
-export const challengeDice = ref([
+export const challengeDice = ref<Die[]>([
   {
     id: 'challengeDie-0',
     max: 10,
@@ -26,11 +27,11 @@ export const challengeDice = ref([
   }
 ])
 
-export function roll(die) {
+export function roll(die: Die) {
   die.result = Math.ceil(Math.random() * die.max)
 }
 
-export function clear(die) {
+export function clear(die: Die) {
   die.result = null
   die.isSuccess = null
   die.isCancellable = null
