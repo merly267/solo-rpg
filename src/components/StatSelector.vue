@@ -6,9 +6,13 @@ type PropTypes = {
   selected: Stat
 }
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'setSelected', stat: Stat): void
 }>()
+
+const setSelected = (stat: Stat) => {
+  emit('setSelected', stat)
+}
 
 const props = defineProps<PropTypes>()
 </script>
@@ -20,7 +24,7 @@ const props = defineProps<PropTypes>()
       <button
         type="button"
         class="aspect"
-        @click="$emit('setSelected', stat)"
+        @click="setSelected(stat)"
         :class="{ chosen: stat.name === props.selected.name }"
       >
         <span class="name">{{ stat.name }}</span
