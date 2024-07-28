@@ -5,17 +5,14 @@ import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore'
-const props = defineProps({
-  title: {
-    type: String
-  },
-  stat: {
-    type: Number
-  },
-  adds: {
-    type: Number
-  }
-})
+
+type PropTypes = {
+  title: string
+  stat: number
+  adds: number
+}
+
+const props = defineProps<PropTypes>()
 
 const momentumStore = useMomentumStore()
 
@@ -40,10 +37,12 @@ const rollAllDice = () => {
 
 const checkSuccess = () => {
   challengeDice.value.forEach((die) => {
-    if (actionScore.value > die.result) {
-      die.isSuccess = true
-    } else {
-      die.isSuccess = false
+    if (actionScore.value && die.result) {
+      if (actionScore.value > die.result) {
+        die.isSuccess = true
+      } else {
+        die.isSuccess = false
+      }
     }
   })
 }
@@ -51,10 +50,12 @@ const checkSuccess = () => {
 const checkCancellable = () => {
   if (actionDie.value.result && momentumStore.momentum > 0) {
     challengeDice.value.forEach((die) => {
-      if (!die.isSuccess && momentumStore.momentum > die.result) {
-        die.isCancellable = true
-      } else {
-        die.isCancellable = false
+      if (die.result) {
+        if (!die.isSuccess && momentumStore.momentum > die.result) {
+          die.isCancellable = true
+        } else {
+          die.isCancellable = false
+        }
       }
     })
   }

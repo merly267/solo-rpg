@@ -37,4 +37,4 @@ export type MovesList = {
 
 export type OutcomeList = typeof outcomeList
 
-type StatName = (typeof statNamesList)[number]
+export type StatName = (typeof statNamesList)[number]
