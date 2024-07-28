@@ -20,10 +20,10 @@ export type Die = {
   id: string
   max: number
   rolled: boolean
-  result: number | null
+  result: number
   cancelled: boolean
-  isSuccess?: boolean | null
-  isCancellable?: boolean | null
+  isSuccess?: boolean
+  isCancellable?: boolean
 }
 
 export type Move = {
@@ -37,4 +37,4 @@ export type MovesList = {
 
 export type OutcomeList = typeof outcomeList
 
-type StatName = (typeof statNamesList)[number]
+export type StatName = (typeof statNamesList)[number]

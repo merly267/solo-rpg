@@ -21,7 +21,7 @@ export const useMomentumStore = defineStore('momentumStore', {
     }
   },
   actions: {
-    addMomentum(x) {
+    addMomentum(x: number) {
       if (this.momentum == this.maxMomentum) {
         return
       }
@@ -30,7 +30,7 @@ export const useMomentumStore = defineStore('momentumStore', {
       }
       this.momentum += x
     },
-    loseMomentum(x) {
+    loseMomentum(x: number) {
       if (this.momentum == this.minMomentum) {
         this.momentumOutcome = 'Your momentum is already at minumum. Face a setback instead.'
       } else {

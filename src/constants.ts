@@ -1,4 +1,4 @@
-export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits'] as const
+export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const
 
 export const outcomeList = {
   strong: {

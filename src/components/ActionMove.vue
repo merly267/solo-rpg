@@ -5,22 +5,19 @@ import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore'
-const props = defineProps({
-  title: {
-    type: String
-  },
-  stat: {
-    type: Number
-  },
-  adds: {
-    type: Number
-  }
-})
+
+type PropTypes = {
+  title: string
+  stat: number
+  adds: number
+}
+
+const props = defineProps<PropTypes>()
 
 const momentumStore = useMomentumStore()
 
 const actionScore = computed(() => {
-  if (actionDie.value.result) {
+  if (actionDie.value.rolled) {
     if (actionDie.value.result + momentumStore.momentum == 0) {
       actionDie.value.cancelled = true
       return props.stat + props.adds
@@ -40,18 +37,20 @@ const rollAllDice = () => {
 
 const checkSuccess = () => {
   challengeDice.value.forEach((die) => {
-    if (actionScore.value > die.result) {
-      die.isSuccess = true
-    } else {
-      die.isSuccess = false
+    if (actionScore.value && die.rolled) {
+      if (actionScore.value > die.result) {
+        die.isSuccess = true
+      } else {
+        die.isSuccess = false
+      }
     }
   })
 }
 
 const checkCancellable = () => {
-  if (actionDie.value.result && momentumStore.momentum > 0) {
+  if (actionDie.value.rolled && momentumStore.momentum > 0) {
     challengeDice.value.forEach((die) => {
-      if (!die.isSuccess && momentumStore.momentum > die.result) {
+      if (!die.isSuccess && die.rolled && momentumStore.momentum > die.result) {
         die.isCancellable = true
       } else {
         die.isCancellable = false
@@ -66,17 +65,17 @@ const anyCancellable = computed(() => {
 
 const burnMomentum = () => {
   anyCancellable.value.forEach((die) => {
-    die.result = null
-    die.isSuccess = null
-    die.isCancellable = null
+    die.result = 0
+    die.isSuccess = true
+    die.isCancellable = false
     die.cancelled = true
   })
   momentumStore.resetMomentum()
 }
 
 const anyClearable = computed(() => {
-  const challengeClearable = challengeDice.value.filter((die) => die.result)
-  if (challengeClearable.length && actionDie.value.result) {
+  const challengeClearable = challengeDice.value.filter((die) => die.rolled)
+  if (challengeClearable.length && actionDie.value.rolled) {
     return true
   }
   return false
