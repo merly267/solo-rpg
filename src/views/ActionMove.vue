@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
-import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore.js'
+import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore'
 // import { momentum, resetMomentum } from '@/composables/useMomentumStore.js'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import MoveLayout from '@/components/MoveLayout.vue'
@@ -9,6 +9,7 @@ import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import StatSelector from '@/components/StatSelector.vue'
 import MoveOutcome from '@/components/OldMoveOutcome.vue'
+import type { Die, Stat } from '@/types'
 
 const outcomes = {
   strong: {
@@ -24,23 +25,23 @@ const outcomes = {
 
 const momentumStore = useMomentumStore()
 
-let selectedStat = ref({
+let selectedStat = ref<Stat>({
   name: '',
-  score: null
+  score: 0
 })
-const setSelectedStat = (stat) => {
+const setSelectedStat = (stat: Stat) => {
   selectedStat.value = stat
   clearAllDice()
 }
 const clearSelectedStat = () => {
   selectedStat.value = {
     name: '',
-    score: null
+    score: 0
   }
 }
 
 const actionScore = computed(() => {
-  if (actionDie.value.result) {
+  if (actionDie.value.result && selectedStat.value.score !== null) {
     if (actionDie.value.result + momentumStore.momentum == 0) {
       actionDie.value.cancelled = true
       return selectedStat.value.score
@@ -60,10 +61,12 @@ const rollAllDice = () => {
 
 const checkSuccess = () => {
   challengeDice.value.forEach((die) => {
-    if (actionScore.value > die.result) {
-      die.isSuccess = true
-    } else {
-      die.isSuccess = false
+    if (actionScore.value && die.result) {
+      if (actionScore.value > die.result) {
+        die.isSuccess = true
+      } else {
+        die.isSuccess = false
+      }
     }
   })
 }
@@ -74,8 +77,8 @@ const failures = computed(() => {
 
 const checkCancellable = () => {
   if (actionDie.value.result && momentumStore.momentum > 0) {
-    challengeDice.value.forEach((die) => {
-      if (!die.isSuccess && momentumStore.momentum > die.result) {
+    challengeDice.value.forEach((die: Die) => {
+      if (!die.isSuccess && die.result && momentumStore.momentum > die.result) {
         die.isCancellable = true
       } else {
         die.isCancellable = false

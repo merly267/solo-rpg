@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { actionDie, challengeDice } from '@/composables/useDiceStore.js'
+import { actionDie, challengeDice } from '@/composables/useDiceStore'
 const props = defineProps({
   failures: {
     type: Array

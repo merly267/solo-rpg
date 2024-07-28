@@ -4,7 +4,7 @@ import ActionDie from '@/components/ActionDie.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
-import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore.js'
+import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore'
 const props = defineProps({
   title: {
     type: String
