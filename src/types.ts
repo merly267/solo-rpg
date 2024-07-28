@@ -16,6 +16,14 @@ export type Die = {
   isCancellable?: boolean | null
 }
 
+export type Move = {
+  title: string
+}
+
+export type MovesList = {
+  [name: string]: Move
+}
+
 export type OutcomeList = typeof outcomeList
 
 type StatName = (typeof statNamesList)[number]
