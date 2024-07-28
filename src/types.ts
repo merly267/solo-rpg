@@ -1,4 +1,4 @@
-import type { statNames } from './constants'
+import type { statNamesList } from './constants'
 
 export type Stat = {
   name: StatName
@@ -16,6 +16,4 @@ export type Die = {
   isCancellable?: boolean | null
 }
 
-type StatName = (typeof statNames)[number]
-
-// export type OutcomeStatus = 'Strong hit' | 'Weak hit' | 'Miss'
+type StatName = (typeof statNamesList)[number]

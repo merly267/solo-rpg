@@ -1,13 +1,13 @@
-export const statNames = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits'] as const
+export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits'] as const
 
-// export const outcomes = {
-//   strong: {
-//     label: 'Strong hit'
-//   },
-//   weak: {
-//     label: 'Weak hit'
-//   },
-//   miss: {
-//     label: 'Miss'
-//   }
-// }
+export const outcomeList = {
+  strong: {
+    label: 'Strong hit'
+  },
+  weak: {
+    label: 'Weak hit'
+  },
+  miss: {
+    label: 'Miss'
+  }
+}
