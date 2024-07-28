@@ -1,22 +1,23 @@
-<script setup>
-defineProps({
-  die: {
-    type: Object,
-    required: true
-  }
-})
+<script setup lang="ts">
+import type { Die } from '@/types'
+
+type PropTypes = {
+  die: Die
+}
+
+const props = defineProps<PropTypes>()
 </script>
 <template>
-  <span v-if="die.cancelled" class="die cancelled">x</span>
+  <span v-if="props.die.cancelled" class="die cancelled">x</span>
   <span
-    v-else-if="die.result"
+    v-else-if="props.die.result"
     class="die rolled"
     :class="{
-      success: die.isSuccess === true,
-      failure: die.isSuccess === false,
-      cancellable: die.isCancellable === true
+      success: props.die.isSuccess === true,
+      failure: props.die.isSuccess === false,
+      cancellable: props.die.isCancellable === true
     }"
-    >{{ die.result }}</span
+    >{{ props.die.result }}</span
   >
   <span v-else class="die">?</span>
 </template>
