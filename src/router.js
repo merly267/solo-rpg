@@ -16,6 +16,10 @@ export const routes = [
     component: () => import('./views/MovesList.vue')
   },
   {
+    path: '/moves/face-danger',
+    component: () => import('./views/moves/FaceDanger.vue')
+  },
+  {
     path: '/moves/gather-information',
     component: () => import('./views/moves/GatherInformation.vue')
   }
