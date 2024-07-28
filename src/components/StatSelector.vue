@@ -2,11 +2,13 @@
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import type { Stat } from '@/types'
 
-defineEmits(['setSelected'])
-
 type PropTypes = {
   selected: Stat
 }
+
+defineEmits<{
+  (e: 'setSelected', stat: Stat): void
+}>()
 
 const props = defineProps<PropTypes>()
 </script>

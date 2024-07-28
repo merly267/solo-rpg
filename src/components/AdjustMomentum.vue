@@ -1,20 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { useMomentumStore } from '@/stores/MomentumStore'
+
+type PropTypes = {
+  numberCancellable: number
+  manual?: boolean
+}
+
+const props = defineProps<PropTypes>()
 
 const momentumStore = useMomentumStore()
 
-const props = defineProps({
-  numberCancellable: {
-    type: Number,
-    default: 0
-  },
-  manual: {
-    type: Boolean,
-    default: false
-  }
-})
-
-defineEmits(['burnMomentum'])
+defineEmits<{
+  (e: 'burnMomentum'): void
+}>()
 </script>
 
 <template>
