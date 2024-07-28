@@ -10,4 +10,4 @@ export const outcomeList = {
   miss: {
     label: 'Miss'
   }
-}
+} as const
