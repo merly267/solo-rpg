@@ -6,6 +6,16 @@ export type Stat = {
   // set: boolean
 }
 
+export type Debility = {
+  name: string
+  status: boolean
+}
+
+export type DebilitiesGroup = {
+  group: string
+  debilitiesList: Debility[]
+}
+
 export type Die = {
   id: string
   max: number
@@ -18,6 +28,7 @@ export type Die = {
 
 export type Move = {
   title: string
+  slug: string
 }
 
 export type MovesList = {

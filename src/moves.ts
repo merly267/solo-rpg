@@ -2,6 +2,7 @@ import type { MovesList } from '@/types'
 
 export const movesList: MovesList = {
   gatherInfo: {
-    title: 'Gather Information'
+    title: 'Gather Information',
+    slug: 'gather-information'
   }
 }

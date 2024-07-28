@@ -1,7 +1,14 @@
+<script setup lang="ts">
+import { movesList } from '@/moves'
+</script>
 <template>
   <h2>Moves</h2>
 
-  <h3><button @click="$router.push('/moves/gather-information')">Gather information</button></h3>
+  <h3>
+    <button @click="$router.push(`/moves/${movesList.gatherInfo.slug}`)">
+      {{ movesList.gatherInfo.title }}
+    </button>
+  </h3>
   <p>
     When you <strong>search an area</strong>, <strong>ask questions</strong>,
     <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +wits.
