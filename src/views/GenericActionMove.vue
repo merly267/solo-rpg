@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore'
-// import { momentum, resetMomentum } from '@/composables/useMomentumStore.js'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import MoveLayout from '@/components/MoveLayout.vue'
 import ActionDie from '@/components/ActionDie.vue'
@@ -10,18 +9,7 @@ import ChallengeDice from '@/components/ChallengeDice.vue'
 import StatSelector from '@/components/StatSelector.vue'
 import MoveOutcome from '@/components/OldMoveOutcome.vue'
 import type { Die, Stat } from '@/types'
-
-const outcomes = {
-  strong: {
-    type: 'Strong hit'
-  },
-  weak: {
-    type: 'Weak hit'
-  },
-  miss: {
-    type: 'Miss'
-  }
-}
+import { outcomeList } from '@/constants'
 
 const momentumStore = useMomentumStore()
 
@@ -149,7 +137,7 @@ const clearAll = () => {
     </template>
 
     <template #outcome>
-      <MoveOutcome v-if="actionDie.result" :failures="failures" :outcomes="outcomes" />
+      <MoveOutcome v-if="actionDie.result" :failures="failures" :outcomes="outcomeList" />
     </template>
   </MoveLayout>
 </template>

@@ -1,6 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { actionDie, challengeDice } from '@/composables/useDiceStore'
+import { outcomeList } from '@/constants'
+
+const outcomes = outcomeList
 
 const failures = computed(() => {
   return challengeDice.value.filter((die) => die.isSuccess === false)
@@ -10,11 +13,11 @@ const outcome = computed(() => {
   if (actionDie.value.result) {
     switch (failures.value.length) {
       case 0:
-        return 'Strong hit'
+        return outcomes.strong.label
       case 1:
-        return 'Weak hit'
+        return outcomes.weak.label
       case 2:
-        return 'Miss'
+        return outcomes.miss.label
     }
     return null
   } else {

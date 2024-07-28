@@ -9,7 +9,7 @@ export const routes = [
   },
   {
     path: '/action-move',
-    component: () => import('./views/ActionMove.vue')
+    component: () => import('./views/GenericActionMove.vue')
   },
   {
     path: '/moves',

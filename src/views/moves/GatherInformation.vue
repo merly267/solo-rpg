@@ -1,12 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import ActionMove from '@/components/ActionMove.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
+import { movesList } from '@/moves'
 
-const title = 'Gather Information'
+const move = movesList.gatherInfo
 
 const selectedStat = statsList.value.find((stat) => stat.name === 'Wits')
 const bondAadds = ref(false)
@@ -22,7 +23,7 @@ const momentumStore = useMomentumStore()
 <template>
   <MoveLayout>
     <template #text>
-      <ActionMove :title="title" :stat="selectedStat.score" :adds="moveAdds">
+      <ActionMove :title="move.title" :stat="selectedStat.score" :adds="moveAdds">
         <p>
           When you <strong>search an area</strong>, <strong>ask questions</strong>,
           <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +{{

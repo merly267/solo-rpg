@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { actionDie } from '@/composables/useDiceStore'
 import BaseDie from './BaseDie.vue'
 </script>

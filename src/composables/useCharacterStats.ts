@@ -1,8 +1,9 @@
 import { ref } from 'vue'
+import type { DebilitiesGroup, Stat } from '@/types'
 
 export const name = ref('Yorath')
 
-export const stats = ref([
+export const stats = ref<Stat[]>([
   {
     name: 'Edge',
     score: 1
@@ -31,7 +32,7 @@ export const spirit = ref(5)
 
 export const supply = ref(5)
 
-export const debilities = ref([
+export const debilities = ref(<DebilitiesGroup[]>[
   {
     group: 'Conditions',
     debilitiesList: [
@@ -81,7 +82,7 @@ export const debilities = ref([
   }
 ])
 
-export let debilitiesTotal = ref(0)
+export const debilitiesTotal = ref(0)
 
 const countMarkedDebilities = () => {
   const debilitiesList = []

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   name,
   experience,
@@ -7,7 +7,7 @@ import {
   spirit,
   supply,
   debilities
-} from '@/composables/useCharacterStats.js'
+} from '@/composables/useCharacterStats'
 
 import StatsList from '@/components/StatsList.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
