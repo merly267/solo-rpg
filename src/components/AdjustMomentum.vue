@@ -10,9 +10,13 @@ const props = defineProps<PropTypes>()
 
 const momentumStore = useMomentumStore()
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'burnMomentum'): void
 }>()
+
+const burnMomentum = () => {
+  emit('burnMomentum')
+}
 </script>
 
 <template>
@@ -27,7 +31,7 @@ defineEmits<{
     </button>
     <button type="button" @click="momentumStore.loseMomentum(1)">Lose momentum</button></span
   >
-  <button type="button" :disabled="props.numberCancellable < 1" @click="$emit('burnMomentum')">
+  <button type="button" :disabled="props.numberCancellable < 1" @click="burnMomentum">
     Burn momentum
   </button>
   <p>{{ momentumStore.momentumOutcome }}</p>
