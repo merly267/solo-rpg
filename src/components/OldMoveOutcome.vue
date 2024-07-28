@@ -47,7 +47,6 @@ const match = computed(() => {
 
 <template>
   <h3>Move outcome</h3>
-  <pre>{{ props.failures }}</pre>
   <h4>{{ outcome.label }}{{ match }}</h4>
   <div v-if="outcome.message">
     {{ outcome.message }}
