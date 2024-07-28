@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 </script>
 <template>

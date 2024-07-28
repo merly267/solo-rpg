@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { actionDie, challengeDice } from '@/composables/useDiceStore'
-import type { OutcomeList } from '@/types'
+import type { Die, OutcomeList } from '@/types'
 
 type PropTypes = {
   failures: Die[]

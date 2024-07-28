@@ -23,7 +23,6 @@ const momentumStore = useMomentumStore()
 <template>
   <MoveLayout>
     <template #text>
-      <pre>{{ move }}</pre>
       <ActionMove :title="move.title" :stat="selectedStat.score" :adds="moveAdds">
         <p>
           When you <strong>search an area</strong>, <strong>ask questions</strong>,
