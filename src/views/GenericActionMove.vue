@@ -60,7 +60,7 @@ const checkSuccess = () => {
 }
 
 const failures = computed(() => {
-  return challengeDice.value.filter((die) => die.isSuccess === false)
+  return challengeDice.value.filter((die) => die.rolled && die.isSuccess === false)
 })
 
 const checkCancellable = () => {
@@ -82,10 +82,9 @@ const anyCancellable = computed(() => {
 const burnMomentum = () => {
   anyCancellable.value.forEach((die) => {
     die.result = 0
-    die.isSuccess = null
+    die.isSuccess = false
     die.isCancellable = null
     die.cancelled = true
-    die.rolled = false
   })
   momentumStore.resetMomentum()
 }

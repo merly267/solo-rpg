@@ -50,12 +50,10 @@ const checkSuccess = () => {
 const checkCancellable = () => {
   if (actionDie.value.rolled && momentumStore.momentum > 0) {
     challengeDice.value.forEach((die) => {
-      if (die.rolled) {
-        if (!die.isSuccess && momentumStore.momentum > die.result) {
-          die.isCancellable = true
-        } else {
-          die.isCancellable = false
-        }
+      if (!die.isSuccess && die.rolled && momentumStore.momentum > die.result) {
+        die.isCancellable = true
+      } else {
+        die.isCancellable = false
       }
     })
   }
@@ -68,10 +66,9 @@ const anyCancellable = computed(() => {
 const burnMomentum = () => {
   anyCancellable.value.forEach((die) => {
     die.result = 0
-    die.isSuccess = null
+    die.isSuccess = false
     die.isCancellable = null
     die.cancelled = true
-    die.rolled = false
   })
   momentumStore.resetMomentum()
 }

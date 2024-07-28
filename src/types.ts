@@ -22,7 +22,7 @@ export type Die = {
   rolled: boolean
   result: number
   cancelled: boolean
-  isSuccess?: boolean | null
+  isSuccess?: boolean
   isCancellable?: boolean | null
 }
 
