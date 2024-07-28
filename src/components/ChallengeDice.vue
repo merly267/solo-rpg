@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { challengeDice } from '@/composables/useDiceStore'
 import BaseDie from './BaseDie.vue'
 </script>
