@@ -82,8 +82,8 @@ const anyCancellable = computed(() => {
 const burnMomentum = () => {
   anyCancellable.value.forEach((die) => {
     die.result = 0
-    die.isSuccess = false
-    die.isCancellable = null
+    die.isSuccess = true
+    die.isCancellable = false
     die.cancelled = true
   })
   momentumStore.resetMomentum()

@@ -16,7 +16,7 @@ export const challengeDice = ref<Die[]>([
     rolled: false,
     result: 0,
     isSuccess: false,
-    isCancellable: null,
+    isCancellable: false,
     cancelled: false
   },
   {
@@ -25,7 +25,7 @@ export const challengeDice = ref<Die[]>([
     rolled: false,
     result: 0,
     isSuccess: false,
-    isCancellable: null,
+    isCancellable: false,
     cancelled: false
   }
 ])
@@ -38,7 +38,7 @@ export function roll(die: Die) {
 export function clear(die: Die) {
   die.result = 0
   die.isSuccess = false
-  die.isCancellable = null
+  die.isCancellable = false
   die.cancelled = false
   die.rolled = false
 }

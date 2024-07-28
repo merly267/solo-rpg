@@ -23,7 +23,7 @@ export type Die = {
   result: number
   cancelled: boolean
   isSuccess?: boolean
-  isCancellable?: boolean | null
+  isCancellable?: boolean
 }
 
 export type Move = {
