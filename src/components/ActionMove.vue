@@ -17,7 +17,7 @@ const props = defineProps<PropTypes>()
 const momentumStore = useMomentumStore()
 
 const actionScore = computed(() => {
-  if (actionDie.value.result) {
+  if (actionDie.value.rolled) {
     if (actionDie.value.result + momentumStore.momentum == 0) {
       actionDie.value.cancelled = true
       return props.stat + props.adds
@@ -37,7 +37,7 @@ const rollAllDice = () => {
 
 const checkSuccess = () => {
   challengeDice.value.forEach((die) => {
-    if (actionScore.value && die.result) {
+    if (actionScore.value && die.rolled) {
       if (actionScore.value > die.result) {
         die.isSuccess = true
       } else {
@@ -48,9 +48,9 @@ const checkSuccess = () => {
 }
 
 const checkCancellable = () => {
-  if (actionDie.value.result && momentumStore.momentum > 0) {
+  if (actionDie.value.rolled && momentumStore.momentum > 0) {
     challengeDice.value.forEach((die) => {
-      if (die.result) {
+      if (die.rolled) {
         if (!die.isSuccess && momentumStore.momentum > die.result) {
           die.isCancellable = true
         } else {
@@ -67,17 +67,18 @@ const anyCancellable = computed(() => {
 
 const burnMomentum = () => {
   anyCancellable.value.forEach((die) => {
-    die.result = null
+    die.result = 0
     die.isSuccess = null
     die.isCancellable = null
     die.cancelled = true
+    die.rolled = false
   })
   momentumStore.resetMomentum()
 }
 
 const anyClearable = computed(() => {
-  const challengeClearable = challengeDice.value.filter((die) => die.result)
-  if (challengeClearable.length && actionDie.value.result) {
+  const challengeClearable = challengeDice.value.filter((die) => die.rolled)
+  if (challengeClearable.length && actionDie.value.rolled) {
     return true
   }
   return false
