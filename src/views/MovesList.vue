@@ -3,20 +3,19 @@ import { movesList } from '@/moves'
 </script>
 <template>
   <h2>Moves</h2>
+  <h3>
+    <button @click="$router.push(`/moves/${movesList.faceDanger.slug}`)">
+      {{ movesList.faceDanger.title }}
+    </button>
+  </h3>
+  <p v-html="movesList.faceDanger.precis"></p>
 
   <h3>
     <button @click="$router.push(`/moves/${movesList.gatherInfo.slug}`)">
       {{ movesList.gatherInfo.title }}
     </button>
   </h3>
-  <p>
-    When you <strong>search an area</strong>, <strong>ask questions</strong>,
-    <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +wits.
-  </p>
-
-  <p>
-    If you act within a community or ask questions of a person with whom you share a bond, add +1.
-  </p>
+  <p v-html="movesList.gatherInfo.precis"></p>
 </template>
 
 <style>

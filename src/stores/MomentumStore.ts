@@ -5,8 +5,7 @@ export const useMomentumStore = defineStore('momentumStore', {
   state: () => ({
     defaultMomentumResetValue: 2,
     minMomentum: -6,
-    momentum: 1,
-    momentumOutcome: ''
+    momentum: 1
   }),
   getters: {
     momentumResetValue: (state) => {
@@ -32,7 +31,7 @@ export const useMomentumStore = defineStore('momentumStore', {
     },
     loseMomentum(x: number) {
       if (this.momentum == this.minMomentum) {
-        this.momentumOutcome = 'Your momentum is already at minumum. Face a setback instead.'
+        return
       } else {
         this.momentum -= x
       }

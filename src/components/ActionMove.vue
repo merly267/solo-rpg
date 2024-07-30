@@ -10,11 +10,16 @@ type PropTypes = {
   title: string
   stat: number
   adds: number
+  disabled?: boolean
 }
 
 const props = defineProps<PropTypes>()
 
 const momentumStore = useMomentumStore()
+
+const emit = defineEmits<{
+  (e: 'clearMove'): void
+}>()
 
 const actionScore = computed(() => {
   if (actionDie.value.rolled) {
@@ -86,8 +91,13 @@ const clearAllDice = () => {
   clear(actionDie.value)
 }
 
+const clearMove = () => {
+  emit('clearMove')
+}
+
 const clearAll = () => {
   clearAllDice()
+  clearMove()
 }
 </script>
 <template>
@@ -106,7 +116,7 @@ const clearAll = () => {
   <span v-else>?</span>
 
   <ChallengeDice />
-  <button type="button" @click="rollAllDice()">Roll</button>
+  <button type="button" :disabled="disabled" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
   <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />
 </template>
