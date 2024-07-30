@@ -43,11 +43,12 @@ const annotatedStatList = statsList.value.map((stat) => ({
   instructions: matchInstruction(stat.name)
 }))
 
-const moveAdds = 0
-
 const clearMove = () => {
   selectedStatName.value = ''
 }
+
+const moveAdds = 0
+
 </script>
 
 <template>
