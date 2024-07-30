@@ -4,13 +4,11 @@ export const movesList: MovesList = {
   faceDanger: {
     title: 'Face Danger',
     slug: 'face-danger',
-    precis:
-      '<strong>Attempt something risky</strong> or <strong>react to an imminent threat</strong>.'
+    trigger: 'attempt something risky or react to an imminent threat'
   },
   gatherInfo: {
     title: 'Gather Information',
     slug: 'gather-information',
-    precis:
-      '<strong>Search an area</strong>, <strong>ask questions</strong>, <strong>conduct an investigation</strong>, or <strong>follow a track</strong>.'
+    trigger: 'search an area, ask questions, conduct an investigation, or follow a track'
   }
 }
