@@ -45,6 +45,10 @@ const annotatedStatList = statsList.value.map((stat) => ({
 
 const moveAdds = 0
 const momentumStore = useMomentumStore()
+
+const clearMove = () => {
+  selectedStatName.value = ''
+}
 </script>
 
 <template>
@@ -56,6 +60,7 @@ const momentumStore = useMomentumStore()
         :stat="selectedStat.score"
         :adds="moveAdds"
         :disabled="!selectedStatName.length"
+        @clearMove="clearMove"
       >
         <p>
           When you <strong>attempt something risky</strong> or

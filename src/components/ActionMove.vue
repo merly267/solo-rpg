@@ -17,6 +17,10 @@ const props = defineProps<PropTypes>()
 
 const momentumStore = useMomentumStore()
 
+const emit = defineEmits<{
+  (e: 'clearMove'): void
+}>()
+
 const actionScore = computed(() => {
   if (actionDie.value.rolled) {
     if (actionDie.value.result + momentumStore.momentum == 0) {
@@ -87,8 +91,13 @@ const clearAllDice = () => {
   clear(actionDie.value)
 }
 
+const clearMove = () => {
+  emit('clearMove')
+}
+
 const clearAll = () => {
   clearAllDice()
+  clearMove()
 }
 </script>
 <template>
