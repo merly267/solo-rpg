@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
-import { useMomentumStore } from '@/stores/MomentumStore'
 import ActionMove from '@/components/ActionMove.vue'
+import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
@@ -44,7 +44,6 @@ const annotatedStatList = statsList.value.map((stat) => ({
 }))
 
 const moveAdds = 0
-const momentumStore = useMomentumStore()
 
 const clearMove = () => {
   selectedStatName.value = ''
@@ -81,13 +80,7 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             You are successful.
-            <button
-              type="button"
-              :disabled="momentumStore.momentum == momentumStore.maxMomentum"
-              @click="momentumStore.addMomentum(1)"
-            >
-              Take +1 momentum
-            </button>
+            <AdjustMomentumButton operation="adds" :amount="1" />
           </p>
         </template>
         <template v-slot:weak>
@@ -96,13 +89,7 @@ const clearMove = () => {
             <ul>
               <li>
                 You are delayed, lose advantage, or face a new danger: 
-                <button
-                  type="button"
-                  :disabled="momentumStore.momentum == momentumStore.maxMomentum"
-                  @click="momentumStore.loseMomentum(1)"
-                >
-                Suffer -1 momentum</button
-                >
+                <AdjustMomentumButton operation="subtracts" :amount="1" />
               </li>
               <li>You are tired or hurt: Endure Harm (1 harm).</li>
               <li>You are dispirited or afraid: Endure Stress (1 stress).</li>

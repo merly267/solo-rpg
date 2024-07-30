@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useMomentumStore } from '@/stores/MomentumStore'
+import AdjustMomentumButton from './AdjustMomentumButton.vue'
 
 type PropTypes = {
   numberCancellable: number
@@ -21,18 +22,13 @@ const burnMomentum = () => {
 
 <template>
   <p>Current momentum: {{ momentumStore.momentum }}</p>
-  <span v-if="manual">
-    <button
-      type="button"
-      :disabled="momentumStore.momentum == momentumStore.maxMomentum"
-      @click="momentumStore.addMomentum(1)"
-    >
-      Add momentum
+  <span v-if="props.manual">
+    <AdjustMomentumButton operation="adds" :amount="1" />
+    <AdjustMomentumButton operation="subtracts" :amount="1" />
+  </span>
+  <p>
+    <button type="button" :disabled="props.numberCancellable < 1" @click="burnMomentum">
+      Burn momentum
     </button>
-    <button type="button" @click="momentumStore.loseMomentum(1)">Lose momentum</button></span
-  >
-  <button type="button" :disabled="props.numberCancellable < 1" @click="burnMomentum">
-    Burn momentum
-  </button>
-  <p>{{ momentumStore.momentumOutcome }}</p>
+  </p>
 </template>
