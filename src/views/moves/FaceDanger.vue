@@ -63,8 +63,7 @@ const moveAdds = 0
         @clearMove="clearMove"
       >
         <p>
-          When you <strong>attempt something risky</strong> or
-          <strong>react to an imminent threat</strong>, envision your action and roll. If you act...
+          When you <strong>{{ move.trigger }}</strong>, envision your action and roll. If you act...
         </p>
         <fieldset>
           <div v-for="(stat, index) in annotatedStatList" :key="`stat-${index}`">

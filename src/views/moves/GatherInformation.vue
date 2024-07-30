@@ -33,11 +33,8 @@ const moveAdds = computed(() => {
         :adds="moveAdds"
       >
         <p>
-          When you <strong>search an area</strong>, <strong>ask questions</strong>,
-          <strong>conduct an investigation</strong>, or <strong>follow a track</strong>, roll +{{
-            selectedStat.name
-          }}
-          ({{ selectedStat.score }}).
+          When you <strong>{{ move.trigger }}</strong
+          >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
         </p>
         <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
         <label for="bondAadds"
