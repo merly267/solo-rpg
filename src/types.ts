@@ -29,7 +29,7 @@ export type Die = {
 export type Move = {
   title: string
   slug: string
-  precis?: string
+  trigger?: string
 }
 
 export type MovesList = {

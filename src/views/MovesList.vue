@@ -8,14 +8,14 @@ import { movesList } from '@/moves'
       {{ movesList.faceDanger.title }}
     </button>
   </h3>
-  <p v-html="movesList.faceDanger.precis"></p>
+  <p v-html="movesList.faceDanger.trigger"></p>
 
   <h3>
     <button @click="$router.push(`/moves/${movesList.gatherInfo.slug}`)">
       {{ movesList.gatherInfo.title }}
     </button>
   </h3>
-  <p v-html="movesList.gatherInfo.precis"></p>
+  <p v-html="movesList.gatherInfo.trigger"></p>
 </template>
 
 <style>
