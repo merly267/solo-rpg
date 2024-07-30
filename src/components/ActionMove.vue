@@ -10,6 +10,7 @@ type PropTypes = {
   title: string
   stat: number
   adds: number
+  disabled?: boolean
 }
 
 const props = defineProps<PropTypes>()
@@ -106,7 +107,7 @@ const clearAll = () => {
   <span v-else>?</span>
 
   <ChallengeDice />
-  <button type="button" @click="rollAllDice()">Roll</button>
+  <button type="button" :disabled="disabled" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
   <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />
 </template>

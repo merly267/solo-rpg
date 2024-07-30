@@ -55,6 +55,7 @@ const momentumStore = useMomentumStore()
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        :disabled="!selectedStatName.length"
       >
         <p>
           When you <strong>attempt something risky</strong> or
