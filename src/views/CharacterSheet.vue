@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import {
-  name,
-  experience,
-  vows,
-  health,
-  spirit,
-  supply,
-  debilities
-} from '@/composables/useCharacterStats'
+import { character, experience, vows, debilities } from '@/composables/useCharacterStats'
 
 import StatsList from '@/components/StatsList.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
@@ -16,15 +8,17 @@ const momentumStore = useMomentumStore()
 </script>
 
 <template>
-  <h2>{{ name }}</h2>
+  <pre>{{ character }}</pre>
+  <h2>{{ character.name }}</h2>
+  <input v-model="character.name" type="text" />
   <p>Experience: {{ experience }}</p>
   <p v-if="vows.length">Vows: {{ vows }}</p>
   <p v-else>Make a vow</p>
   <StatsList />
   <p>Momentum: {{ momentumStore.momentum }}</p>
-  <p>Health: {{ health }}</p>
-  <p>Spirit: {{ spirit }}</p>
-  <p>Supply: {{ supply }}</p>
+  <p>Health: {{ character.health }}</p>
+  <p>Spirit: {{ character.spirit }}</p>
+  <p>Supply: {{ character.supply }}</p>
   <h2>Debilities</h2>
   <ul>
     <li v-for="group in debilities" :key="group.group">

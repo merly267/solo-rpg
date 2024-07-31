@@ -1,7 +1,19 @@
 import { ref } from 'vue'
-import type { DebilitiesGroup, Stat } from '@/types'
+import { useStorage } from '@vueuse/core'
+import type { Character, DebilitiesGroup, Stat } from '@/types'
 
-export const name = ref('Yorath')
+const defaultCharacterStats: Character = {
+  name: '',
+  health: 5,
+  spirit: 5,
+  supply: 5
+}
+
+const characterStats = useStorage('characterStats', defaultCharacterStats, localStorage, {
+  mergeDefaults: true
+})
+
+export const character = ref(characterStats)
 
 export const stats = ref<Stat[]>([
   {
@@ -25,12 +37,6 @@ export const stats = ref<Stat[]>([
     score: 2
   }
 ])
-
-export const health = ref(4)
-
-export const spirit = ref(5)
-
-export const supply = ref(5)
 
 export const debilities = ref(<DebilitiesGroup[]>[
   {
