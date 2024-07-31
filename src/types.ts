@@ -1,5 +1,12 @@
 import type { outcomeList, statNamesList } from './constants'
 
+export type Character = {
+  name: string
+  health: number
+  spirit: number
+  supply: number
+}
+
 export type Stat = {
   name: StatName
   score: number
