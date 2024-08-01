@@ -38,7 +38,7 @@ export const stats = ref<Stat[]>([
   }
 ])
 
-export const debilities = ref(<DebilitiesGroup[]>[
+const defaultDebilities = ref(<DebilitiesGroup[]>[
   {
     group: 'Conditions',
     debilitiesList: [
@@ -87,6 +87,10 @@ export const debilities = ref(<DebilitiesGroup[]>[
     ]
   }
 ])
+
+export const debilities = useStorage('debilities', defaultDebilities, localStorage, {
+  mergeDefaults: true
+})
 
 export const debilitiesTotal = ref(0)
 

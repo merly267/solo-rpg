@@ -8,7 +8,6 @@ const momentumStore = useMomentumStore()
 </script>
 
 <template>
-  <pre>{{ character }}</pre>
   <h2>{{ character.name }}</h2>
   <input v-model="character.name" type="text" />
   <p>Experience: {{ experience }}</p>
