@@ -92,6 +92,9 @@ export const debilities = useStorage('debilities', defaultDebilities, localStora
   mergeDefaults: true
 })
 
+// to refresh from defaults
+// debilities.value = null
+
 export const debilitiesTotal = ref(0)
 
 const countMarkedDebilities = () => {
