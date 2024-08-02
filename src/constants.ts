@@ -11,3 +11,12 @@ export const outcomeList = {
     label: 'Miss'
   }
 } as const
+
+export const moveTypeList = [
+  'Adventure',
+  'Relationship',
+  'Combat',
+  'Suffer',
+  'Quest',
+  'Fate'
+] as const

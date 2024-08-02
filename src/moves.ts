@@ -4,11 +4,19 @@ export const movesList: MovesList = {
   faceDanger: {
     title: 'Face Danger',
     slug: 'face-danger',
+    moveType: 'Adventure',
     trigger: 'attempt something risky or react to an imminent threat'
   },
   gatherInfo: {
     title: 'Gather Information',
     slug: 'gather-information',
+    moveType: 'Adventure',
     trigger: 'search an area, ask questions, conduct an investigation, or follow a track'
+  },
+  swearVow: {
+    title: 'Swear an Iron Vow',
+    slug: 'swear-vow',
+    moveType: 'Quest',
+    trigger: 'swear upon iron to complete a quest'
   }
 }

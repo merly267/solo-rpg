@@ -1,4 +1,4 @@
-import type { outcomeList, statNamesList } from './constants'
+import type { moveTypeList, outcomeList, statNamesList } from './constants'
 
 export type Character = {
   name: string
@@ -36,6 +36,7 @@ export type Die = {
 export type Move = {
   title: string
   slug: string
+  moveType: MoveType
   trigger?: string
 }
 
@@ -46,3 +47,5 @@ export type MovesList = {
 export type OutcomeList = typeof outcomeList
 
 export type StatName = (typeof statNamesList)[number]
+
+export type MoveType = (typeof moveTypeList)[number]
