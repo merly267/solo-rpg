@@ -1,4 +1,11 @@
-export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const
+export const moveTypeList = [
+  'Adventure',
+  'Relationship',
+  'Combat',
+  'Suffer',
+  'Quest',
+  'Fate'
+] as const
 
 export const outcomeList = {
   strong: {
@@ -12,11 +19,27 @@ export const outcomeList = {
   }
 } as const
 
-export const moveTypeList = [
-  'Adventure',
-  'Relationship',
-  'Combat',
-  'Suffer',
-  'Quest',
-  'Fate'
+export const progressRanksList = [
+  {
+    name: 'Troublesome',
+    level: 1
+  },
+  {
+    name: 'Dangerous',
+    level: 2
+  },
+  {
+    name: 'Formidable',
+    level: 3
+  },
+  {
+    name: 'Extreme',
+    level: 4
+  },
+  {
+    name: 'Epic',
+    level: 5
+  }
 ] as const
+
+export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const
