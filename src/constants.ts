@@ -42,4 +42,6 @@ export const progressRanksList = [
   }
 ] as const
 
+export const progressTrackTypesList = ['Vow'] as const
+
 export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const

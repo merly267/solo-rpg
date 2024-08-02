@@ -1,4 +1,10 @@
-import type { moveTypeList, outcomeList, progressRanksList, statNamesList } from './constants'
+import type {
+  moveTypeList,
+  outcomeList,
+  progressRanksList,
+  progressTrackTypesList,
+  statNamesList
+} from './constants'
 
 export type Character = {
   name: string
@@ -47,6 +53,8 @@ export type MovesList = {
 export type OutcomeList = typeof outcomeList
 
 export type ProgressRank = (typeof progressRanksList)[number]
+
+export type ProgressTrackType = (typeof progressTrackTypesList)[number]
 
 export type StatName = (typeof statNamesList)[number]
 

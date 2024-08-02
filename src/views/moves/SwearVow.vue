@@ -41,7 +41,7 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, write your vow and give the quest a rank:
         </p>
-        <CreateProgressTrack />
+        <CreateProgressTrack type="Vow" />
         <p>Then, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).</p>
         <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
         <label for="bondAadds"
