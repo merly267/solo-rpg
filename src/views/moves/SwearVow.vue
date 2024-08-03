@@ -7,9 +7,21 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import { movesList } from '@/moves'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
-import type { StatName } from '@/types'
+import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
+import type { ProgressTrack, StatName } from '@/types'
 
 const move = movesList.swearVow
+
+const progressTrackType = 'Vow'
+
+const newTrack = ref<ProgressTrack>({
+  uuid: '',
+  name: '',
+  rank: 0,
+  type: progressTrackType,
+  progress: 0,
+  status: 'In progress'
+})
 
 const statForMove: StatName = 'Heart'
 
@@ -26,8 +38,26 @@ const moveAdds = computed(() => {
 const clearMove = () => {
   bondAadds.value = false
 }
+
+const updateTrack = (track: ProgressTrack) => {
+  // track.rank is coming through as 0 if you select it after inputting the name
+  console.log(track.rank)
+  newTrack.value.name = track.name
+  newTrack.value.rank = track.rank
+}
+
+const progressTrackStore = useProgressTrackStore()
+
+const addVow = (newTrack: ProgressTrack) => {
+  progressTrackStore.vows.push(newTrack)
+}
+
+const makeMove = () => {
+  addVow(newTrack.value)
+}
 </script>
 <template>
+  <pre>{{ progressTrackStore.vows }}</pre>
   <MoveLayout>
     <template #text>
       <ActionMove
@@ -35,13 +65,14 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        @makeMove="makeMove"
         @clearMove="clearMove"
       >
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, write your vow and give the quest a rank:
         </p>
-        <CreateProgressTrack type="Vow" />
+        <CreateProgressTrack :type="progressTrackType" @newTrackInfo="updateTrack" />
         <p>Then, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).</p>
         <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
         <label for="bondAadds"

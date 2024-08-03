@@ -18,6 +18,7 @@ const props = defineProps<PropTypes>()
 const momentumStore = useMomentumStore()
 
 const emit = defineEmits<{
+  (e: 'makeMove'): void
   (e: 'clearMove'): void
 }>()
 
@@ -32,12 +33,17 @@ const actionScore = computed(() => {
   return null
 })
 
+const makeMove = () => {
+  emit('makeMove')
+}
+
 const rollAllDice = () => {
   clearAllDice()
   challengeDice.value.forEach((die) => roll(die))
   roll(actionDie.value)
   checkSuccess()
   checkCancellable()
+  makeMove()
 }
 
 const checkSuccess = () => {
