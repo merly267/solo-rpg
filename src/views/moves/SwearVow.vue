@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, toRaw } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
@@ -8,20 +8,11 @@ import MoveOutcome from '@/components/MoveOutcome.vue'
 import { movesList } from '@/moves'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
-import type { ProgressTrack, StatName } from '@/types'
+import type { StatName } from '@/types'
 
 const move = movesList.swearVow
 
 const progressTrackType = 'Vow'
-
-const newTrack = ref<ProgressTrack>({
-  uuid: '',
-  name: '',
-  rank: 0,
-  type: progressTrackType,
-  progress: 0,
-  status: 'In progress'
-})
 
 const statForMove: StatName = 'Heart'
 
@@ -39,21 +30,21 @@ const clearMove = () => {
   bondAadds.value = false
 }
 
-const updateTrack = (track: ProgressTrack) => {
-  // track.rank is coming through as 0 if you select it after inputting the name
-  console.log(track.rank)
-  newTrack.value.name = track.name
-  newTrack.value.rank = track.rank
-}
-
 const progressTrackStore = useProgressTrackStore()
 
-const addVow = (newTrack: ProgressTrack) => {
-  progressTrackStore.vows.push(newTrack)
+const addVow = () => {
+  progressTrackStore.newTrack.type = progressTrackType
+  const newVow = structuredClone(toRaw(progressTrackStore.newTrack))
+  progressTrackStore.vows.push(newVow)
+}
+
+const clearVow = () => {
+  progressTrackStore.clearNewTrack()
 }
 
 const makeMove = () => {
-  addVow(newTrack.value)
+  addVow()
+  clearVow()
 }
 </script>
 <template>
@@ -72,7 +63,7 @@ const makeMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, write your vow and give the quest a rank:
         </p>
-        <CreateProgressTrack :type="progressTrackType" @newTrackInfo="updateTrack" />
+        <CreateProgressTrack :type="progressTrackType" />
         <p>Then, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).</p>
         <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
         <label for="bondAadds"

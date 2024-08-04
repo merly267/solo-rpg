@@ -1,3 +1,5 @@
+import type { ProgressTrack } from '@/types'
+
 export const moveTypeList = [
   'Adventure',
   'Relationship',
@@ -6,6 +8,15 @@ export const moveTypeList = [
   'Quest',
   'Fate'
 ] as const
+
+export const newProgressTrack: ProgressTrack = {
+  uuid: '',
+  name: '',
+  rank: 0,
+  type: '',
+  progress: 0,
+  status: 'In progress'
+}
 
 export const outcomeList = {
   strong: {
