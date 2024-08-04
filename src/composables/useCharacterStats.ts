@@ -110,4 +110,4 @@ countMarkedDebilities()
 
 export const experience = ref(0)
 
-export const vows = ref([])
+export const backgroundVow = ref('')

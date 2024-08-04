@@ -59,7 +59,6 @@ const makeMove = () => {
 }
 </script>
 <template>
-  <pre>{{ progressTrackStore.vows }}</pre>
   <MoveLayout>
     <template #text>
       <ActionMove

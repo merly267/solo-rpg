@@ -15,7 +15,6 @@ const track = progressTrackStore.newTrack
 </script>
 
 <template>
-  <pre>{{ track }}</pre>
   <p>
     <label for="trackName">{{ props.type }}: </label>
     <input type="text" id="trackName" v-model="track.name" />
