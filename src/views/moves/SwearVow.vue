@@ -33,6 +33,13 @@ const clearMove = () => {
 
 const progressTrackStore = useProgressTrackStore()
 
+const noVow = computed(() => {
+  if (progressTrackStore.newTrack.name.length && progressTrackStore.newTrack.rank > 0) {
+    return false
+  }
+  return true
+})
+
 const addVow = () => {
   progressTrackStore.newTrack.uuid = uuidv4()
   progressTrackStore.newTrack.type = progressTrackType
@@ -60,6 +67,7 @@ const makeMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        :disabled="noVow"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
