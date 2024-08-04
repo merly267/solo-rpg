@@ -42,6 +42,8 @@ const addVow = () => {
 
 const clearVow = () => {
   progressTrackStore.clearNewTrack()
+  // to clear vows list from local storage
+  // progressTrackStore.clearLocalStorage()
 }
 
 const makeMove = () => {

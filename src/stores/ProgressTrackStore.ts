@@ -1,12 +1,12 @@
 import { toRaw } from 'vue'
 import { defineStore } from 'pinia'
-// import { useLocalStorage } from '@vueuse/core'
+import { useLocalStorage, type RemovableRef } from '@vueuse/core'
 import { newProgressTrack } from '@/constants'
 import type { ProgressTrack } from '@/types'
 
 type State = {
   newTrack: ProgressTrack
-  vows: ProgressTrack[]
+  vows: RemovableRef<ProgressTrack[]>
 }
 
 const progressTrack = structuredClone(toRaw(newProgressTrack))
@@ -14,11 +14,16 @@ const progressTrack = structuredClone(toRaw(newProgressTrack))
 export const useProgressTrackStore = defineStore('progressTrackStore', {
   state: (): State => ({
     newTrack: progressTrack,
-    vows: []
+    // vows: []
+    vows: useLocalStorage('vows', [])
   }),
   actions: {
     clearNewTrack() {
       Object.assign(this.newTrack, newProgressTrack)
+    },
+    // to refresh from defaults
+    clearLocalStorage() {
+      this.vows = []
     }
   }
 })
