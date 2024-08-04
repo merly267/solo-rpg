@@ -20,7 +20,7 @@ const translateRank = (level: number) => {
       <h3>{{ vow.name }}</h3>
       <p class="rank">Rank: {{ translateRank(vow.rank) }}</p>
       <p>Progress: {{ vow.progress }}</p>
-      <ProgressTrack progress="0" />
+      <ProgressTrack :progress="0" />
     </div>
   </div>
   <p v-else>Make a background vow</p>
