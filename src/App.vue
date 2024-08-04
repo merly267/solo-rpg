@@ -2,6 +2,7 @@
   <h1>Solo RPG</h1>
   <nav>
     <router-link to="/character">Character sheet</router-link>
+    <router-link to="/vows">Vows</router-link>
     <router-link to="/action-move">Action move</router-link>
     <router-link to="/moves">Moves</router-link>
   </nav>

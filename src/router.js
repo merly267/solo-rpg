@@ -8,6 +8,10 @@ export const routes = [
     component: () => import('./views/CharacterSheet.vue')
   },
   {
+    path: '/vows',
+    component: () => import('./views/VowsList.vue')
+  },
+  {
     path: '/action-move',
     component: () => import('./views/GenericActionMove.vue')
   },
@@ -22,5 +26,9 @@ export const routes = [
   {
     path: '/moves/gather-information',
     component: () => import('./views/moves/GatherInformation.vue')
+  },
+  {
+    path: '/moves/swear-vow',
+    component: () => import('./views/moves/SwearVow.vue')
   }
 ]

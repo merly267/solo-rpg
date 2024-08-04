@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {
+  backgroundVow,
   character,
   experience,
-  vows,
   debilities,
   debilitiesTotal
 } from '@/composables/useCharacterStats'
@@ -17,8 +17,8 @@ const momentumStore = useMomentumStore()
   <h2>{{ character.name }}</h2>
   <input v-model="character.name" type="text" />
   <p>Experience: {{ experience }}</p>
-  <p v-if="vows.length">Vows: {{ vows }}</p>
-  <p v-else>Make a vow</p>
+  <p v-if="backgroundVow">Vows: {{ backgroundVow }}</p>
+  <p v-else>Make a background vow</p>
   <StatsList />
   <p>Momentum: {{ momentumStore.momentum }}</p>
   <p>Health: {{ character.health }}</p>

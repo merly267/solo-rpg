@@ -21,6 +21,10 @@ const moveAdds = computed(() => {
   }
   return 0
 })
+
+const clearMove = () => {
+  bondAadds.value = false
+}
 </script>
 
 <template>
@@ -31,6 +35,7 @@ const moveAdds = computed(() => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        @clearMove="clearMove"
       >
         <p>
           When you <strong>{{ move.trigger }}</strong
