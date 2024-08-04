@@ -19,8 +19,7 @@ const translateRank = (level: number) => {
     <div v-for="vow in progressTrackStore.vows" :key="`vow-${vow.uuid}`" class="vow">
       <h3>{{ vow.name }}</h3>
       <p class="rank">Rank: {{ translateRank(vow.rank) }}</p>
-      <p>Progress: {{ vow.progress }}</p>
-      <ProgressTrack :progress="10" />
+      <ProgressTrack :progress="vow.progress" />
     </div>
   </div>
   <p v-else>Make a background vow</p>
@@ -36,7 +35,7 @@ const translateRank = (level: number) => {
     margin-bottom: 0;
   }
   p.rank {
-    margin-top: 0.5rem;
+    margin: 0.5rem 0;
   }
 }
 </style>
