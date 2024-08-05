@@ -5,6 +5,7 @@ import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore'
+import { usestashedAddstore } from '@/stores/MoveAddsStore'
 
 type PropTypes = {
   title: string
@@ -12,6 +13,8 @@ type PropTypes = {
   adds: number
   disabled?: boolean
 }
+
+const stashedStore = usestashedAddstore()
 
 const props = defineProps<PropTypes>()
 
@@ -107,6 +110,7 @@ const clearAll = () => {
 }
 </script>
 <template>
+  <pre>{{ stashedStore.stashedAdds }}</pre>
   <h2>{{ title }}</h2>
   <slot></slot>
   <h3>Action Score</h3>

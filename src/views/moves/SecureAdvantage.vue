@@ -5,7 +5,8 @@ import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
-import type { StatName } from '@/types'
+import StashMoveAdd from '@/components/StashMoveAdd.vue'
+import type { StashedAdd, StatName } from '@/types'
 import { movesList } from '@/moves'
 
 const move = movesList.secureAdvantage
@@ -47,6 +48,12 @@ const clearMove = () => {
   selectedStatName.value = ''
 }
 
+const stash: StashedAdd = {
+  source: move.title,
+  add: 1,
+  nextOnly: true
+}
+
 const moveAdds = 0
 
 </script>
@@ -62,6 +69,7 @@ const moveAdds = 0
         :disabled="!selectedStatName.length"
         @clearMove="clearMove"
       >
+      
         <p>
           When you <strong>{{ move.trigger }}</strong>, envision your action and roll. If you act...
         </p>
@@ -81,8 +89,7 @@ const moveAdds = 0
           <p>
             You gain advantage. Choose one.
             <ul>
-              <!-- make this option add +1 to nextMoveAdds and include a link to list of moves with progress moves greyed out -->
-              <li>Take control: Make another move now (not a progress move); when you do, add +1.</li>
+              <li><StashMoveAdd text="Take control:" :addToStash=stash /> Make another move now (not a progress move); when you do, add +1.</li>
               <li>Prepare to act: <AdjustMomentumButton operation="adds" :amount="2" /></li>
             </ul>
           </p>
