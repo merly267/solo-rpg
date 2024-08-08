@@ -49,9 +49,11 @@ const clearMove = () => {
 }
 
 const stash: StashedAdd = {
+  uuid: '',
   source: move.title,
   add: 1,
-  nextOnly: true
+  nextOnly: true,
+  selected: true
 }
 
 const moveAdds = 0

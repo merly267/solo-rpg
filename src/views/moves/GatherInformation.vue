@@ -5,6 +5,7 @@ import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
+import StashedMoves from '@/components/StashedMoves.vue'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 
@@ -13,6 +14,12 @@ const move = movesList.gatherInfo
 const statForMove: StatName = 'Wits'
 
 const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
+
+let stashedAddsList = ref([])
+
+const useStashedAdd = () => {
+  // how to take them away when unselected? can't just push them in..
+}
 
 const bondAadds = ref(false)
 const moveAdds = computed(() => {
@@ -41,11 +48,13 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
         </p>
+
         <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
         <label for="bondAadds"
           >If you act within a community or ask questions of a person with whom you share a bond,
           add +1.</label
         >
+        <StashedMoves @useStashedAdd="useStashedAdd" />
       </ActionMove>
     </template>
     <template #outcome>

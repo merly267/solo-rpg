@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { v4 as uuidv4 } from 'uuid'
 import { usestashedAddstore } from '@/stores/MoveAddsStore'
 import type { StashedAdd } from '@/types'
 
@@ -12,7 +13,8 @@ const props = defineProps<PropTypes>()
 const stashedStore = usestashedAddstore()
 
 const addToStashStore = () => {
-  stashedStore.stashedAdds.push(props.addToStash)
+  const toAdd = { ...props.addToStash, uuid: uuidv4() }
+  stashedStore.stashedAdds.push(toAdd)
   // stashedStore.clearLocalStorage()
 }
 </script>
