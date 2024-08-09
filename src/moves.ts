@@ -7,6 +7,12 @@ export const movesList: MovesList = {
     moveType: 'Adventure',
     trigger: 'attempt something risky or react to an imminent threat'
   },
+  secureAdvantage: {
+    title: 'Secure an Advantage',
+    slug: 'secure-advantage',
+    moveType: 'Adventure',
+    trigger: 'you assess a situation, make preparations, or attempt to gain leverage'
+  },
   gatherInfo: {
     title: 'Gather Information',
     slug: 'gather-information',

@@ -15,11 +15,9 @@ const statForMove: StatName = 'Wits'
 const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
 
 const bondAadds = ref(false)
+
 const moveAdds = computed(() => {
-  if (bondAadds.value) {
-    return 1
-  }
-  return 0
+  return bondAadds.value ? 1 : 0
 })
 
 const clearMove = () => {
@@ -41,6 +39,7 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
         </p>
+
         <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
         <label for="bondAadds"
           >If you act within a community or ask questions of a person with whom you share a bond,

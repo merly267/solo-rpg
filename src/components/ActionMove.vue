@@ -4,7 +4,9 @@ import ActionDie from '@/components/ActionDie.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import AdjustMomentum from '@/components/AdjustMomentum.vue'
+import StashedMoves from '@/components/StashedMoves.vue'
 import { actionDie, challengeDice, clear, roll } from '@/composables/useDiceStore'
+import { usestashedAddstore } from '@/stores/MoveAddsStore'
 
 type PropTypes = {
   title: string
@@ -14,6 +16,12 @@ type PropTypes = {
 }
 
 const props = defineProps<PropTypes>()
+
+const stashedStore = usestashedAddstore()
+
+const moveAdds = computed(() => {
+  return props.adds ? stashedStore.selected + 1 : stashedStore.selected
+})
 
 const momentumStore = useMomentumStore()
 
@@ -43,6 +51,7 @@ const rollAllDice = () => {
   roll(actionDie.value)
   checkSuccess()
   checkCancellable()
+  stashedStore.clearUsedAndExpiredStashed()
   makeMove()
 }
 
@@ -109,11 +118,12 @@ const clearAll = () => {
 <template>
   <h2>{{ title }}</h2>
   <slot></slot>
+  <StashedMoves />
   <h3>Action Score</h3>
   <ActionDie />
   + <span v-if="stat">{{ stat }}</span>
   <span v-else>?</span>
-  + <span v-if="adds > 0">{{ adds }}</span>
+  + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
   <span v-else>?</span>
   =
   <span v-if="actionScore"

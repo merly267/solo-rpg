@@ -39,6 +39,16 @@ export type ProgressTrack = {
   status: ProgressTrackStatus
 }
 
+export type StashedAdd = {
+  uuid: string
+  source: string
+  add: number
+  includeProgress?: boolean
+  reusable?: boolean
+  nextOnly?: boolean
+  selected: boolean
+}
+
 export type Die = {
   id: string
   max: number

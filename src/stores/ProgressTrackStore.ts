@@ -14,7 +14,6 @@ const progressTrack = structuredClone(toRaw(newProgressTrack))
 export const useProgressTrackStore = defineStore('progressTrackStore', {
   state: (): State => ({
     newTrack: progressTrack,
-    // vows: []
     vows: useLocalStorage('vows', [])
   }),
   actions: {

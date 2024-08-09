@@ -24,6 +24,10 @@ export const routes = [
     component: () => import('./views/moves/FaceDanger.vue')
   },
   {
+    path: '/moves/secure-advantage',
+    component: () => import('./views/moves/SecureAdvantage.vue')
+  },
+  {
     path: '/moves/gather-information',
     component: () => import('./views/moves/GatherInformation.vue')
   },
