@@ -5,8 +5,6 @@ import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
-import StashedMoves from '@/components/StashedMoves.vue'
-import { usestashedAddstore } from '@/stores/MoveAddsStore'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 
@@ -16,18 +14,10 @@ const statForMove: StatName = 'Wits'
 
 const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
 
-const stashedStore = usestashedAddstore()
-
 const bondAadds = ref(false)
+
 const moveAdds = computed(() => {
-  const initialValue = 0
-  const selectedStashed = stashedStore.stashedAdds.filter((stashed) => stashed.selected)
-  const selectedAdds = selectedStashed.map((stash) => stash.add)
-  const stashedTotal = selectedAdds.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    initialValue
-  )
-  return bondAadds.value ? stashedTotal + 1 : stashedTotal
+  return bondAadds.value ? 1 : 0
 })
 
 const clearMove = () => {
@@ -55,7 +45,6 @@ const clearMove = () => {
           >If you act within a community or ask questions of a person with whom you share a bond,
           add +1.</label
         >
-        <StashedMoves />
       </ActionMove>
     </template>
     <template #outcome>
