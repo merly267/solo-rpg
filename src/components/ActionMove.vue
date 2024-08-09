@@ -116,7 +116,6 @@ const clearAll = () => {
 }
 </script>
 <template>
-  <pre>{{ stashedStore.stashedAdds }}</pre>
   <h2>{{ title }}</h2>
   <slot></slot>
   <StashedMoves />
