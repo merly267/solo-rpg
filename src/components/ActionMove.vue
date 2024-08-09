@@ -20,14 +20,7 @@ const props = defineProps<PropTypes>()
 const stashedStore = usestashedAddstore()
 
 const moveAdds = computed(() => {
-  const initialValue = 0
-  const selectedStashed = stashedStore.stashedAdds.filter((stashed) => stashed.selected)
-  const selectedAdds = selectedStashed.map((stash) => stash.add)
-  const stashedTotal = selectedAdds.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    initialValue
-  )
-  return props.adds ? stashedTotal + 1 : stashedTotal
+  return props.adds ? stashedStore.selected + 1 : stashedStore.selected
 })
 
 const momentumStore = useMomentumStore()
@@ -58,6 +51,7 @@ const rollAllDice = () => {
   roll(actionDie.value)
   checkSuccess()
   checkCancellable()
+  stashedStore.clearUsedAndExpiredStashed()
   makeMove()
 }
 
