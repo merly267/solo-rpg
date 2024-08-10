@@ -1,12 +1,14 @@
 <template>
-  <h1>Solo RPG</h1>
-  <nav>
-    <router-link to="/character">Character sheet</router-link>
-    <router-link to="/vows">Vows</router-link>
-    <router-link to="/action-move">Action move</router-link>
-    <router-link to="/moves">Moves</router-link>
-  </nav>
-  <router-view />
+  <div class="container">
+    <h1>Solo RPG</h1>
+    <nav>
+      <router-link to="/character">Character sheet</router-link>
+      <router-link to="/vows">Vows</router-link>
+      <router-link to="/action-move">Action move</router-link>
+      <router-link to="/moves">Moves</router-link>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <style>
@@ -42,6 +44,22 @@ body {
   }
 }
 
+.container {
+  max-width: 80ch;
+  margin: 0 auto;
+  padding: 0 0.5rem 0;
+  @media (min-width: 768px) {
+    margin-top: 4rem;
+  }
+}
+
+h1 {
+  margin-bottom: 0;
+  @media (min-width: 768px) {
+    margin-bottom: 0.5rem;
+  }
+}
+
 nav a {
   margin-right: 0.5em;
   color: var(--app-text);
@@ -59,5 +77,9 @@ button {
 }
 button:disabled {
   opacity: 0.5;
+}
+
+select {
+  max-width: 100%;
 }
 </style>

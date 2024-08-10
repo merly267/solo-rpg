@@ -34,5 +34,9 @@ export const routes = [
   {
     path: '/moves/swear-vow',
     component: () => import('./views/moves/SwearVow.vue')
+  },
+  {
+    path: '/moves/reach-milestone',
+    component: () => import('./views/moves/ReachMilestone.vue')
   }
 ]

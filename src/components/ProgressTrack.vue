@@ -46,6 +46,7 @@ const boxStyle = (index: number, progress: number) => {
 .progress-track {
   display: grid;
   max-width: 20rem;
+  margin-bottom: 0.5rem;
 
   .box {
     --stripe-start: calc(50% - 1px);

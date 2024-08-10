@@ -1,25 +1,17 @@
 <script setup lang="ts">
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
-import ProgressTrack from '@/components/ProgressTrack.vue'
+import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
-import { progressRanksList } from '@/constants'
 
 const progressTrackStore = useProgressTrackStore()
 const move = movesList.swearVow
-
-const translateRank = (level: number) => {
-  const rankName = progressRanksList.filter((rank) => rank.level === level)
-  return rankName[0].name
-}
 </script>
 
 <template>
   <h2>Vows</h2>
   <div v-if="progressTrackStore.vows.length">
     <div v-for="vow in progressTrackStore.vows" :key="`vow-${vow.uuid}`" class="vow">
-      <h3>{{ vow.name }}</h3>
-      <p class="rank">Rank: {{ translateRank(vow.rank) }}</p>
-      <ProgressTrack :progress="vow.progress" />
+      <TrackInfo :name="vow.name" :rank="vow.rank" :progress="vow.progress" />
     </div>
   </div>
   <p v-else>Make a background vow</p>
@@ -31,11 +23,5 @@ const translateRank = (level: number) => {
 <style>
 .vow {
   margin-bottom: 2rem;
-  h3 {
-    margin-bottom: 0;
-  }
-  p.rank {
-    margin: 0.5rem 0;
-  }
 }
 </style>
