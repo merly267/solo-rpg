@@ -6,39 +6,27 @@ import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
+import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 import type { StatName } from '@/types'
 
 const move = movesList.reachMilestone
+const swearMove = movesList.swearVow
 
 const progressTrackType = 'Vow'
-
-const statForMove: StatName = 'Heart'
-
-const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
-
-const bondAadds = ref(false)
-const moveAdds = computed(() => {
-  if (bondAadds.value) {
-    return 1
-  }
-  return 0
-})
-
-const clearMove = () => {
-  bondAadds.value = false
-}
 
 const progressTrackStore = useProgressTrackStore()
 
 const noVow = computed(() => {
-  if (progressTrackStore.newTrack.name.length && progressTrackStore.newTrack.rank > 0) {
+  if (progressTrackStore.vows.length) {
     return false
   }
   return true
 })
+
+const selectedVow = progressTrackStore.vows[0]
 
 const addVow = () => {
   progressTrackStore.newTrack.uuid = uuidv4()
@@ -67,6 +55,20 @@ const makeMove = () => {
         perilous journey, solving a complex mystery, defeating a powerful threat, gaining vital
         support, or acquiring a crucial item, you may mark progress.
       </p>
+      <div v-if="noVow">
+        First you must
+        <button @click="$router.push(`/moves/${swearMove.slug}`)">
+          {{ swearMove.title }}
+        </button>
+      </div>
+      <div v-else>
+        <TrackInfo
+          :name="selectedVow.name"
+          :rank="selectedVow.rank"
+          :progress="selectedVow.progress"
+        />
+      </div>
+
       <!-- <ActionMove
         v-if="selectedStat"
         :title="move.title"
