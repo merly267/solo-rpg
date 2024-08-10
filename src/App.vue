@@ -78,4 +78,8 @@ button {
 button:disabled {
   opacity: 0.5;
 }
+
+select {
+  max-width: 100%;
+}
 </style>

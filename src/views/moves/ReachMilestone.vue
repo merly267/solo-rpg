@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRaw } from 'vue'
+import { computed, ref } from 'vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
@@ -17,10 +17,15 @@ const noVow = computed(() => {
   return true
 })
 
-const selectedVow = progressTrackStore.vows[0]
+// default to first vow in list
+const selectedVowUuid = ref(progressTrackStore.vows[0].uuid)
+
+const selectedVow = computed(() => {
+  return progressTrackStore.vows.find((vow) => vow.uuid === selectedVowUuid.value)
+})
 
 const makeMove = () => {
-  progressTrackStore.markProgress(selectedVow.uuid)
+  progressTrackStore.markProgress(selectedVowUuid.value)
 }
 </script>
 <template>
@@ -40,20 +45,23 @@ const makeMove = () => {
       </div>
       <div v-else>
         <label for="vow-select">Choose a vow:</label>
-        <select name="vows" id="vow-select">
+        <select name="vows" id="vow-select" v-model="selectedVowUuid">
           <option v-for="vow in progressTrackStore.vows" :key="`vow-${vow.uuid}`" :value="vow.uuid">
             {{ vow.name }}
           </option>
         </select>
-        <TrackInfo
-          :name="selectedVow.name"
-          :rank="selectedVow.rank"
-          :progress="selectedVow.progress"
-        />
-        <button :disabled="selectedVow.status === 'Full'" @click="makeMove">Mark Progress</button>
-        <button @click="progressTrackStore.resetProgress(selectedVow.uuid)">Reset progress</button>
+        <div v-if="selectedVow">
+          <TrackInfo
+            :name="selectedVow.name"
+            :rank="selectedVow.rank"
+            :progress="selectedVow.progress"
+          />
+          <button :disabled="selectedVow.status === 'Full'" @click="makeMove">Mark Progress</button>
+          <button @click="progressTrackStore.resetProgress(selectedVow.uuid)">
+            Reset progress
+          </button>
+        </div>
       </div>
-      <pre>{{ selectedVow }}</pre>
     </template>
   </MoveLayout>
 </template>
