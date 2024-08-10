@@ -20,6 +20,32 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     clearNewTrack() {
       Object.assign(this.newTrack, newProgressTrack)
     },
+    markProgress(selectedUuid: string) {
+      const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
+      if (selectedVow) {
+        const increaseAmount = () => {
+          switch (selectedVow.rank) {
+            case 1:
+              return 3
+            case 2:
+              return 2
+            case 3:
+              return 1
+            case 4:
+              return 0.5
+            case 5:
+              return 0.25
+            default:
+              return 0
+          }
+        }
+        const newTotal = (selectedVow.progress += increaseAmount())
+        selectedVow.progress = newTotal < 10 ? newTotal : 10
+        // reset for testing
+        // selectedVow.progress = 2
+        selectedVow.status = selectedVow.progress < 10 ? 'In progress' : 'Full'
+      }
+    },
     // to refresh from defaults
     clearLocalStorage() {
       this.vows = []

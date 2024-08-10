@@ -42,8 +42,7 @@ const clearVow = () => {
 }
 
 const makeMove = () => {
-  addVow()
-  clearVow()
+  progressTrackStore.markProgress(selectedVow.uuid)
 }
 </script>
 <template>
@@ -67,7 +66,9 @@ const makeMove = () => {
           :rank="selectedVow.rank"
           :progress="selectedVow.progress"
         />
+        <button @click="makeMove">Mark Progress</button>
       </div>
+      <pre>{{ selectedVow }}</pre>
 
       <!-- <ActionMove
         v-if="selectedStat"
