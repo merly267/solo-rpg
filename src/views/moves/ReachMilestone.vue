@@ -17,12 +17,16 @@ const noVow = computed(() => {
   return true
 })
 
-// default to first vow in list
-const selectedVowUuid = ref(progressTrackStore.vows[0].uuid)
+const selectedVowUuid = ref(progressTrackStore.lastTouchedVow)
 
 const selectedVow = computed(() => {
   return progressTrackStore.vows.find((vow) => vow.uuid === selectedVowUuid.value)
 })
+
+const setLastTouched = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  progressTrackStore.setLastTouched(target.value)
+}
 
 const makeMove = () => {
   progressTrackStore.markProgress(selectedVowUuid.value)
@@ -45,7 +49,7 @@ const makeMove = () => {
       </div>
       <div v-else>
         <label for="vow-select">Choose a vow:</label>
-        <select name="vows" id="vow-select" v-model="selectedVowUuid">
+        <select name="vows" id="vow-select" v-model="selectedVowUuid" @change="setLastTouched">
           <option v-for="vow in progressTrackStore.vows" :key="`vow-${vow.uuid}`" :value="vow.uuid">
             {{ vow.name }}
           </option>
