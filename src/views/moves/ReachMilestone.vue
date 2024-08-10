@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, toRaw } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
-import ActionMove from '@/components/ActionMove.vue'
-import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
-import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
-import MoveOutcome from '@/components/MoveOutcome.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
-import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
-import type { StatName } from '@/types'
 
 const move = movesList.reachMilestone
 const swearMove = movesList.swearVow
@@ -46,6 +39,12 @@ const makeMove = () => {
         </button>
       </div>
       <div v-else>
+        <label for="vow-select">Choose a vow:</label>
+        <select name="vows" id="vow-select">
+          <option v-for="vow in progressTrackStore.vows" :key="`vow-${vow.uuid}`" :value="vow.uuid">
+            {{ vow.name }}
+          </option>
+        </select>
         <TrackInfo
           :name="selectedVow.name"
           :rank="selectedVow.rank"
