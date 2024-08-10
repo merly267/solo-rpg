@@ -15,8 +15,6 @@ import type { StatName } from '@/types'
 const move = movesList.reachMilestone
 const swearMove = movesList.swearVow
 
-const progressTrackType = 'Vow'
-
 const progressTrackStore = useProgressTrackStore()
 
 const noVow = computed(() => {
@@ -27,19 +25,6 @@ const noVow = computed(() => {
 })
 
 const selectedVow = progressTrackStore.vows[0]
-
-const addVow = () => {
-  progressTrackStore.newTrack.uuid = uuidv4()
-  progressTrackStore.newTrack.type = progressTrackType
-  const newVow = structuredClone(toRaw(progressTrackStore.newTrack))
-  progressTrackStore.vows.push(newVow)
-}
-
-const clearVow = () => {
-  progressTrackStore.clearNewTrack()
-  // to clear vows list from local storage
-  // progressTrackStore.clearLocalStorage()
-}
 
 const makeMove = () => {
   progressTrackStore.markProgress(selectedVow.uuid)
@@ -66,30 +51,10 @@ const makeMove = () => {
           :rank="selectedVow.rank"
           :progress="selectedVow.progress"
         />
-        <button @click="makeMove">Mark Progress</button>
+        <button :disabled="selectedVow.status === 'Full'" @click="makeMove">Mark Progress</button>
+        <button @click="progressTrackStore.resetProgress(selectedVow.uuid)">Reset progress</button>
       </div>
       <pre>{{ selectedVow }}</pre>
-
-      <!-- <ActionMove
-        v-if="selectedStat"
-        :title="move.title"
-        :stat="selectedStat.score"
-        :adds="moveAdds"
-        :disabled="noVow"
-        @makeMove="makeMove"
-        @clearMove="clearMove"
-      >
-        <p>
-          When you <strong>{{ move.trigger }}</strong
-          >, write your vow and give the quest a rank:
-        </p>
-        <CreateProgressTrack :type="progressTrackType" />
-        <p>Then, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).</p>
-        <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
-        <label for="bondAadds"
-          >If you make this vow to a person or community with whom you share a bond, add +1.</label
-        >
-      </ActionMove> -->
     </template>
   </MoveLayout>
 </template>

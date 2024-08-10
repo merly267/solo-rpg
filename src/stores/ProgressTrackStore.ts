@@ -41,8 +41,13 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
         }
         const newTotal = (selectedVow.progress += increaseAmount())
         selectedVow.progress = newTotal < 10 ? newTotal : 10
-        // reset for testing
-        // selectedVow.progress = 2
+        selectedVow.status = selectedVow.progress < 10 ? 'In progress' : 'Full'
+      }
+    },
+    resetProgress(selectedUuid: string) {
+      const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
+      if (selectedVow) {
+        selectedVow.progress = 0
         selectedVow.status = selectedVow.progress < 10 ? 'In progress' : 'Full'
       }
     },
