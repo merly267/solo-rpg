@@ -27,7 +27,6 @@ const props = defineProps<PropTypes>()
   display: inline-block;
   height: var(--die-size);
   width: var(--die-size);
-  margin-top: 1em;
   text-align: center;
   line-height: var(--die-size);
   font-weight: bold;
