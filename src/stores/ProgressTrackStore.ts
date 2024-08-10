@@ -1,8 +1,9 @@
 import { toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import { useLocalStorage, type RemovableRef } from '@vueuse/core'
+import { v4 as uuidv4 } from 'uuid'
 import { newProgressTrack } from '@/constants'
-import type { ProgressTrack } from '@/types'
+import type { ProgressTrack, ProgressTrackType } from '@/types'
 
 type State = {
   newTrack: ProgressTrack
@@ -19,6 +20,14 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     lastTouchedVow: useLocalStorage('lastTouchedVow', '')
   }),
   actions: {
+    addVow(trackType: ProgressTrackType) {
+      this.newTrack.uuid = uuidv4()
+      this.newTrack.type = trackType
+      const newVow = structuredClone(toRaw(this.newTrack))
+      this.vows.push(newVow)
+      this.setLastTouched(this.newTrack.uuid)
+      this.clearNewTrack()
+    },
     clearNewTrack() {
       Object.assign(this.newTrack, newProgressTrack)
     },

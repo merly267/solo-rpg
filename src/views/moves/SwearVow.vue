@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRaw } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
+import { computed, ref } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
@@ -40,22 +39,8 @@ const noVow = computed(() => {
   return true
 })
 
-const addVow = () => {
-  progressTrackStore.newTrack.uuid = uuidv4()
-  progressTrackStore.newTrack.type = progressTrackType
-  const newVow = structuredClone(toRaw(progressTrackStore.newTrack))
-  progressTrackStore.vows.push(newVow)
-}
-
-const clearVow = () => {
-  progressTrackStore.clearNewTrack()
-  // to clear vows list from local storage
-  // progressTrackStore.clearLocalStorage()
-}
-
 const makeMove = () => {
-  addVow()
-  clearVow()
+  progressTrackStore.addVow(progressTrackType)
 }
 </script>
 <template>

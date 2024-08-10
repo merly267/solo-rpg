@@ -35,7 +35,6 @@ const makeMove = () => {
 <template>
   <MoveLayout>
     <template #text>
-      <pre>lastTouchedVow: {{ progressTrackStore.lastTouchedVow }}</pre>
       <h2>{{ move.title }}</h2>
       <p>
         When you <strong>{{ move.trigger }}</strong> by overcoming a critical obstacle, completing a
