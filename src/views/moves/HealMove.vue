@@ -45,6 +45,7 @@ const moveAdds = 0
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        :disabled="!selectedStatName.length"
       >
         <p>
           When you <strong>{{ move.trigger }}</strong

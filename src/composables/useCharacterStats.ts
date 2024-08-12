@@ -18,7 +18,7 @@ export const character = ref(characterStats)
 export const stats = ref<Stat[]>([
   {
     name: 'Edge',
-    score: 1
+    score: 3
   },
   {
     name: 'Heart',
@@ -26,11 +26,11 @@ export const stats = ref<Stat[]>([
   },
   {
     name: 'Iron',
-    score: 3
+    score: 2
   },
   {
     name: 'Shadow',
-    score: 2
+    score: 1
   },
   {
     name: 'Wits',
