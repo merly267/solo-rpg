@@ -11,13 +11,19 @@ export const movesList: MovesList = {
     title: 'Secure an Advantage',
     slug: 'secure-advantage',
     moveType: 'Adventure',
-    trigger: 'you assess a situation, make preparations, or attempt to gain leverage'
+    trigger: 'assess a situation, make preparations, or attempt to gain leverage'
   },
   gatherInfo: {
     title: 'Gather Information',
     slug: 'gather-information',
     moveType: 'Adventure',
     trigger: 'search an area, ask questions, conduct an investigation, or follow a track'
+  },
+  healMove: {
+    title: 'Heal',
+    slug: 'heal',
+    moveType: 'Adventure',
+    trigger: 'treat an injury or ailment'
   },
   swearVow: {
     title: 'Swear an Iron Vow',
