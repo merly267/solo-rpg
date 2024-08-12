@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { stats as statsList } from '@/composables/useCharacterStats.js'
+import { debilities, stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
@@ -35,6 +35,9 @@ const healSelfStat =
   healSelfAltStat!.score <= healOtherStat!.score ? healSelfAltStat : healOtherStat
 
 const moveAdds = 0
+
+const conditions = debilities.value.filter((group) => group.group === 'Conditions')[0]
+const wounded = conditions.debilitiesList.filter((deb) => deb.name === 'Wounded')[0].status
 </script>
 
 <template>
@@ -106,6 +109,7 @@ const moveAdds = 0
           <p>Your aid is ineffective. Pay the Price.</p>
         </template>
       </MoveOutcome>
+      <pre>{{ wounded }}</pre>
     </template>
   </MoveLayout>
 </template>
