@@ -112,14 +112,13 @@ const isWounded = computed(() => {
             >
             Then, take or give up to +2 health, but you must suffer -1 supply or -1 momentum (your
             choice). <AdjustMomentumButton operation="adds" :amount="1" />.
-            <AdjustAbility operation="Mark" debility="Wounded" />
+            <!-- <AdjustAbility operation="Mark" debility="Wounded" /> -->
           </p>
         </template>
         <template v-slot:miss>
           <p>Your aid is ineffective. Pay the Price.</p>
         </template>
       </MoveOutcome>
-      <pre>{{ wounded }}</pre>
     </template>
   </MoveLayout>
 </template>

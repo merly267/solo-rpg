@@ -14,6 +14,11 @@ export const useDebilitiesStore = defineStore('debilitiesStore', {
   state: (): State => ({
     newDebilities: useLocalStorage('newDebilities', defaultDebilityArray)
   }),
+  getters: {
+    debilitiesTotal: (state) => {
+      return state.newDebilities.filter((deb) => deb.status).length
+    }
+  },
   actions: {
     clearDebility(debility: string) {
       const debilityToAdjust = this.newDebilities.find((deb) => deb.name === debility)
