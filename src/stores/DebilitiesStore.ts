@@ -1,54 +1,28 @@
+import { toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import { useLocalStorage, type RemovableRef } from '@vueuse/core'
+import { debilityDefaults } from '@/constants'
 import type { DebilityNew } from '@/types'
 
 type State = {
-  debilities: RemovableRef<DebilityNew[]>
+  newDebilities: RemovableRef<DebilityNew[]>
 }
+
+const defaultDebilityArray = structuredClone(toRaw(debilityDefaults))
 
 export const useDebilitiesStore = defineStore('debilitiesStore', {
   state: (): State => ({
-    debilities: useLocalStorage('debilities', [
-      {
-        name: 'Wounded',
-        category: 'Conditions',
-        status: false
-      },
-      {
-        name: 'Shaken',
-        category: 'Conditions',
-        status: false
-      },
-      {
-        name: 'Unprepared',
-        category: 'Conditions',
-        status: false
-      },
-      {
-        name: 'Encumbered',
-        category: 'Conditions',
-        status: false
-      },
-      {
-        name: 'Maimed',
-        category: 'Banes',
-        status: false
-      },
-      {
-        name: 'Corrupted',
-        category: 'Banes',
-        status: false
-      },
-      {
-        name: 'Cursed',
-        category: 'Burdens',
-        status: false
-      },
-      {
-        name: 'Tormented',
-        category: 'Burdens',
-        status: false
-      }
-    ])
-  })
+    newDebilities: useLocalStorage('newDebilities', defaultDebilityArray)
+  }),
+  actions: {
+    markDebility(debility: string) {
+      const debilityToAdjust = this.newDebilities.find((deb) => deb.name === debility)
+      debilityToAdjust!.status = true
+      console.log(debilityToAdjust)
+    },
+    // to refresh from defaults
+    clearLocalStorage() {
+      this.newDebilities = defaultDebilityArray
+    }
+  }
 })

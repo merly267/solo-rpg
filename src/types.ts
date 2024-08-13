@@ -1,5 +1,6 @@
 import type {
   debilityCategoriesList,
+  debilityOperations,
   moveTypeList,
   outcomeList,
   progressRanksList,
@@ -78,6 +79,8 @@ export type MovesList = {
 }
 
 export type DebilityCategory = (typeof debilityCategoriesList)[number]
+
+export type DebilityOperation = (typeof debilityOperations)[number]
 
 export type OutcomeList = typeof outcomeList
 

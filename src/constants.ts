@@ -1,4 +1,4 @@
-import type { ProgressTrack } from '@/types'
+import type { DebilityNew, ProgressTrack } from '@/types'
 
 export const moveTypeList = [
   'Adventure',
@@ -53,6 +53,49 @@ export const progressRanksList = [
   }
 ] as const
 
+export const debilityDefaults: DebilityNew[] = [
+  {
+    name: 'Wounded',
+    category: 'Conditions',
+    status: false
+  },
+  {
+    name: 'Shaken',
+    category: 'Conditions',
+    status: false
+  },
+  {
+    name: 'Unprepared',
+    category: 'Conditions',
+    status: false
+  },
+  {
+    name: 'Encumbered',
+    category: 'Conditions',
+    status: false
+  },
+  {
+    name: 'Maimed',
+    category: 'Banes',
+    status: false
+  },
+  {
+    name: 'Corrupted',
+    category: 'Banes',
+    status: false
+  },
+  {
+    name: 'Cursed',
+    category: 'Burdens',
+    status: false
+  },
+  {
+    name: 'Tormented',
+    category: 'Burdens',
+    status: false
+  }
+] as const
+
 export const progressTrackTypesList = ['Vow', ''] as const
 
 export const progressTrackStatusList = ['In progress', 'Full', 'Complete', 'Forsaken', ''] as const
@@ -60,3 +103,5 @@ export const progressTrackStatusList = ['In progress', 'Full', 'Complete', 'Fors
 export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const
 
 export const debilityCategoriesList = ['Conditions', 'Banes', 'Burdens', 'Other'] as const
+
+export const debilityOperations = ['Mark', 'Clear'] as const
