@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
-
-const maxHealth = 5
+import { maxHealth } from '@/constants'
 
 export const useCharacterStore = defineStore('characterStore', {
   state: () => ({
@@ -20,7 +19,7 @@ export const useCharacterStore = defineStore('characterStore', {
       }
       this.health += x
     },
-    loseMomentum(x: number) {
+    loseHealth(x: number) {
       if (this.health == 0) {
         return
       } else {

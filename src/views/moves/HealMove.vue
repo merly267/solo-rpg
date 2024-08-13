@@ -4,7 +4,7 @@ import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useDebilitiesStore } from '@/stores/DebilitiesStore'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustAbility from '@/components/AdjustDebility.vue'
-import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
+import AdjustHealthButton from '@/components/AdjustHealthButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
@@ -100,7 +100,7 @@ const isWounded = computed(() => {
               <AdjustAbility operation="Clear" debility="Wounded" />.</span
             >
             Then, take or give up to +2 health.
-            <AdjustMomentumButton operation="adds" :amount="2" />.
+            <AdjustHealthButton operation="take" :amount="2" />.
           </p>
         </template>
         <template v-slot:weak>
@@ -111,8 +111,8 @@ const isWounded = computed(() => {
               <AdjustAbility operation="Clear" debility="Wounded" />.</span
             >
             Then, take or give up to +2 health, but you must suffer -1 supply or -1 momentum (your
-            choice). <AdjustMomentumButton operation="adds" :amount="1" />.
-            <AdjustAbility operation="Mark" debility="Wounded" />
+            choice).
+            <!-- <AdjustAbility operation="Mark" debility="Wounded" /> -->
           </p>
         </template>
         <template v-slot:miss>
