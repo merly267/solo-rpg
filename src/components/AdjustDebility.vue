@@ -27,7 +27,6 @@ const markDebility = () => {
 </script>
 
 <template>
-  {{ debilityToAdjust }}
   <button v-if="operation === 'Mark'" @click="markDebility" :disabled="debilityToAdjust!.status">
     {{ operation }} {{ debility }}
   </button>

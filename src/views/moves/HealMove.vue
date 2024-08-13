@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { debilities, stats as statsList } from '@/composables/useCharacterStats.js'
+import { stats as statsList } from '@/composables/useCharacterStats.js'
+import { useDebilitiesStore } from '@/stores/DebilitiesStore'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustAbility from '@/components/AdjustDebility.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
@@ -37,8 +38,13 @@ const healSelfStat =
 
 const moveAdds = 0
 
-const conditions = debilities.value.filter((group) => group.group === 'Conditions')[0]
-const wounded = conditions.debilitiesList.filter((deb) => deb.name === 'Wounded')[0].status
+const debilitiesStore = useDebilitiesStore()
+
+const wounded = debilitiesStore.newDebilities.find((deb) => deb.name === 'Wounded')
+
+const isWounded = computed(() => {
+  return wounded!.status
+})
 </script>
 
 <template>
@@ -88,28 +94,38 @@ const wounded = conditions.debilitiesList.filter((deb) => deb.name === 'Wounded'
       <MoveOutcome>
         <template v-slot:strong>
           <p>
-            Your care is helpful. If you (or the ally under your care) have the wounded condition,
-            you may clear it. Then, take or give up to +2 health.
+            Your care is helpful.
+            <span :class="{ notWounded: !isWounded }"
+              >If you (or the ally under your care) have the wounded condition, you may clear it:
+              <AdjustAbility operation="Clear" debility="Wounded" />.</span
+            >
+            Then, take or give up to +2 health.
             <AdjustMomentumButton operation="adds" :amount="2" />.
           </p>
         </template>
         <template v-slot:weak>
           <p>
-            Your care is helpful. If you (or the ally under your care) have the wounded condition,
-            you may clear it. Then, take or give up to +2 health, but you must suffer -1 supply or
-            -1 momentum (your choice).
-            <AdjustMomentumButton operation="adds" :amount="1" />.
-            <AdjustAbility operation="Mark" debility="Wounded" /><AdjustAbility
-              operation="Clear"
-              debility="Wounded"
-            />
+            Your care is helpful.
+            <span :class="{ notWounded: !isWounded }"
+              >If you (or the ally under your care) have the wounded condition, you may clear it:
+              <AdjustAbility operation="Clear" debility="Wounded" />.</span
+            >
+            Then, take or give up to +2 health, but you must suffer -1 supply or -1 momentum (your
+            choice). <AdjustMomentumButton operation="adds" :amount="1" />.
+            <AdjustAbility operation="Mark" debility="Wounded" />
           </p>
         </template>
         <template v-slot:miss>
           <p>Your aid is ineffective. Pay the Price.</p>
         </template>
       </MoveOutcome>
-      <!-- <pre>{{ debilities }}</pre> -->
+      <pre>{{ wounded }}</pre>
     </template>
   </MoveLayout>
 </template>
+
+<style>
+.notWounded {
+  color: var(--grey-text);
+}
+</style>
