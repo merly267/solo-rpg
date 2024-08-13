@@ -1,8 +1,13 @@
 import { defineStore } from 'pinia'
-import { useLocalStorage } from '@vueuse/core'
+import { useLocalStorage, type RemovableRef } from '@vueuse/core'
+import type { DebilityNew } from '@/types'
+
+type State = {
+  debilities: RemovableRef<DebilityNew[]>
+}
 
 export const useDebilitiesStore = defineStore('debilitiesStore', {
-  state: () => ({
+  state: (): State => ({
     debilities: useLocalStorage('debilities', [
       {
         name: 'Wounded',
