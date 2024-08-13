@@ -13,6 +13,12 @@ const debilitiesStore = useDebilitiesStore()
 
 const debilityToAdjust = debilitiesStore.newDebilities.find((deb) => deb.name === props.debility)
 
+const clearDebility = () => {
+  if (props.operation === 'Clear') {
+    debilitiesStore.clearDebility(props.debility)
+  }
+}
+
 const markDebility = () => {
   if (props.operation === 'Mark') {
     debilitiesStore.markDebility(props.debility)
@@ -23,6 +29,13 @@ const markDebility = () => {
 <template>
   {{ debilityToAdjust }}
   <button v-if="operation === 'Mark'" @click="markDebility" :disabled="debilityToAdjust!.status">
+    {{ operation }} {{ debility }}
+  </button>
+  <button
+    v-if="operation === 'Clear'"
+    @click="clearDebility"
+    :disabled="debilityToAdjust!.status === false"
+  >
     {{ operation }} {{ debility }}
   </button>
 </template>

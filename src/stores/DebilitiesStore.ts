@@ -15,10 +15,13 @@ export const useDebilitiesStore = defineStore('debilitiesStore', {
     newDebilities: useLocalStorage('newDebilities', defaultDebilityArray)
   }),
   actions: {
+    clearDebility(debility: string) {
+      const debilityToAdjust = this.newDebilities.find((deb) => deb.name === debility)
+      debilityToAdjust!.status = false
+    },
     markDebility(debility: string) {
       const debilityToAdjust = this.newDebilities.find((deb) => deb.name === debility)
       debilityToAdjust!.status = true
-      console.log(debilityToAdjust)
     },
     // to refresh from defaults
     clearLocalStorage() {

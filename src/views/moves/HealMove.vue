@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { debilities, stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
+import AdjustAbility from '@/components/AdjustDebility.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
@@ -50,11 +51,6 @@ const wounded = conditions.debilitiesList.filter((deb) => deb.name === 'Wounded'
         :adds="moveAdds"
         :disabled="!selectedStatName.length"
       >
-        <p>
-          When you <strong>{{ move.trigger }}</strong
-          >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
-        </p>
-
         <fieldset v-if="healOtherStat && healSelfAltStat && healSelfStat">
           <div>
             <input
@@ -80,7 +76,7 @@ const wounded = conditions.debilitiesList.filter((deb) => deb.name === 'Wounded'
               @input="selectedStatName = ($event.target as HTMLInputElement).value"
             />
             <label :for="healSelfStat.name"
-              >If you are mending your own wounds, roll +{{ healOtherStat.name }} or +{{
+              >If you <strong>mend your own wounds</strong>, roll +{{ healOtherStat.name }} or +{{
                 healSelfAltStat.name
               }}, whichever is lower: +{{ healSelfStat.name }} ({{ healSelfStat.score }})</label
             >
@@ -103,13 +99,17 @@ const wounded = conditions.debilitiesList.filter((deb) => deb.name === 'Wounded'
             you may clear it. Then, take or give up to +2 health, but you must suffer -1 supply or
             -1 momentum (your choice).
             <AdjustMomentumButton operation="adds" :amount="1" />.
+            <AdjustAbility operation="Mark" debility="Wounded" /><AdjustAbility
+              operation="Clear"
+              debility="Wounded"
+            />
           </p>
         </template>
         <template v-slot:miss>
           <p>Your aid is ineffective. Pay the Price.</p>
         </template>
       </MoveOutcome>
-      <pre>{{ wounded }}</pre>
+      <!-- <pre>{{ debilities }}</pre> -->
     </template>
   </MoveLayout>
 </template>
