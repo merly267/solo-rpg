@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { useStorage } from '@vueuse/core'
-import type { Character, DebilitiesGroup, Stat } from '@/types'
+import type { Character, Stat } from '@/types'
 
 const defaultCharacterStats: Character = {
   name: '',
@@ -37,76 +37,6 @@ export const stats = ref<Stat[]>([
     score: 2
   }
 ])
-
-const defaultDebilities = ref(<DebilitiesGroup[]>[
-  {
-    group: 'Conditions',
-    debilitiesList: [
-      {
-        name: 'Wounded',
-        status: false
-      },
-      {
-        name: 'Shaken',
-        status: false
-      },
-      {
-        name: 'Unprepared',
-        status: false
-      },
-      {
-        name: 'Encumbered',
-        status: false
-      }
-    ]
-  },
-  {
-    group: 'Banes',
-    debilitiesList: [
-      {
-        name: 'Maimed',
-        status: false
-      },
-      {
-        name: 'Corrupted',
-        status: false
-      }
-    ]
-  },
-  {
-    group: 'Burdens',
-    debilitiesList: [
-      {
-        name: 'Cursed',
-        status: false
-      },
-      {
-        name: 'Tormented',
-        status: false
-      }
-    ]
-  }
-])
-
-export const debilities = useStorage('debilities', defaultDebilities, localStorage, {
-  mergeDefaults: true
-})
-
-// to refresh from defaults
-// debilities.value = null
-
-export const debilitiesTotal = ref(0)
-
-const countMarkedDebilities = () => {
-  const debilitiesList = []
-  debilities.value.forEach((group) => {
-    const markedDebilities = group.debilitiesList.filter((debility) => debility.status === true)
-    markedDebilities.forEach((debility) => debilitiesList.push(debility.name))
-  })
-  debilitiesTotal.value = debilitiesList.length
-}
-
-countMarkedDebilities()
 
 export const experience = ref(0)
 
