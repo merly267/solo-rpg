@@ -40,7 +40,7 @@ const moveAdds = 0
 
 const debilitiesStore = useDebilitiesStore()
 
-const wounded = debilitiesStore.newDebilities.find((deb) => deb.name === 'Wounded')
+const wounded = debilitiesStore.debilities.find((deb) => deb.name === 'Wounded')
 
 const isWounded = computed(() => {
   return wounded!.status
@@ -112,7 +112,7 @@ const isWounded = computed(() => {
             >
             Then, take or give up to +2 health, but you must suffer -1 supply or -1 momentum (your
             choice). <AdjustMomentumButton operation="adds" :amount="1" />.
-            <!-- <AdjustAbility operation="Mark" debility="Wounded" /> -->
+            <AdjustAbility operation="Mark" debility="Wounded" />
           </p>
         </template>
         <template v-slot:miss>

@@ -26,7 +26,7 @@ const debilitiesStore = useDebilitiesStore()
       <h3>{{ category }}</h3>
       <ul>
         <li
-          v-for="(debility, index) in debilitiesStore.newDebilities.filter(
+          v-for="(debility, index) in debilitiesStore.debilities.filter(
             (deb) => deb.category === category
           )"
           :key="`deb-${index}`"

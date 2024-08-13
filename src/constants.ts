@@ -1,4 +1,4 @@
-import type { DebilityNew, ProgressTrack } from '@/types'
+import type { Debility, ProgressTrack } from '@/types'
 
 export const moveTypeList = [
   'Adventure',
@@ -53,7 +53,7 @@ export const progressRanksList = [
   }
 ] as const
 
-export const debilityDefaults: DebilityNew[] = [
+export const debilityDefaults: Debility[] = [
   {
     name: 'Wounded',
     category: 'Conditions',

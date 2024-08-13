@@ -24,16 +24,6 @@ export type Stat = {
 
 export type Debility = {
   name: string
-  status: boolean
-}
-
-export type DebilitiesGroup = {
-  group: string
-  debilitiesList: Debility[]
-}
-
-export type DebilityNew = {
-  name: string
   category: DebilityCategory
   status: boolean
 }

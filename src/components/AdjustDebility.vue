@@ -11,7 +11,7 @@ const props = defineProps<PropTypes>()
 
 const debilitiesStore = useDebilitiesStore()
 
-const debilityToAdjust = debilitiesStore.newDebilities.find((deb) => deb.name === props.debility)
+const debilityToAdjust = debilitiesStore.debilities.find((deb) => deb.name === props.debility)
 
 const clearDebility = () => {
   if (props.operation === 'Clear') {
