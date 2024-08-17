@@ -137,9 +137,14 @@ const takeCost = () => {
                 name="sufferCost"
                 id="supplyCost"
                 value="supply"
+                :disabled="characterStore.supply == 0"
                 v-model="selectedCost"
               />
-              <label for="supplyCost">Suffer -1 supply</label>
+              <label for="supplyCost"
+                ><span class="disabled" v-if="characterStore.supply == 0"
+                  >Suffer -1 supply: your supply is already at 0</span
+                ><span v-else>Suffer -1 supply</span></label
+              >
             </div>
             <div>
               <input
@@ -149,7 +154,11 @@ const takeCost = () => {
                 value="momentum"
                 v-model="selectedCost"
               />
-              <label for="momentumCost">Suffer -1 momentum</label>
+              <label for="momentumCost"
+                ><span v-if="momentumStore.momentum == momentumStore.minMomentum">
+                  Your momentum is already at minumum. Face a setback instead. </span
+                ><span v-else>Suffer -1 momentum</span></label
+              >
             </div>
           </fieldset>
 
@@ -159,7 +168,7 @@ const takeCost = () => {
               operation="take"
               :amount="2"
               @click="takeCost"
-              :disabled="!selectedCost.length"
+              :disabled="!selectedCost.length || characterStore.health == 0"
             />.
           </p>
         </template>
@@ -173,6 +182,9 @@ const takeCost = () => {
 
 <style>
 .notWounded {
+  color: var(--grey-text);
+}
+.disabled {
   color: var(--grey-text);
 }
 </style>
