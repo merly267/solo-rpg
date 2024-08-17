@@ -60,9 +60,26 @@ h1 {
   }
 }
 
+a {
+  color: var(--app-text);
+  transition: all 0.25s ease-in;
+  &:hover {
+    color: var(--grey-text);
+  }
+}
+
 nav a {
   margin-right: 0.5em;
   color: var(--app-text);
+}
+
+.move {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-variant: all-small-caps;
+  @media (min-width: 768px) {
+    font-size: 1.75rem;
+  }
 }
 
 button {

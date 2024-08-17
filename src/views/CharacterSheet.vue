@@ -42,7 +42,7 @@ const debilitiesStore = useDebilitiesStore()
   </ul>
 </template>
 
-<style>
+<style scoped>
 .debility {
   color: var(--grey-text);
 }

@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .text {
   h2 {
     margin-bottom: 0.5rem;

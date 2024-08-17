@@ -136,3 +136,8 @@ const clearAll = () => {
   <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
   <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />
 </template>
+<style scoped>
+h3 {
+  margin-block-end: 1em;
+}
+</style>

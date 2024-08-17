@@ -14,6 +14,9 @@ import BaseDie from './BaseDie.vue'
 </template>
 
 <style scoped>
+h3 {
+  margin-block-end: 1em;
+}
 .dice {
   margin-top: 0;
   padding: 0;

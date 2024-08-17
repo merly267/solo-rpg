@@ -180,7 +180,7 @@ const takeCost = () => {
   </MoveLayout>
 </template>
 
-<style>
+<style scoped>
 .notWounded {
   color: var(--grey-text);
 }
