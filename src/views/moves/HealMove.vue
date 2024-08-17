@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
+import { useCharacterStore } from '@/stores/CharacterStore'
 import { useDebilitiesStore } from '@/stores/DebilitiesStore'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import ActionMove from '@/components/ActionMove.vue'
@@ -51,6 +52,7 @@ const isWounded = computed(() => {
 
 const selectedCost = ref<AdjustableTrack>('')
 const momentumStore = useMomentumStore()
+const characterStore = useCharacterStore()
 
 const takeCost = () => {
   switch (selectedCost.value) {
@@ -58,7 +60,7 @@ const takeCost = () => {
       momentumStore.loseMomentum(1)
       break
     case 'supply':
-      console.log('lose supply')
+      characterStore.loseSupply(1)
   }
 }
 </script>

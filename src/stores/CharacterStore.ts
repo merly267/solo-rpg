@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
-import { maxHealth } from '@/constants'
+import { maxHealth, maxSupply } from '@/constants'
 
 export const useCharacterStore = defineStore('characterStore', {
   state: () => ({
     name: '',
     health: useLocalStorage('health', 5),
     spirit: 5,
-    supply: 5
+    supply: useLocalStorage('supply', 5)
   }),
   actions: {
     takeHealth(x: number) {
@@ -24,6 +24,22 @@ export const useCharacterStore = defineStore('characterStore', {
         return
       } else {
         this.health -= x
+      }
+    },
+    takeSupply(x: number) {
+      if (this.supply == maxSupply) {
+        return
+      }
+      if (this.supply + x > maxSupply) {
+        return (this.supply = maxSupply)
+      }
+      this.supply += x
+    },
+    loseSupply(x: number) {
+      if (this.supply == 0) {
+        return
+      } else {
+        this.supply -= x
       }
     }
   }

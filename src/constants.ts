@@ -1,6 +1,7 @@
 import type { Debility, ProgressTrack } from '@/types'
 
 export const maxHealth = 5
+export const maxSupply = 5
 
 export const moveTypeList = [
   'Adventure',
