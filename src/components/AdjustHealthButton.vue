@@ -3,13 +3,17 @@ import { useCharacterStore } from '@/stores/CharacterStore'
 import { maxHealth } from '@/constants'
 
 type Operation = 'take' | 'lose'
+type ButtonType = 'submit' | 'button'
 
 type PropTypes = {
   operation: Operation
   amount: number
+  buttonType?: ButtonType
 }
 
-const props = defineProps<PropTypes>()
+const props = withDefaults(defineProps<PropTypes>(), {
+  buttonType: 'button'
+})
 
 const characterStore = useCharacterStore()
 </script>
@@ -17,7 +21,7 @@ const characterStore = useCharacterStore()
 <template>
   <button
     v-if="props.operation == 'take'"
-    type="button"
+    :type="props.buttonType"
     :disabled="characterStore.health == maxHealth"
     @click="characterStore.takeHealth(props.amount)"
   >
@@ -25,7 +29,7 @@ const characterStore = useCharacterStore()
   </button>
   <span v-else-if="props.operation == 'lose'">
     <button
-      type="button"
+      :type="props.buttonType"
       :disabled="characterStore.health == 0"
       @click="characterStore.loseHealth(props.amount)"
     >

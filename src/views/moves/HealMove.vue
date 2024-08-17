@@ -5,6 +5,7 @@ import { useDebilitiesStore } from '@/stores/DebilitiesStore'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustAbility from '@/components/AdjustDebility.vue'
 import AdjustHealthButton from '@/components/AdjustHealthButton.vue'
+import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
@@ -45,6 +46,8 @@ const wounded = debilitiesStore.debilities.find((deb) => deb.name === 'Wounded')
 const isWounded = computed(() => {
   return wounded!.status
 })
+
+let selectedCost = ref<String>('')
 </script>
 
 <template>
@@ -110,10 +113,25 @@ const isWounded = computed(() => {
               >If you (or the ally under your care) have the wounded condition, you may clear it:
               <AdjustAbility operation="Clear" debility="Wounded" />.</span
             >
-            Then, take or give up to +2 health, but you must suffer -1 supply or -1 momentum (your
-            choice).
-            <!-- <AdjustAbility operation="Mark" debility="Wounded" /> -->
           </p>
+          <form>
+            <fieldset>
+              <legend>Then suffer -1 supply or -1 momentum (your choice):</legend>
+              <div>
+                <input type="radio" name="sufferCost" id="supplyCost" value="supply" />
+                <label for="supplyCost">Suffer -1 supply</label>
+              </div>
+              <div>
+                <input type="radio" name="sufferCost" id="momentumCost" value="momentum" />
+                <label for="momentumCost">Suffer -1 momentum</label>
+              </div>
+            </fieldset>
+            <p>
+              and take or give up to +2 health
+              <AdjustHealthButton operation="take" :amount="2" buttonType="submit" />.
+              <!-- <AdjustAbility operation="Mark" debility="Wounded" /> -->
+            </p>
+          </form>
         </template>
         <template v-slot:miss>
           <p>Your aid is ineffective. Pay the Price.</p>
