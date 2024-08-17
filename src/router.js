@@ -32,6 +32,10 @@ export const routes = [
     component: () => import('./views/moves/GatherInformation.vue')
   },
   {
+    path: '/moves/heal',
+    component: () => import('./views/moves/HealMove.vue')
+  },
+  {
     path: '/moves/swear-vow',
     component: () => import('./views/moves/SwearVow.vue')
   },

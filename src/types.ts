@@ -1,4 +1,6 @@
 import type {
+  debilityCategoriesList,
+  debilityOperations,
   moveTypeList,
   outcomeList,
   progressRanksList,
@@ -22,12 +24,8 @@ export type Stat = {
 
 export type Debility = {
   name: string
+  category: DebilityCategory
   status: boolean
-}
-
-export type DebilitiesGroup = {
-  group: string
-  debilitiesList: Debility[]
 }
 
 export type ProgressTrack = {
@@ -69,6 +67,10 @@ export type Move = {
 export type MovesList = {
   [name: string]: Move
 }
+
+export type DebilityCategory = (typeof debilityCategoriesList)[number]
+
+export type DebilityOperation = (typeof debilityOperations)[number]
 
 export type OutcomeList = typeof outcomeList
 

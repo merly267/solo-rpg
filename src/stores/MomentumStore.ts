@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
-import { debilitiesTotal } from '../composables/useCharacterStats'
+import { useDebilitiesStore } from '@/stores/DebilitiesStore'
+
+const debilitiesStore = useDebilitiesStore()
 
 export const useMomentumStore = defineStore('momentumStore', {
   state: () => ({
@@ -10,14 +12,14 @@ export const useMomentumStore = defineStore('momentumStore', {
   }),
   getters: {
     momentumResetValue: (state) => {
-      if (debilitiesTotal.value > 1) {
+      if (debilitiesStore.debilitiesTotal > 1) {
         return 0
-      } else if (debilitiesTotal.value > 0) {
+      } else if (debilitiesStore.debilitiesTotal > 0) {
         return 1
       } else return state.defaultMomentumResetValue
     },
     maxMomentum: () => {
-      return 10 - debilitiesTotal.value
+      return 10 - debilitiesStore.debilitiesTotal
     }
   },
   actions: {
