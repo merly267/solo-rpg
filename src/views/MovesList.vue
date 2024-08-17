@@ -11,7 +11,7 @@ import { movesList } from '@/moves'
   </dl>
 </template>
 
-<style>
+<style scoped>
 dl {
   margin: 0;
 }

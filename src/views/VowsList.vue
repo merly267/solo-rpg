@@ -18,7 +18,7 @@ const move = movesList.swearVow
   <router-link :to="{ path: `/moves/${move.slug}` }" class="move">{{ move.title }}</router-link>
 </template>
 
-<style>
+<style scoped>
 .vow {
   margin-bottom: 2rem;
 }

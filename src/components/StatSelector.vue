@@ -35,7 +35,7 @@ const props = defineProps<PropTypes>()
   </ul>
 </template>
 
-<style>
+<style scoped>
 .chosen {
   font-weight: bold;
 }

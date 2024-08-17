@@ -21,7 +21,7 @@ const translateRank = (level: number) => {
   <ProgressTrack :progress="props.progress" />
 </template>
 
-<style>
+<style scoped>
 h3 {
   margin-bottom: 0;
   &:first-letter {
