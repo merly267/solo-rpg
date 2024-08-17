@@ -73,6 +73,15 @@ nav a {
   color: var(--app-text);
 }
 
+.move {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-variant: all-small-caps;
+  @media (min-width: 768px) {
+    font-size: 1.75rem;
+  }
+}
+
 button {
   font-family: var(--mukta);
   color: var(--app-text);

@@ -3,26 +3,17 @@ import { movesList } from '@/moves'
 </script>
 <template>
   <h2>Moves</h2>
-  <div v-for="(move, index) in movesList" :key="`move-${index}`">
-    <h3>
-      <button @click="$router.push(`/moves/${move.slug}`)">
-        {{ move.title }}
-      </button>
-    </h3>
-    <span class="trigger">{{ move.trigger }}.</span>
-  </div>
+  <dl v-for="(move, index) in movesList" :key="`move-${index}`">
+    <dt>
+      <router-link :to="{ path: `/moves/${move.slug}` }" class="move">{{ move.title }}</router-link>
+    </dt>
+    <dd class="trigger">{{ move.trigger }}.</dd>
+  </dl>
 </template>
 
 <style>
-h3 {
-  margin-bottom: 0;
-}
-h3 button {
-  padding: 0 0.5rem 0.1rem;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  font-variant: all-small-caps;
-  cursor: pointer;
+dl {
+  margin: 0;
 }
 .trigger {
   display: inline-block;
@@ -35,7 +26,7 @@ h3 button {
 }
 
 @media (min-width: 768px) {
-  h3,
+  dt,
   .trigger {
     display: inline;
   }

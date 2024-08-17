@@ -15,8 +15,7 @@ const move = movesList.swearVow
     </div>
   </div>
   <p v-else>Make a background vow</p>
-  <router-link :to="{ path: `/moves/${move.slug}` }">{{ move.title }}</router-link>
-  <!-- `/moves/${move.slug}` -->
+  <router-link :to="{ path: `/moves/${move.slug}` }" class="move">{{ move.title }}</router-link>
 </template>
 
 <style>
