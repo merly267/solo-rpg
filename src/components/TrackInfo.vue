@@ -24,6 +24,9 @@ const translateRank = (level: number) => {
 <style>
 h3 {
   margin-bottom: 0;
+  &:first-letter {
+    text-transform: uppercase;
+  }
 }
 p.rank {
   margin: 0.5rem 0;

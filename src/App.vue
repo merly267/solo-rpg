@@ -60,6 +60,14 @@ h1 {
   }
 }
 
+a {
+  color: var(--app-text);
+  transition: all 0.25s ease-in;
+  &:hover {
+    color: var(--grey-text);
+  }
+}
+
 nav a {
   margin-right: 0.5em;
   color: var(--app-text);
