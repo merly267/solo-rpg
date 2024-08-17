@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
+import AdjustSupplyButton from '@/components/AdjustSupplyButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
@@ -93,7 +94,7 @@ const moveAdds = 0
               </li>
               <li>You are tired or hurt: Endure Harm (1 harm).</li>
               <li>You are dispirited or afraid: Endure Stress (1 stress).</li>
-              <li>You sacrifice resources: Suffer -1 supply</li>
+              <li>You sacrifice resources: <AdjustSupplyButton operation="suffer" :amount="1" /></li>
             </ul>
             
           </p>
