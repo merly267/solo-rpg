@@ -17,6 +17,13 @@ const noVow = computed(() => {
   return true
 })
 
+const oneVow = computed(() => {
+  if (progressTrackStore.vows.length === 1) {
+    return false
+  }
+  return true
+})
+
 const selectedVowUuid = ref(progressTrackStore.lastTouchedVow)
 
 const selectedVow = computed(() => {
@@ -47,13 +54,20 @@ const makeMove = () => {
           {{ swearMove.title }}
         </button>
       </div>
-      <div v-else>
-        <label for="vow-select">Choose a vow:</label>
-        <select name="vows" id="vow-select" v-model="selectedVowUuid" @change="setLastTouched">
-          <option v-for="vow in progressTrackStore.vows" :key="`vow-${vow.uuid}`" :value="vow.uuid">
-            {{ vow.name }}
-          </option>
-        </select>
+      <div>
+        <div v-if="oneVow">
+          <label for="vow-select">Choose a vow:</label>
+          <select name="vows" id="vow-select" v-model="selectedVowUuid" @change="setLastTouched">
+            <option
+              v-for="vow in progressTrackStore.vows"
+              :key="`vow-${vow.uuid}`"
+              :value="vow.uuid"
+            >
+              {{ vow.name }}
+            </option>
+          </select>
+        </div>
+
         <div v-if="selectedVow">
           <TrackInfo
             :name="selectedVow.name"
