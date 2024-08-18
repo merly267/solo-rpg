@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ProgressMove from '@/components/ProgressMove.vue'
-import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
+import AdjustExperienceButton from '@/components/AdjustExperienceButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
@@ -50,11 +50,19 @@ const moveMade = ref(false)
 const makeMove = () => {
   moveMade.value = true
 }
+
+const fullExperience = computed(() => {
+  if (selectedVow.value) {
+    return selectedVow.value.rank
+  }
+  return 0
+})
 </script>
 <template>
   <MoveLayout>
     <template #text>
       <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove">
+        calculateFullExperience: <pre>{{ fullExperience }}</pre>
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.
@@ -90,8 +98,7 @@ const makeMove = () => {
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
-            Your quest is complete. Mark experience (troublesome=1; dangerous=2; formidable=3;
-            extreme=4; epic=5).
+            Your quest is complete. <AdjustExperienceButton operation="mark" :amount="fullExperience" />
           </p>
         </template>
         <template v-slot:weak>
