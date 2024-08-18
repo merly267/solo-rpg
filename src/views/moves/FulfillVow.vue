@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ProgressMove from '@/components/ProgressMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
-import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
@@ -43,7 +41,7 @@ const setLastTouched = (event: Event) => {
 <template>
   <MoveLayout>
     <template #text>
-      <ProgressMove :title="move.title">
+      <ProgressMove :title="move.title" :progressScore="8">
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.
@@ -74,6 +72,31 @@ const setLastTouched = (event: Event) => {
           />
         </div>
       </ProgressMove>
+    </template>
+    <template #outcome>
+      <MoveOutcome>
+        <template v-slot:strong>
+          <p>
+            You discover something helpful and specific. The path you must follow or action you must
+            take to make progress is made clear. Envision what you learn (Ask the Oracle if unsure),
+            and
+            <AdjustMomentumButton operation="adds" :amount="2" />.
+          </p>
+        </template>
+        <template v-slot:weak>
+          <p>
+            The information complicates your quest or introduces a new danger. Envision what you
+            discover (Ask the Oracle if unsure), and
+            <AdjustMomentumButton operation="adds" :amount="1" />.
+          </p>
+        </template>
+        <template v-slot:miss>
+          <p>
+            Your investigation unearths a dire threat or reveals an unwelcome truth that undermines
+            your quest. Pay the Price.
+          </p>
+        </template>
+      </MoveOutcome>
     </template>
   </MoveLayout>
 </template>
