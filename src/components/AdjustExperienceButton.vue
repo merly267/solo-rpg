@@ -18,7 +18,7 @@ const experienceStore = useExperienceStore()
   <button
     v-if="props.operation == 'mark'"
     type="button"
-    :disabled="props.disabled"
+    :disabled="props.disabled || props.amount == 0"
     @click="experienceStore.markExperience(props.amount)"
   >
     Mark {{ props.amount }} experience

@@ -104,8 +104,7 @@ const fullExperience = computed(() => {
         <template v-slot:weak>
           <p>
             There is more to be done or you realize the truth of your quest. Envision what you
-            discover (Ask the Oracle if unsure). Then, mark experience (troublesome=0; dangerous=1;
-            formidable=2; extreme=3; epic=4). You may
+            discover (Ask the Oracle if unsure). Then, <AdjustExperienceButton operation="mark" :amount="fullExperience - 1" />. You may
             <button @click="$router.push(`/moves/${swearMove.slug}`)">
               {{ swearMove.title }}
             </button>
