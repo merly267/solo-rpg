@@ -17,8 +17,8 @@ const noVow = computed(() => {
   return true
 })
 
-const oneVow = computed(() => {
-  if (progressTrackStore.vows.length === 1) {
+const multipleVows = computed(() => {
+  if (progressTrackStore.vows.length <= 1) {
     return false
   }
   return true
@@ -55,7 +55,7 @@ const makeMove = () => {
         </button>
       </div>
       <div>
-        <div v-if="oneVow">
+        <div v-if="multipleVows">
           <label for="vow-select">Choose a vow:</label>
           <select name="vows" id="vow-select" v-model="selectedVowUuid" @change="setLastTouched">
             <option
