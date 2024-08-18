@@ -23,6 +23,16 @@ const momentumForSupplyCost = ref<number>(2)
 const payMomentumforSupply = () => {
   characterStore.takeSupply(momentumForSupplyCost.value)
 }
+
+const moveMade = ref(false)
+
+const makeMove = () => {
+  moveMade.value = true
+}
+
+const clearMove = () => {
+  moveMade.value = false
+}
 </script>
 
 <template>
@@ -33,6 +43,8 @@ const payMomentumforSupply = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        @makeMove="makeMove"
+        @clearMove="clearMove"
       >
         <p>
           When you <strong>{{ move.trigger }}</strong
@@ -41,7 +53,7 @@ const payMomentumforSupply = () => {
       </ActionMove>
     </template>
     <template #outcome>
-      <MoveOutcome>
+      <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
             You bolster your resources.

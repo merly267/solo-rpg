@@ -63,6 +63,17 @@ const takeCost = () => {
       characterStore.loseSupply(1)
   }
 }
+
+const moveMade = ref(false)
+
+const makeMove = () => {
+  moveMade.value = true
+}
+
+const clearMove = () => {
+  selectedStatName.value = ''
+  moveMade.value = false
+}
 </script>
 
 <template>
@@ -74,6 +85,8 @@ const takeCost = () => {
         :stat="selectedStat.score"
         :adds="moveAdds"
         :disabled="!selectedStatName.length"
+        @makeMove="makeMove"
+        @clearMove="clearMove"
       >
         <fieldset v-if="healOtherStat && healSelfAltStat && healSelfStat">
           <div>
@@ -109,7 +122,7 @@ const takeCost = () => {
       </ActionMove>
     </template>
     <template #outcome>
-      <MoveOutcome>
+      <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
             Your care is helpful.

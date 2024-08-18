@@ -37,11 +37,17 @@ const setLastTouched = (event: Event) => {
   const target = event.target as HTMLInputElement
   progressTrackStore.setLastTouched(target.value)
 }
+
+const moveMade = ref(false)
+
+const makeMove = () => {
+  moveMade.value = true
+}
 </script>
 <template>
   <MoveLayout>
     <template #text>
-      <ProgressMove :title="move.title" :progressScore="8">
+      <ProgressMove :title="move.title" :progressScore="8" @makeMove="makeMove">
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.
@@ -74,7 +80,7 @@ const setLastTouched = (event: Event) => {
       </ProgressMove>
     </template>
     <template #outcome>
-      <MoveOutcome>
+      <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
             You discover something helpful and specific. The path you must follow or action you must

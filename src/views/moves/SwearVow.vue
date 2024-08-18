@@ -26,10 +26,6 @@ const moveAdds = computed(() => {
   return 0
 })
 
-const clearMove = () => {
-  bondAadds.value = false
-}
-
 const progressTrackStore = useProgressTrackStore()
 
 const noVow = computed(() => {
@@ -39,8 +35,16 @@ const noVow = computed(() => {
   return true
 })
 
+const moveMade = ref(false)
+
 const makeMove = () => {
   progressTrackStore.addVow(progressTrackType)
+  moveMade.value = true
+}
+
+const clearMove = () => {
+  bondAadds.value = false
+  moveMade.value = false
 }
 </script>
 <template>
@@ -68,7 +72,7 @@ const makeMove = () => {
       </ActionMove>
     </template>
     <template #outcome>
-      <MoveOutcome>
+      <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
             You are emboldened and it is clear what you must do next (Ask the Oracle if unsure).
