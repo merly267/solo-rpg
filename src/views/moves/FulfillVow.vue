@@ -7,6 +7,7 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
+import type { Outcome } from '@/types'
 
 const move = movesList.fulfillVow
 const swearMove = movesList.swearVow
@@ -51,6 +52,11 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const moveOutcomeRef = ref<Outcome | null>(null)
+
+const moveOutcome = computed(() => moveOutcomeRef.value?.outcome)
+
+
 const fullExperience = computed(() => {
   if (selectedVow.value) {
     return selectedVow.value.rank
@@ -62,7 +68,7 @@ const fullExperience = computed(() => {
   <MoveLayout>
     <template #text>
       <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove">
-        calculateFullExperience: <pre>{{ fullExperience }}</pre>
+        outcome: <pre>{{ moveOutcome }}</pre>
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.
@@ -95,7 +101,7 @@ const fullExperience = computed(() => {
       </ProgressMove>
     </template>
     <template #outcome>
-      <MoveOutcome v-if="moveMade">
+      <MoveOutcome v-if="moveMade" ref="moveOutcomeRef">
         <template v-slot:strong>
           <p>
             Your quest is complete. <AdjustExperienceButton operation="mark" :amount="fullExperience" />

@@ -20,6 +20,9 @@ const outcome = computed(() => {
   }
   return null
 })
+
+defineExpose({ outcome })
+
 const match = computed(() => {
   if (challengeDice.value[0].result) {
     const toMatch = challengeDice.value[0].result

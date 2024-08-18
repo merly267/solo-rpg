@@ -3,6 +3,7 @@ import type {
   debilityOperations,
   moveTypeList,
   outcomeList,
+  outcomeResultsList,
   progressRanksList,
   progressTrackStatusList,
   progressTrackTypesList,
@@ -69,11 +70,17 @@ export type MovesList = {
   [name: string]: Move
 }
 
+export type Outcome = {
+  outcome: OutcomeResult
+}
+
 export type DebilityCategory = (typeof debilityCategoriesList)[number]
 
 export type DebilityOperation = (typeof debilityOperations)[number]
 
 export type OutcomeList = typeof outcomeList
+
+export type OutcomeResult = (typeof outcomeResultsList)[number]
 
 export type ProgressRank = (typeof progressRanksList)[number]
 
