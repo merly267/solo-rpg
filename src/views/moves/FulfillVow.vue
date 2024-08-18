@@ -47,7 +47,7 @@ const makeMove = () => {
 <template>
   <MoveLayout>
     <template #text>
-      <ProgressMove :title="move.title" :progressScore="8" @makeMove="makeMove">
+      <ProgressMove :title="move.title" :progressScore="5" @makeMove="makeMove">
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.
@@ -83,23 +83,28 @@ const makeMove = () => {
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
-            You discover something helpful and specific. The path you must follow or action you must
-            take to make progress is made clear. Envision what you learn (Ask the Oracle if unsure),
-            and
-            <AdjustMomentumButton operation="adds" :amount="2" />.
+            Your quest is complete. Mark experience (troublesome=1; dangerous=2; formidable=3;
+            extreme=4; epic=5).
           </p>
         </template>
         <template v-slot:weak>
           <p>
-            The information complicates your quest or introduces a new danger. Envision what you
-            discover (Ask the Oracle if unsure), and
-            <AdjustMomentumButton operation="adds" :amount="1" />.
+            There is more to be done or you realize the truth of your quest. Envision what you
+            discover (Ask the Oracle if unsure). Then, mark experience (troublesome=0; dangerous=1;
+            formidable=2; extreme=3; epic=4). You may
+            <button @click="$router.push(`/moves/${swearMove.slug}`)">
+              {{ swearMove.title }}
+            </button>
+            to set things right. If you do, add +1.
           </p>
         </template>
         <template v-slot:miss>
           <p>
-            Your investigation unearths a dire threat or reveals an unwelcome truth that undermines
-            your quest. Pay the Price.
+            Your quest is undone. Envision what happens (Ask the Oracle if unsure), and choose one:
+            <ul>
+              <li>You recommit: Clear all but one filled progress, and raise the quest’s rank by one (if not already epic).</li>
+              <li>You give up: Forsake Your Vow</li>
+            </ul>
           </p>
         </template>
       </MoveOutcome>
