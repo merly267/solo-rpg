@@ -6,6 +6,7 @@ type Operation = 'adds' | 'subtracts'
 type PropTypes = {
   operation: Operation
   amount: number
+  disabled?: boolean
 }
 
 const props = defineProps<PropTypes>()
@@ -25,7 +26,7 @@ const momentumStore = useMomentumStore()
   <span v-else-if="props.operation == 'subtracts'">
     <button
       type="button"
-      :disabled="momentumStore.momentum == momentumStore.minMomentum"
+      :disabled="props.disabled || momentumStore.momentum == momentumStore.minMomentum"
       @click="momentumStore.loseMomentum(props.amount)"
     >
       Suffer -{{ props.amount }} momentum

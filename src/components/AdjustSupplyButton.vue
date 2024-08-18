@@ -7,6 +7,7 @@ type Operation = 'take' | 'suffer'
 type PropTypes = {
   operation: Operation
   amount: number
+  disabled?: boolean
 }
 
 const props = defineProps<PropTypes>()
@@ -18,7 +19,7 @@ const characterStore = useCharacterStore()
   <button
     v-if="props.operation == 'take'"
     type="button"
-    :disabled="characterStore.supply == maxSupply"
+    :disabled="props.disabled || characterStore.supply == maxSupply"
     @click="characterStore.takeSupply(props.amount)"
   >
     Take +{{ props.amount }} supply
@@ -26,7 +27,7 @@ const characterStore = useCharacterStore()
   <span v-else-if="props.operation == 'suffer'">
     <button
       type="button"
-      :disabled="characterStore.supply == 0"
+      :disabled="props.disabled || characterStore.supply == 0"
       @click="characterStore.loseSupply(props.amount)"
     >
       Suffer -{{ props.amount }} supply
