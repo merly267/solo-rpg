@@ -38,9 +38,16 @@ export const movesList: MovesList = {
     trigger: 'swear upon iron to complete a quest'
   },
   reachMilestone: {
-    title: 'Reach a milestone',
+    title: 'Reach a Milestone',
     slug: 'reach-milestone',
     moveType: 'Quest',
     trigger: 'make significant progress in your quest'
+  },
+  fulfillVow: {
+    title: 'Fulfill Your Vow',
+    slug: 'fulfill-vow',
+    moveType: 'Quest',
+    trigger: 'achieve what you believe to be the fulfillment of your vow',
+    progress: true
   }
 }

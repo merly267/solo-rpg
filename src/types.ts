@@ -61,6 +61,7 @@ export type Move = {
   title: string
   slug: string
   moveType: MoveType
+  progress?: boolean
   trigger?: string
 }
 
