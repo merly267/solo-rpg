@@ -8,7 +8,7 @@ type PropTypes = {
 const props = defineProps<PropTypes>()
 </script>
 <template>
-  <span v-if="props.die.cancelled" class="die cancelled">x</span>
+  <span v-if="props.die.cancelled" class="die cancelled"><span class="number">x</span></span>
   <span
     v-else-if="props.die.result"
     class="die rolled"
@@ -17,13 +17,14 @@ const props = defineProps<PropTypes>()
       failure: props.die.isSuccess === false,
       cancellable: props.die.isCancellable === true
     }"
-    >{{ props.die.result }}</span
+    ><span class="number">{{ props.die.result }}</span></span
   >
-  <span v-else class="die">?</span>
+  <span v-else class="die"><span class="number">?</span></span>
 </template>
 
 <style scoped>
 .die {
+  position: relative;
   display: inline-block;
   height: var(--die-size);
   width: var(--die-size);
@@ -31,12 +32,29 @@ const props = defineProps<PropTypes>()
   line-height: var(--die-size);
   font-weight: bold;
   color: var(--die-text);
-  background-color: var(--die-bg);
-  border-radius: 2px;
+  &::after {
+    content: '';
+    position: absolute;
+    height: var(--die-size);
+    width: var(--die-size);
+    left: 0;
+    background-color: var(--die-bg);
+    border-radius: 2px;
+    z-index: 0;
+  }
+}
+
+.die .number {
+  position: relative;
+  z-index: 1;
 }
 
 .dice li .die {
   margin-left: 0.5em;
+}
+
+.challenge .dice li .die {
+  margin-left: 1rem;
 }
 
 .dice li:first-of-type .die {
@@ -44,27 +62,36 @@ const props = defineProps<PropTypes>()
 }
 
 .die.rolled {
-  background-color: var(--rolled-bg);
   color: var(--app-bg);
+  &::after {
+    background-color: var(--rolled-bg);
+  }
+}
+
+.challenge .die:after {
+  transform: skew(4deg, 4deg);
+  rotate: 45deg;
 }
 
 .challenge .die.rolled {
   color: var(--app-text);
 }
 
-.challenge .success {
+.challenge .die.success:after {
   background-color: var(--success-bg);
 }
 
-.challenge .failure {
+.challenge .die.failure:after {
   background-color: var(--failure-bg);
 }
 
-.cancellable.failure {
+.cancellable.failure:after {
+  top: -2px;
+  left: -2px;
   border: 2px solid var(--app-text);
 }
 
-.die.cancelled {
+.die.cancelled:after {
   background-color: var(--die-bg);
 }
 </style>
