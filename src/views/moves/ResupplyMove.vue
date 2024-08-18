@@ -65,6 +65,7 @@ const payMomentumforSupply = () => {
             <AdjustMomentumButton
               operation="subtracts"
               :amount="momentumForSupplyCost"
+              :disabled="momentumForSupplyCost == 0"
               @click="payMomentumforSupply"
             />
           </p>
