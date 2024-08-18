@@ -8,6 +8,7 @@ type ButtonType = 'submit' | 'button'
 type PropTypes = {
   operation: Operation
   amount: number
+  disabled?: boolean
   buttonType?: ButtonType
 }
 
@@ -22,7 +23,7 @@ const characterStore = useCharacterStore()
   <button
     v-if="props.operation == 'take'"
     :type="props.buttonType"
-    :disabled="characterStore.health == maxHealth"
+    :disabled="props.disabled || characterStore.health == maxHealth"
     @click="characterStore.takeHealth(props.amount)"
   >
     Take +{{ props.amount }} health
@@ -30,7 +31,7 @@ const characterStore = useCharacterStore()
   <span v-else-if="props.operation == 'lose'">
     <button
       :type="props.buttonType"
-      :disabled="characterStore.health == 0"
+      :disabled="props.disabled || characterStore.health == 0"
       @click="characterStore.loseHealth(props.amount)"
     >
       Lose -{{ props.amount }} health

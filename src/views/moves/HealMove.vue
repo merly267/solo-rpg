@@ -152,10 +152,11 @@ const takeCost = () => {
                 name="sufferCost"
                 id="momentumCost"
                 value="momentum"
+                :disabled="momentumStore.momentum == momentumStore.minMomentum"
                 v-model="selectedCost"
               />
               <label for="momentumCost"
-                ><span v-if="momentumStore.momentum == momentumStore.minMomentum">
+                ><span v-if="momentumStore.momentum == momentumStore.minMomentum" class="disabled">
                   Your momentum is already at minumum. Face a setback instead. </span
                 ><span v-else>Suffer -1 momentum</span></label
               >
@@ -168,7 +169,7 @@ const takeCost = () => {
               operation="take"
               :amount="2"
               @click="takeCost"
-              :disabled="!selectedCost.length || characterStore.health == 0"
+              :disabled="!selectedCost.length"
             />.
           </p>
         </template>
