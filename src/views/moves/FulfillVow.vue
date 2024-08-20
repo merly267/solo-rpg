@@ -72,8 +72,6 @@ const fullExperience = computed(() => {
   <MoveLayout>
     <template #text>
       <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove">
-        outcome: <pre>{{ moveOutcome }}</pre>
-        <pre>{{ progressTrackStore.vows }}</pre>
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.
