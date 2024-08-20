@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { backgroundVow, character, experience } from '@/composables/useCharacterStats'
+import { backgroundVow, character } from '@/composables/useCharacterStats'
 import StatsList from '@/components/StatsList.vue'
 import { useCharacterStore } from '@/stores/CharacterStore'
+import { useExperienceStore } from '@/stores/ExperienceStore'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import { useDebilitiesStore } from '@/stores/DebilitiesStore'
 import { debilityCategoriesList } from '@/constants'
 
 const characterStore = useCharacterStore()
+const experienceStore = useExperienceStore()
 const momentumStore = useMomentumStore()
 const debilitiesStore = useDebilitiesStore()
 </script>
@@ -14,7 +16,7 @@ const debilitiesStore = useDebilitiesStore()
 <template>
   <h2>{{ character.name }}</h2>
   <input v-model="character.name" type="text" />
-  <p>Experience: {{ experience }}</p>
+  <p>Experience: {{ experienceStore.experience }}</p>
   <p v-if="backgroundVow">Vows: {{ backgroundVow }}</p>
   <p v-else>Make a background vow</p>
   <StatsList />

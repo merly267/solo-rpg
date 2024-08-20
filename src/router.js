@@ -46,5 +46,9 @@ export const routes = [
   {
     path: '/moves/reach-milestone',
     component: () => import('./views/moves/ReachMilestone.vue')
+  },
+  {
+    path: '/moves/fulfill-vow',
+    component: () => import('./views/moves/FulfillVow.vue')
   }
 ]

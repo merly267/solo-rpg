@@ -44,11 +44,18 @@ const annotatedStatList = statsList.value.map((stat) => ({
   instructions: matchInstruction(stat.name)
 }))
 
-const clearMove = () => {
-  selectedStatName.value = ''
+const moveAdds = 0
+
+const moveMade = ref(false)
+
+const makeMove = () => {
+  moveMade.value = true
 }
 
-const moveAdds = 0
+const clearMove = () => {
+  selectedStatName.value = ''
+  moveMade.value = false
+}
 
 </script>
 
@@ -61,6 +68,7 @@ const moveAdds = 0
         :stat="selectedStat.score"
         :adds="moveAdds"
         :disabled="!selectedStatName.length"
+        @makeMove="makeMove"
         @clearMove="clearMove"
       >
         <p>
@@ -77,7 +85,7 @@ const moveAdds = 0
       </ActionMove>
     </template>
     <template #outcome>
-      <MoveOutcome>
+      <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
             You are successful.

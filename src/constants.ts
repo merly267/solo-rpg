@@ -33,6 +33,8 @@ export const outcomeList = {
   }
 } as const
 
+export const outcomeResultsList = ['Strong hit', 'Weak hit', 'Miss'] as const
+
 export const progressRanksList = [
   {
     name: 'Troublesome',

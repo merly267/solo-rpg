@@ -20,8 +20,15 @@ const moveAdds = computed(() => {
   return bondAadds.value ? 1 : 0
 })
 
+const moveMade = ref(false)
+
+const makeMove = () => {
+  moveMade.value = true
+}
+
 const clearMove = () => {
   bondAadds.value = false
+  moveMade.value = false
 }
 </script>
 
@@ -33,6 +40,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        @makeMove="makeMove"
         @clearMove="clearMove"
       >
         <p>
@@ -48,7 +56,7 @@ const clearMove = () => {
       </ActionMove>
     </template>
     <template #outcome>
-      <MoveOutcome>
+      <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
             You discover something helpful and specific. The path you must follow or action you must

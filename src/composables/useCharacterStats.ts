@@ -38,6 +38,4 @@ export const stats = ref<Stat[]>([
   }
 ])
 
-export const experience = ref(0)
-
 export const backgroundVow = ref('')

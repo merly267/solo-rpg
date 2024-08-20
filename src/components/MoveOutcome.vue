@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { actionDie, challengeDice } from '@/composables/useDiceStore'
+import { challengeDice } from '@/composables/useDiceStore'
 import { outcomeList } from '@/constants'
 
 const outcomes = outcomeList
@@ -10,20 +10,19 @@ const failures = computed(() => {
 })
 
 const outcome = computed(() => {
-  if (actionDie.value.result) {
-    switch (failures.value.length) {
-      case 0:
-        return outcomes.strong.label
-      case 1:
-        return outcomes.weak.label
-      case 2:
-        return outcomes.miss.label
-    }
-    return null
-  } else {
-    return null
+  switch (failures.value.length) {
+    case 0:
+      return outcomes.strong.label
+    case 1:
+      return outcomes.weak.label
+    case 2:
+      return outcomes.miss.label
   }
+  return null
 })
+
+defineExpose({ outcome })
+
 const match = computed(() => {
   if (challengeDice.value[0].result) {
     const toMatch = challengeDice.value[0].result
@@ -43,7 +42,7 @@ const match = computed(() => {
 })
 </script>
 <template>
-  <div v-if="actionDie.result">
+  <div>
     <h3>{{ outcome }}{{ match }}</h3>
     <slot name="strong" v-if="failures.length == 0"></slot>
     <slot name="weak" v-if="failures.length == 1"></slot>

@@ -31,6 +31,18 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     clearNewTrack() {
       Object.assign(this.newTrack, newProgressTrack)
     },
+    markComplete(selectedUuid: string) {
+      const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
+      if (selectedVow) {
+        selectedVow.status = 'Complete'
+      }
+    },
+    resetStatus(selectedUuid: string) {
+      const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
+      if (selectedVow) {
+        selectedVow.status = 'In progress'
+      }
+    },
     markProgress(selectedUuid: string) {
       const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
       if (selectedVow) {
