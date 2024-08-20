@@ -49,6 +49,10 @@ const setLastTouched = (event: Event) => {
 const moveMade = ref(false)
 
 const makeMove = () => {
+  // progressTrackStore.resetStatus(selectedVowUuid.value)
+  if (moveOutcome.value === 'Strong hit' || moveOutcome.value === 'Weak hit'){
+    progressTrackStore.markComplete(selectedVowUuid.value)
+  }
   moveMade.value = true
 }
 
@@ -69,6 +73,7 @@ const fullExperience = computed(() => {
     <template #text>
       <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove">
         outcome: <pre>{{ moveOutcome }}</pre>
+        <pre>{{ progressTrackStore.vows }}</pre>
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.

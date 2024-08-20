@@ -16,7 +16,6 @@ const makeMove = () => {
 }
 
 const rollAllDice = () => {
-  console.log('rolled')
   clearAllDice()
   challengeDice.value.forEach((die) => roll(die))
   checkSuccess()
