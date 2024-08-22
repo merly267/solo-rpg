@@ -61,42 +61,52 @@ export const progressRanksList = [
 export const impactDefaults: Impact[] = [
   {
     name: 'Wounded',
-    category: 'Conditions',
+    category: 'Misfortunes',
     status: false
   },
   {
     name: 'Shaken',
-    category: 'Conditions',
+    category: 'Misfortunes',
     status: false
   },
   {
     name: 'Unprepared',
-    category: 'Conditions',
+    category: 'Misfortunes',
     status: false
   },
   {
-    name: 'Encumbered',
-    category: 'Conditions',
-    status: false
-  },
-  {
-    name: 'Maimed',
-    category: 'Banes',
-    status: false
-  },
-  {
-    name: 'Corrupted',
-    category: 'Banes',
+    name: 'Battered',
+    category: 'Vehicle Troubles',
     status: false
   },
   {
     name: 'Cursed',
+    category: 'Vehicle Troubles',
+    status: false
+  },
+  {
+    name: 'Doomed',
     category: 'Burdens',
     status: false
   },
   {
     name: 'Tormented',
     category: 'Burdens',
+    status: false
+  },
+  {
+    name: 'Indebted',
+    category: 'Burdens',
+    status: false
+  },
+  {
+    name: 'Permanently Harmed',
+    category: 'Lasting Effects',
+    status: false
+  },
+  {
+    name: 'Traumatized',
+    category: 'Lasting Effects',
     status: false
   }
 ] as const
@@ -107,6 +117,12 @@ export const progressTrackStatusList = ['In progress', 'Full', 'Complete', 'Fors
 
 export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const
 
-export const impactCategoriesList = ['Conditions', 'Banes', 'Burdens', 'Other'] as const
+export const impactCategoriesList = [
+  'Misfortunes',
+  'Vehicle Troubles',
+  'Burdens',
+  'Lasting Effects',
+  'Other'
+] as const
 
 export const impactOperations = ['Mark', 'Clear'] as const
