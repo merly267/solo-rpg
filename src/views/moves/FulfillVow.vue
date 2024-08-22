@@ -74,7 +74,7 @@ const fullExperience = computed(() => {
       <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove">
         <p>
           When you <strong>{{ move.trigger }}</strong
-          >, roll the challenge dice and compare to your progress. Momentum is ignored on this roll.
+          >, roll the challenge dice and compare to your progress.
         </p>
         <div v-if="noVow">
           First you must
@@ -107,25 +107,21 @@ const fullExperience = computed(() => {
       <MoveOutcome v-if="moveMade" ref="moveOutcomeRef">
         <template v-slot:strong>
           <p>
-            Your quest is complete. <AdjustExperienceButton operation="mark" :amount="fullExperience" />
+            Your vow is fulfilled. Mark a reward on your quests legacy track per the vow's rank.
           </p>
         </template>
         <template v-slot:weak>
           <p>
-            There is more to be done or you realize the truth of your quest. Envision what you
-            discover (Ask the Oracle if unsure). Then, <AdjustExperienceButton operation="mark" :amount="fullExperience - 1" />. You may
-            <button @click="$router.push(`/moves/${swearMove.slug}`)">
-              {{ swearMove.title }}
-            </button>
-            to set things right. If you do, add +1.
+            Your vow is fulfilled, but there is more to be done or you realize the truth of your quest. If you <router-link :to="{ path: `/moves/${swearMove.slug}` }">{{ swearMove.title }}</router-link> to set things right, take your full legacy reward. Otherwise, make the legacy reward one rank lower (none for a troublesome quest).
           </p>
         </template>
         <template v-slot:miss>
           <p>
-            Your quest is undone. Envision what happens (Ask the Oracle if unsure), and choose one:
+            Your vow is undone through an unexpected complication or realization. Envision what happens and choose one:
             <ul>
-              <li>You recommit: Clear all but one filled progress, and raise the quest’s rank by one (if not already epic).</li>
-              <li>You give up: Forsake Your Vow</li>
+              <li>Give up on the quest: Forsake Your Vow</li>
+              <li>Recommit to the quest: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the vow's rank by one (if not already epic).</li>
+              
             </ul>
           </p>
         </template>

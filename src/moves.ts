@@ -47,7 +47,7 @@ export const movesList: MovesList = {
     title: 'Fulfill Your Vow',
     slug: 'fulfill-vow',
     moveType: 'Quest',
-    trigger: 'achieve what you believe to be the fulfillment of your vow',
+    trigger: 'reach the end of your quest',
     progress: true
   }
 }
