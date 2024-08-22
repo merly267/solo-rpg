@@ -20,7 +20,7 @@ const props = defineProps<PropTypes>()
 const stashedStore = usestashedAddstore()
 
 const moveAdds = computed(() => {
-  return props.adds ? stashedStore.selected + 1 : stashedStore.selected
+  return props.adds ? Number(stashedStore.selected) + Number(props.adds) : stashedStore.selected
 })
 
 const momentumStore = useMomentumStore()

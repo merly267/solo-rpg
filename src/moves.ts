@@ -35,7 +35,7 @@ export const movesList: MovesList = {
     title: 'Swear an Iron Vow',
     slug: 'swear-vow',
     moveType: 'Quest',
-    trigger: 'swear upon iron to complete a quest'
+    trigger: 'swear to complete a quest'
   },
   reachMilestone: {
     title: 'Reach a Milestone',

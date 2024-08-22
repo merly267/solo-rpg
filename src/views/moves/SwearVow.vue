@@ -18,10 +18,11 @@ const statForMove: StatName = 'Heart'
 
 const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
 
-const bondAadds = ref(false)
+const connectionAdds = ref(0)
+
 const moveAdds = computed(() => {
-  if (bondAadds.value) {
-    return 1
+  if (connectionAdds.value) {
+    return connectionAdds.value
   }
   return 0
 })
@@ -43,7 +44,7 @@ const makeMove = () => {
 }
 
 const clearMove = () => {
-  bondAadds.value = false
+  connectionAdds.value = 0
   moveMade.value = false
 }
 </script>
@@ -65,17 +66,35 @@ const clearMove = () => {
         </p>
         <CreateProgressTrack :type="progressTrackType" />
         <p>Then, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).</p>
-        <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
-        <label for="bondAadds"
-          >If you make this vow to a person or community with whom you share a bond, add +1.</label
-        >
+        <fieldset>
+          <div>
+            <input
+              type="radio"
+              name="connectionAdds"
+              id="connection"
+              value="1"
+              v-model="connectionAdds"
+            />
+            <label for="connection">If you swear this vow to a connection, add +1.</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="connectionAdds"
+              id="bond"
+              value="2"
+              v-model="connectionAdds"
+            />
+            <label for="bond">If you share a bond, add +2.</label>
+          </div>
+        </fieldset>
       </ActionMove>
     </template>
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
-            You are emboldened and it is clear what you must do next (Ask the Oracle if unsure).
+            You are emboldened and it is clear what you must do next.
             <AdjustMomentumButton operation="adds" :amount="2" />.
           </p>
         </template>
@@ -88,16 +107,9 @@ const clearMove = () => {
         </template>
         <template v-slot:miss>
           <p>
-            You face a significant obstacle before you can begin your quest. Envision what stands in
-            your way (Ask the Oracle if unsure), and choose one:
+            You must overcome a significant obstacle before you begin your quest. Envision what
+            stands in your way.
           </p>
-          <ul>
-            <li>
-              You press on: <AdjustMomentumButton operation="subtracts" :amount="2" />, and do what
-              you must to overcome this obstacle.
-            </li>
-            <li>You give up: Forsake Your Vow.</li>
-          </ul>
         </template>
       </MoveOutcome>
     </template>
