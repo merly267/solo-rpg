@@ -1,4 +1,4 @@
-import type { Debility, ProgressTrack } from '@/types'
+import type { Impact, ProgressTrack } from '@/types'
 
 export const maxHealth = 5
 export const maxSupply = 5
@@ -58,7 +58,7 @@ export const progressRanksList = [
   }
 ] as const
 
-export const debilityDefaults: Debility[] = [
+export const impactDefaults: Impact[] = [
   {
     name: 'Wounded',
     category: 'Conditions',
@@ -107,6 +107,6 @@ export const progressTrackStatusList = ['In progress', 'Full', 'Complete', 'Fors
 
 export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const
 
-export const debilityCategoriesList = ['Conditions', 'Banes', 'Burdens', 'Other'] as const
+export const impactCategoriesList = ['Conditions', 'Banes', 'Burdens', 'Other'] as const
 
-export const debilityOperations = ['Mark', 'Clear'] as const
+export const impactOperations = ['Mark', 'Clear'] as const

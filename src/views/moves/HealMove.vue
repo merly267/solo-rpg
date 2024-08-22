@@ -2,10 +2,10 @@
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useCharacterStore } from '@/stores/CharacterStore'
-import { useDebilitiesStore } from '@/stores/DebilitiesStore'
+import { useImpactsStore } from '@/stores/ImpactsStore'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import ActionMove from '@/components/ActionMove.vue'
-import AdjustDebility from '@/components/AdjustDebility.vue'
+import AdjustImpact from '@/components/AdjustImpact.vue'
 import AdjustHealthButton from '@/components/AdjustHealthButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
@@ -42,9 +42,9 @@ const healSelfStat =
 
 const moveAdds = 0
 
-const debilitiesStore = useDebilitiesStore()
+const impactsStore = useImpactsStore()
 
-const wounded = debilitiesStore.debilities.find((deb) => deb.name === 'Wounded')
+const wounded = impactsStore.impacts.find((imp) => imp.name === 'Wounded')
 
 const isWounded = computed(() => {
   return wounded!.status
@@ -128,7 +128,7 @@ const clearMove = () => {
             Your care is helpful.
             <span :class="{ notWounded: !isWounded }"
               >If you (or the ally under your care) have the wounded condition, you may clear it:
-              <AdjustDebility operation="Clear" debility="Wounded" />.</span
+              <AdjustImpact operation="Clear" impact="Wounded" />.</span
             >
             Then, take or give up to +2 health.
             <AdjustHealthButton operation="take" :amount="2" />.
@@ -139,7 +139,7 @@ const clearMove = () => {
             Your care is helpful.
             <span :class="{ notWounded: !isWounded }"
               >If you (or the ally under your care) have the wounded condition, you may clear it:
-              <AdjustDebility operation="Clear" debility="Wounded" />.</span
+              <AdjustImpact operation="Clear" impact="Wounded" />.</span
             >
           </p>
           <fieldset>
