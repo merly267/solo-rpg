@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useLocalStorage, type RemovableRef } from '@vueuse/core'
+import { v4 as uuidv4 } from 'uuid'
 import type { StashedAdd } from '@/types'
 
 type State = {
@@ -23,6 +24,10 @@ export const usestashedAddstore = defineStore('stashedAddsStore', {
     }
   },
   actions: {
+    addToStash(stash: StashedAdd) {
+      const toAdd = { ...stash, uuid: uuidv4() }
+      this.stashedAdds.push(toAdd)
+    },
     clearUsedAndExpiredStashed() {
       const remainingStashedList = this.stashedAdds.filter(
         (stashed) => (!stashed.selected && !stashed.nextOnly) || stashed.reusable
