@@ -41,7 +41,7 @@ export const movesList: MovesList = {
     title: 'Reach a Milestone',
     slug: 'reach-milestone',
     moveType: 'Quest',
-    trigger: 'make significant progress in your quest'
+    trigger: 'make headway in your quest'
   },
   fulfillVow: {
     title: 'Fulfill Your Vow',

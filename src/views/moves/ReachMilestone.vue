@@ -44,9 +44,16 @@ const makeMove = () => {
     <template #text>
       <h2>{{ move.title }}</h2>
       <p>
-        When you <strong>{{ move.trigger }}</strong> by overcoming a critical obstacle, completing a
-        perilous journey, solving a complex mystery, defeating a powerful threat, gaining vital
-        support, or acquiring a crucial item, you may mark progress.
+        When you <strong>{{ move.trigger }}</strong> by doing any of the following... 
+        <ul>
+          <li>overcoming a critical obstacle</li>
+          <li>gaining meaningful insight</li>
+          <li>completing a perilous expedition</li>
+          <li>acquiring a crucial item or resource</li>
+          <li>earning vital support</li>
+          <li>defeating a notable foe</li>
+        </ul>
+        ... you may mark progres per the rank of the vow.
       </p>
       <div v-if="noVow">
         First you must
