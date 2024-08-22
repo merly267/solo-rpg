@@ -28,8 +28,8 @@ export const movesList: MovesList = {
   resupplyMove: {
     title: 'Resupply',
     slug: 'resupply',
-    moveType: 'Adventure',
-    trigger: 'hunt, forage, or scavenge'
+    moveType: 'Recover',
+    trigger: 'attempt to bolster your readiness'
   },
   swearVow: {
     title: 'Swear an Iron Vow',

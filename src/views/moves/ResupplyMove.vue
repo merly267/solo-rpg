@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useCharacterStore } from '@/stores/CharacterStore'
 import ActionMove from '@/components/ActionMove.vue'
@@ -12,8 +12,20 @@ import { movesList } from '@/moves'
 
 const move = movesList.resupplyMove
 
-const statForMove: StatName = 'Wits'
-const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
+const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
+
+let selectedStatName = ref<String>('')
+
+const selectedStat = computed(() => {
+  if (selectedStatName.value.length) {
+    const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
+    return thisStat
+  }
+  return {
+    name: '',
+    score: 0
+  }
+})
 
 const moveAdds = 0
 
@@ -48,8 +60,72 @@ const clearMove = () => {
       >
         <p>
           When you <strong>{{ move.trigger }}</strong
-          >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
+          >, envision the opportunity and your approach. If you...
         </p>
+        <fieldset>
+          <div>
+            <input
+              type="radio"
+              name="chooseStat"
+              id="barter"
+              value="Heart"
+              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+            />
+            <label for="barter"
+              >Barter or make an appeal: roll +Heart ({{ findStat('Heart')?.score }}).</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="chooseStat"
+              id="threaten"
+              value="Iron"
+              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+            />
+            <label for="threaten"
+              >Threaten or seize: roll +Iron ({{ findStat('Iron')?.score }}).</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="chooseStat"
+              id="steal"
+              value="Shadow"
+              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+            />
+            <label for="steal"
+              >Steal or swindle: roll +Shadow ({{ findStat('Shadow')?.score }}).</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="chooseStat"
+              id="scavenge"
+              value="Wits"
+              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+            />
+            <label for="scavenge"
+              >Scavenge or craft: roll +Wits ({{ findStat('Wits')?.score }}).</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="chooseStat"
+              id="gearUp"
+              value="Wits"
+              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+            />
+            <label for="gearUp"
+              >Gear up from your ship's stores: roll +Supply (hold) - currently using wits ({{
+                findStat('Wits')?.score
+              }}).</label
+            >
+          </div>
+        </fieldset>
       </ActionMove>
     </template>
     <template #outcome>
@@ -83,7 +159,7 @@ const clearMove = () => {
           </p>
         </template>
         <template v-slot:miss>
-          <p>You find nothing helpful. Pay the Price.</p>
+          <p>You gain nothing and the situation worsens. Pay the Price.</p>
         </template>
       </MoveOutcome>
     </template>
