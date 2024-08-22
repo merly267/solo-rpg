@@ -22,8 +22,8 @@ export const movesList: MovesList = {
   healMove: {
     title: 'Heal',
     slug: 'heal',
-    moveType: 'Adventure',
-    trigger: 'treat an injury or ailment'
+    moveType: 'Recover',
+    trigger: 'receive medical care or provide treatment'
   },
   resupplyMove: {
     title: 'Resupply',

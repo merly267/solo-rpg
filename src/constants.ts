@@ -4,12 +4,18 @@ export const maxHealth = 5
 export const maxSupply = 5
 
 export const moveTypeList = [
+  'Session',
   'Adventure',
-  'Relationship',
+  'Quest',
+  'Connection',
+  'Exploration',
   'Combat',
   'Suffer',
-  'Quest',
-  'Fate'
+  'Recover',
+  'Threshold',
+  'Legacy',
+  'Fate',
+  'Scene Challenges'
 ] as const
 
 export const newProgressTrack: ProgressTrack = {
