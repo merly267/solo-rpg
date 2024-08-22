@@ -17,7 +17,7 @@ export const movesList: MovesList = {
     title: 'Gather Information',
     slug: 'gather-information',
     moveType: 'Adventure',
-    trigger: 'search an area, ask questions, conduct an investigation, or follow a track'
+    trigger: 'search for clues, conduct an investigation, analyze evidence, or do research'
   },
   healMove: {
     title: 'Heal',

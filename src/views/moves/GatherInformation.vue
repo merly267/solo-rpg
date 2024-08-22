@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
@@ -14,11 +14,7 @@ const statForMove: StatName = 'Wits'
 
 const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
 
-const bondAadds = ref(false)
-
-const moveAdds = computed(() => {
-  return bondAadds.value ? 1 : 0
-})
+const moveAdds = 0
 
 const moveMade = ref(false)
 
@@ -27,7 +23,6 @@ const makeMove = () => {
 }
 
 const clearMove = () => {
-  bondAadds.value = false
   moveMade.value = false
 }
 </script>
@@ -47,12 +42,6 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
         </p>
-
-        <input type="checkbox" id="bondAadds" name="adds" v-model="bondAadds" />
-        <label for="bondAadds"
-          >If you act within a community or ask questions of a person with whom you share a bond,
-          add +1.</label
-        >
       </ActionMove>
     </template>
     <template #outcome>
@@ -60,15 +49,14 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             You discover something helpful and specific. The path you must follow or action you must
-            take to make progress is made clear. Envision what you learn (Ask the Oracle if unsure),
-            and
+            take to make progress is made clear. Envision what you learn. Then
             <AdjustMomentumButton operation="adds" :amount="2" />.
           </p>
         </template>
         <template v-slot:weak>
           <p>
-            The information complicates your quest or introduces a new danger. Envision what you
-            discover (Ask the Oracle if unsure), and
+            The information provides new insight, but also complicates your quest. Envision what you
+            discover. Then
             <AdjustMomentumButton operation="adds" :amount="1" />.
           </p>
         </template>
