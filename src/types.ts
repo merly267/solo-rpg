@@ -49,11 +49,11 @@ export type StashedAdd = {
 }
 
 export type Die = {
-  id: string
+  id?: string
   max: number
   rolled: boolean
   result: number
-  cancelled: boolean
+  cancelled?: boolean
   isSuccess?: boolean
   isCancellable?: boolean
 }

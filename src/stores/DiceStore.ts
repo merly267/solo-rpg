@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 import type { Die } from '@/types'
 
-export const useDiceStore = defineStore('DiceStore', {
+export const useDiceStore = defineStore('diceStore', {
   state: () => ({
     actionDie: useLocalStorage('actionDie', {
       max: 6,
@@ -27,6 +27,11 @@ export const useDiceStore = defineStore('DiceStore', {
       }
     ])
   }),
+  getters: {
+    failures: (state) => {
+      return state.challengeDice.filter((die) => die.rolled && !die.isSuccess)
+    }
+  },
   actions: {
     roll(die: Die) {
       die.result = Math.ceil(Math.random() * die.max)
@@ -40,3 +45,7 @@ export const useDiceStore = defineStore('DiceStore', {
     }
   }
 })
+
+// const failures = computed(() => {
+//   return diceStore.challengeDice.filter((die) => die.isSuccess === false)
+// })

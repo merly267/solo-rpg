@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { challengeDice } from '@/composables/useDiceStore'
+import { useDiceStore } from '@/stores/DiceStore'
 import { useMoveOutcomeStore } from '@/stores/MoveOutcomeStore'
 import { outcomeList } from '@/constants'
 
 const outcomes = outcomeList
 
-const MoveOutcomeStore = useMoveOutcomeStore()
-
-const failures = computed(() => {
-  return challengeDice.value.filter((die) => die.isSuccess === false)
-})
+const diceStore = useDiceStore()
+const moveOutcomeStore = useMoveOutcomeStore()
 
 const outcome = computed(() => {
-  switch (failures.value.length) {
+  switch (diceStore.failures.length) {
     case 0:
       return outcomes.strong.label
     case 1:
@@ -27,9 +24,9 @@ const outcome = computed(() => {
 defineExpose({ outcome })
 
 const match = computed(() => {
-  if (challengeDice.value[0].result) {
-    const toMatch = challengeDice.value[0].result
-    const matches = challengeDice.value.filter((die) => die.result === toMatch)
+  if (diceStore.challengeDice[0].result) {
+    const toMatch = diceStore.challengeDice[0].result
+    const matches = diceStore.challengeDice.filter((die) => die.result === toMatch)
     if (matches.length > 1) {
       if (toMatch === 10) {
         return ' and a match on 10, the worst possible result...'
@@ -45,11 +42,10 @@ const match = computed(() => {
 })
 </script>
 <template>
-  <pre>{{ MoveOutcomeStore.latestFailures }}</pre>
   <div>
     <h3>{{ outcome }}{{ match }}</h3>
-    <slot name="strong" v-if="failures.length == 0"></slot>
-    <slot name="weak" v-if="failures.length == 1"></slot>
-    <slot name="miss" v-if="failures.length == 2"></slot>
+    <slot name="strong" v-if="diceStore.failures.length == 0"></slot>
+    <slot name="weak" v-if="diceStore.failures.length == 1"></slot>
+    <slot name="miss" v-if="diceStore.failures.length == 2"></slot>
   </div>
 </template>
