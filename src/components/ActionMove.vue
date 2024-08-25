@@ -120,12 +120,14 @@ const clearAll = () => {
   <slot></slot>
   <StashedMoves />
   <h3>Action Score</h3>
-  <ActionDie />
-  + <span v-if="stat">{{ stat }}</span>
-  <span v-else>?</span>
-  + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
-  <span v-else>?</span>
-  =
+  <span class="cancelled">
+    <ActionDie />
+    + <span v-if="stat">{{ stat }}</span>
+    <span v-else>?</span>
+    + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
+    <span v-else>?</span>
+    =
+  </span>
   <span v-if="actionScore"
     ><strong>{{ actionScore }}</strong></span
   >
@@ -136,8 +138,23 @@ const clearAll = () => {
   <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
   <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" />
 </template>
+
 <style scoped>
 h3 {
   margin-block-end: 1em;
+}
+.cancelled {
+  --stripe-start: calc(50% - 1px);
+  --stripe-end: calc(50% + 1px);
+  color: var(--grey-text);
+  background: linear-gradient(
+    to bottom left,
+    transparent var(--stripe-start),
+    var(--app-text) var(--stripe-start) var(--stripe-end),
+    transparent var(--stripe-end)
+  );
+  .die {
+    opacity: 0.5;
+  }
 }
 </style>
