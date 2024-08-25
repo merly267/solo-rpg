@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { challengeDice } from '@/composables/useDiceStore'
+import { useMoveOutcomeStore } from '@/stores/MoveOutcomeStore'
 import { outcomeList } from '@/constants'
 
 const outcomes = outcomeList
+
+const MoveOutcomeStore = useMoveOutcomeStore()
 
 const failures = computed(() => {
   return challengeDice.value.filter((die) => die.isSuccess === false)
@@ -42,6 +45,7 @@ const match = computed(() => {
 })
 </script>
 <template>
+  <pre>{{ MoveOutcomeStore.latestFailures }}</pre>
   <div>
     <h3>{{ outcome }}{{ match }}</h3>
     <slot name="strong" v-if="failures.length == 0"></slot>

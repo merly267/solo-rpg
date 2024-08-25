@@ -67,6 +67,17 @@ const checkSuccess = () => {
   })
 }
 
+// refactor - put actionScore & result into store?
+// const checkMomentumSuccess = () => {
+//   challengeDice.value.forEach((die) => {
+//     if (momentumStore.momentum > 1 && die.rolled) {
+//       if (momentumStore.momentum > die.result) {
+
+//       }
+//     }
+//   })
+// }
+
 const checkCancellable = () => {
   if (actionDie.value.rolled && momentumStore.momentum > 0) {
     challengeDice.value.forEach((die) => {
@@ -120,14 +131,15 @@ const clearAll = () => {
   <slot></slot>
   <StashedMoves />
   <h3>Action Score</h3>
-  <span class="cancelled">
+  <span class="replaced">
     <ActionDie />
     + <span v-if="stat">{{ stat }}</span>
     <span v-else>?</span>
     + <span v-if="moveAdds > 0">{{ moveAdds }}</span>
     <span v-else>?</span>
-    =
   </span>
+  =
+
   <span v-if="actionScore"
     ><strong>{{ actionScore }}</strong></span
   >
@@ -143,7 +155,7 @@ const clearAll = () => {
 h3 {
   margin-block-end: 1em;
 }
-.cancelled {
+.replaced {
   --stripe-start: calc(50% - 1px);
   --stripe-end: calc(50% + 1px);
   color: var(--grey-text);
