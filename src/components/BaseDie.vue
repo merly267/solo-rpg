@@ -14,8 +14,7 @@ const props = defineProps<PropTypes>()
     class="die rolled"
     :class="{
       success: props.die.isSuccess === true,
-      failure: props.die.isSuccess === false,
-      cancellable: props.die.isCancellable === true
+      failure: props.die.isSuccess === false
     }"
     ><span class="number">{{ props.die.result }}</span></span
   >
