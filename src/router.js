@@ -12,10 +12,6 @@ export const routes = [
     component: () => import('./views/VowsList.vue')
   },
   {
-    path: '/action-move',
-    component: () => import('./views/GenericActionMove.vue')
-  },
-  {
     path: '/moves',
     component: () => import('./views/MovesList.vue')
   },
