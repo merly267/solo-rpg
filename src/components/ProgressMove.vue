@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import ChallengeDice from '@/components/ChallengeDice.vue'
-import { challengeDice, clear, roll } from '@/composables/useDiceStore'
+import { useDiceStore } from '@/stores/DiceStore'
+
 type PropTypes = {
   title: string
   progressScore: number
 }
+
+const diceStore = useDiceStore()
 
 const emit = defineEmits<{
   (e: 'makeMove'): void
@@ -17,13 +20,13 @@ const makeMove = () => {
 
 const rollAllDice = () => {
   clearAllDice()
-  challengeDice.value.forEach((die) => roll(die))
+  diceStore.challengeDice.forEach((die) => diceStore.roll(die))
   checkSuccess()
   makeMove()
 }
 
 const checkSuccess = () => {
-  challengeDice.value.forEach((die) => {
+  diceStore.challengeDice.forEach((die) => {
     if (props.progressScore > die.result) {
       die.isSuccess = true
     } else {
@@ -33,7 +36,7 @@ const checkSuccess = () => {
 }
 
 const clearAllDice = () => {
-  challengeDice.value.forEach((die) => clear(die))
+  diceStore.challengeDice.forEach((die) => diceStore.clear(die))
 }
 
 const props = defineProps<PropTypes>()
