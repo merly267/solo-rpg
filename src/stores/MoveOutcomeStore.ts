@@ -2,6 +2,9 @@ import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 import { useDiceStore } from '@/stores/DiceStore'
 import { useMomentumStore } from '@/stores/MomentumStore'
+import { outcomeList } from '@/constants'
+
+const outcomes = outcomeList
 
 const diceStore = useDiceStore()
 const momentumStore = useMomentumStore()
@@ -36,7 +39,7 @@ export const useMoveOutcomeStore = defineStore('moveOutcomeStore', {
     },
     checkMomentumSuccess() {
       diceStore.challengeDice.forEach((die) => {
-        if (momentumStore.momentum > 1 && die.rolled) {
+        if (momentumStore.momentum > 0 && die.rolled) {
           if (momentumStore.momentum > die.result) {
             this.possibleMomentumSuccesses++
           }
@@ -46,17 +49,19 @@ export const useMoveOutcomeStore = defineStore('moveOutcomeStore', {
     resetMomentumSuccess() {
       this.possibleMomentumSuccesses = 0
     },
-    calculateFailures() {}
+    useMomentumSuccess() {
+      this.latestActionScore = momentumStore.momentum
+      this.checkSuccess()
+    },
+    getOutcomeLabel(successes: number) {
+      switch (successes) {
+        case 2:
+          return outcomes.strong.label
+        case 1:
+          return outcomes.weak.label
+        case 0:
+          return outcomes.miss.label
+      }
+    }
   }
 })
-
-// refactor - put actionScore & result into store?
-// const checkMomentumSuccess = () => {
-//   challengeDice.value.forEach((die) => {
-//     if (momentumStore.momentum > 1 && die.rolled) {
-//       if (momentumStore.momentum > die.result) {
-
-//       }
-//     }
-//   })
-// }

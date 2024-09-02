@@ -59,15 +59,11 @@ const checkReplaceable = () => {
   }
 }
 
-const replaceActionScore = () => {}
+let actionScoreReplaced = false
 
 const burnMomentum = () => {
-  // anyCancellable.value.forEach((die) => {
-  //   die.result = 0
-  //   die.isSuccess = true
-  //   die.isCancellable = false
-  //   die.cancelled = true
-  // })
+  actionScoreReplaced = true
+  moveOutcomeStore.useMomentumSuccess()
   momentumStore.resetMomentum()
 }
 
@@ -93,6 +89,7 @@ const clearAll = () => {
   moveOutcomeStore.clearActionScore()
   moveOutcomeStore.resetMomentumSuccess()
   anyReplaceable = false
+  actionScoreReplaced = false
   clearMove()
 }
 </script>
@@ -101,8 +98,7 @@ const clearAll = () => {
   <slot></slot>
   <StashedMoves />
   <h3>Action Score</h3>
-  <!-- <span class="replaced"> -->
-  <span>
+  <span :class="{ replaced: actionScoreReplaced }">
     <ActionDie />
     + <span v-if="stat">{{ stat }}</span>
     <span v-else>?</span>
@@ -119,13 +115,13 @@ const clearAll = () => {
   <ChallengeDice />
   <button type="button" :disabled="disabled" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
-  <span v-if="anyReplaceable">
-    <button type="button" @click="burnMomentum">Burn momentum</button> to turn a
-    {{ moveOutcomeStore.getOutcomeLabel(diceStore.successes.length) }} into a
+  <span v-if="anyReplaceable && !actionScoreReplaced">
+    <button type="button" @click="burnMomentum">
+      Burn momentum ({{ momentumStore.momentum }})
+    </button>
+    to turn a {{ moveOutcomeStore.getOutcomeLabel(diceStore.successes.length) }} into a
     {{ moveOutcomeStore.getOutcomeLabel(moveOutcomeStore.possibleMomentumSuccesses) }}
   </span>
-  anyReplaceable:
-  <pre>{{ anyReplaceable }}</pre>
 </template>
 
 <style scoped>

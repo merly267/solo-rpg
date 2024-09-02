@@ -2,26 +2,9 @@
 import { computed } from 'vue'
 import { useDiceStore } from '@/stores/DiceStore'
 import { useMoveOutcomeStore } from '@/stores/MoveOutcomeStore'
-import { outcomeList } from '@/constants'
-
-const outcomes = outcomeList
 
 const diceStore = useDiceStore()
 const moveOutcomeStore = useMoveOutcomeStore()
-
-const outcome = computed(() => {
-  switch (diceStore.failures.length) {
-    case 0:
-      return outcomes.strong.label
-    case 1:
-      return outcomes.weak.label
-    case 2:
-      return outcomes.miss.label
-  }
-  return null
-})
-
-defineExpose({ outcome })
 
 const match = computed(() => {
   if (diceStore.challengeDice[0].result) {
@@ -43,9 +26,9 @@ const match = computed(() => {
 </script>
 <template>
   <div>
-    <h3>{{ outcome }}{{ match }}</h3>
-    <slot name="strong" v-if="diceStore.failures.length == 0"></slot>
-    <slot name="weak" v-if="diceStore.failures.length == 1"></slot>
-    <slot name="miss" v-if="diceStore.failures.length == 2"></slot>
+    <h3>{{ moveOutcomeStore.getOutcomeLabel(diceStore.successes.length) }}{{ match }}</h3>
+    <slot name="strong" v-if="diceStore.successes.length == 2"></slot>
+    <slot name="weak" v-if="diceStore.successes.length == 1"></slot>
+    <slot name="miss" v-if="diceStore.successes.length == 0"></slot>
   </div>
 </template>
