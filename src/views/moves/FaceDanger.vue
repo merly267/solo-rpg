@@ -3,7 +3,6 @@ import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
-import AdjustSupplyButton from '@/components/AdjustSupplyButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
@@ -27,15 +26,15 @@ const selectedStat = computed(() => {
 const matchInstruction = (statName: StatName) => {
   switch (statName) {
     case 'Edge':
-      return 'With speed, agility, or precision:'
+      return 'With speed, mobility, or agility:'
     case 'Heart':
-      return 'With charm, loyalty, or courage:'
+      return 'With resolve, command, or sociability:'
     case 'Iron':
-      return 'With aggressive action, forceful defense, strength, or endurance:'
+      return 'With strength, endurance, or aggression:'
     case 'Shadow':
       return 'With deception, stealth, or trickery'
     case 'Wits':
-      return 'With expertise, insight, or observation'
+      return 'With expertise, focus, or observation'
   }
 }
 
@@ -56,7 +55,6 @@ const clearMove = () => {
   selectedStatName.value = ''
   moveMade.value = false
 }
-
 </script>
 
 <template>
@@ -72,7 +70,8 @@ const clearMove = () => {
         @clearMove="clearMove"
       >
         <p>
-          When you <strong>{{ move.trigger }}</strong>, envision your action and roll. If you act...
+          When you <strong>{{ move.trigger }}</strong
+          >, envision your action and roll. If you act...
         </p>
         <fieldset>
           <div v-for="(stat, index) in annotatedStatList" :key="`stat-${index}`">
@@ -93,24 +92,11 @@ const clearMove = () => {
           </p>
         </template>
         <template v-slot:weak>
-          <p>
-            You succeed, but face a troublesome cost. Choose one.
-            <ul>
-              <li>
-                You are delayed, lose advantage, or face a new danger: 
-                <AdjustMomentumButton operation="subtracts" :amount="1" />
-              </li>
-              <li>You are tired or hurt: Endure Harm (1 harm).</li>
-              <li>You are dispirited or afraid: Endure Stress (1 stress).</li>
-              <li>You sacrifice resources: <AdjustSupplyButton operation="suffer" :amount="1" /></li>
-            </ul>
-            
-          </p>
+          <p>You succeed, but not without a cost. Make a suffer move (-1).</p>
         </template>
         <template v-slot:miss>
           <p>
-            You fail, or your progress is undermined by a dramatic and costly turn of events. Pay
-            the Price.
+            You fail, or a momentary success is undermined by a dire turn of events. Pay the Price.
           </p>
         </template>
       </MoveOutcome>

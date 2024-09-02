@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { challengeDice } from '@/composables/useDiceStore'
 import BaseDie from './BaseDie.vue'
+import { useDiceStore } from '@/stores/DiceStore'
+
+const diceStore = useDiceStore()
 </script>
 <template>
   <div class="challenge">
     <h3>Challenge dice</h3>
     <ul class="dice">
-      <li v-for="die in challengeDice" :key="die.id">
+      <li v-for="die in diceStore.challengeDice" :key="die.id">
         <BaseDie :die="die" />
       </li>
     </ul>

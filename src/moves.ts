@@ -17,37 +17,37 @@ export const movesList: MovesList = {
     title: 'Gather Information',
     slug: 'gather-information',
     moveType: 'Adventure',
-    trigger: 'search an area, ask questions, conduct an investigation, or follow a track'
+    trigger: 'search for clues, conduct an investigation, analyze evidence, or do research'
   },
   healMove: {
     title: 'Heal',
     slug: 'heal',
-    moveType: 'Adventure',
-    trigger: 'treat an injury or ailment'
+    moveType: 'Recover',
+    trigger: 'receive medical care or provide treatment'
   },
   resupplyMove: {
     title: 'Resupply',
     slug: 'resupply',
-    moveType: 'Adventure',
-    trigger: 'hunt, forage, or scavenge'
+    moveType: 'Recover',
+    trigger: 'attempt to bolster your readiness'
   },
   swearVow: {
     title: 'Swear an Iron Vow',
     slug: 'swear-vow',
     moveType: 'Quest',
-    trigger: 'swear upon iron to complete a quest'
+    trigger: 'swear to complete a quest'
   },
   reachMilestone: {
     title: 'Reach a Milestone',
     slug: 'reach-milestone',
     moveType: 'Quest',
-    trigger: 'make significant progress in your quest'
+    trigger: 'make headway in your quest'
   },
   fulfillVow: {
     title: 'Fulfill Your Vow',
     slug: 'fulfill-vow',
     moveType: 'Quest',
-    trigger: 'achieve what you believe to be the fulfillment of your vow',
+    trigger: 'reach the end of your quest',
     progress: true
   }
 }

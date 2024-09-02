@@ -6,6 +6,8 @@ import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import StashMoveAdd from '@/components/StashMoveAdd.vue'
+import { useMomentumStore } from '@/stores/MomentumStore'
+import { usestashedAddstore } from '@/stores/MoveAddsStore'
 import type { StashedAdd, StatName } from '@/types'
 import { movesList } from '@/moves'
 
@@ -27,15 +29,15 @@ const selectedStat = computed(() => {
 const matchInstruction = (statName: StatName) => {
   switch (statName) {
     case 'Edge':
-      return 'With speed, agility, or precision:'
+      return 'With speed, mobility, or agility:'
     case 'Heart':
-      return 'With charm, loyalty, or courage:'
+      return 'With resolve, command, or sociability:'
     case 'Iron':
-      return 'With aggressive action, forceful defense, strength, or endurance:'
+      return 'With strength, endurance, or aggression:'
     case 'Shadow':
       return 'With deception, stealth, or trickery'
     case 'Wits':
-      return 'With expertise, insight, or observation'
+      return 'With expertise, focus, or observation'
   }
 }
 
@@ -63,6 +65,14 @@ const makeMove = () => {
 const clearMove = () => {
   selectedStatName.value = ''
   moveMade.value = false
+}
+
+const momentumStore = useMomentumStore()
+const stashedAddsStore = usestashedAddstore()
+
+const takeRewards = () => {
+  momentumStore.addMomentum(2)
+  stashedAddsStore.addToStash(stash)
 }
 
 </script>
@@ -96,17 +106,15 @@ const clearMove = () => {
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
-          <p>
-            You gain advantage. Choose one.
-            <ul>
-              <li><StashMoveAdd text="Take control:" :addToStash=stash /> Make another move now (not a progress move); when you do, add +1.</li>
-              <li>Prepare to act: <AdjustMomentumButton operation="adds" :amount="2" /></li>
-            </ul>
-          </p>
+          <p>You succeed. Take +2 momentum and add +1 on your next move (not a progress move). <button @click="takeRewards">Take rewards</button></p>
         </template>
         <template v-slot:weak>
           <p>
-            Your advantage is short-lived. <AdjustMomentumButton operation="adds" :amount="1" />
+            You succeed. Choose one.
+            <ul>
+              <li><AdjustMomentumButton operation="adds" :amount="2" /></li>
+              <li><StashMoveAdd text="Add +1 on your next move" :addToStash=stash /> (not a progress move).</li>
+            </ul>
           </p>
         </template>
         <template v-slot:miss>

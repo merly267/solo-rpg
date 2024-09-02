@@ -2,10 +2,10 @@
 import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useCharacterStore } from '@/stores/CharacterStore'
-import { useDebilitiesStore } from '@/stores/DebilitiesStore'
+import { useImpactsStore } from '@/stores/ImpactsStore'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import ActionMove from '@/components/ActionMove.vue'
-import AdjustDebility from '@/components/AdjustDebility.vue'
+import AdjustImpact from '@/components/AdjustImpact.vue'
 import AdjustHealthButton from '@/components/AdjustHealthButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
@@ -15,6 +15,8 @@ import { movesList } from '@/moves'
 type AdjustableTrack = 'momentum' | 'supply' | ''
 
 const move = movesList.healMove
+
+const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
 let selectedStatName = ref<String>('')
 
@@ -42,9 +44,9 @@ const healSelfStat =
 
 const moveAdds = 0
 
-const debilitiesStore = useDebilitiesStore()
+const impactsStore = useImpactsStore()
 
-const wounded = debilitiesStore.debilities.find((deb) => deb.name === 'Wounded')
+const wounded = impactsStore.impacts.find((imp) => imp.name === 'Wounded')
 
 const isWounded = computed(() => {
   return wounded!.status
@@ -70,6 +72,15 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const takeRewards = () => {
+  if (isWounded.value) {
+    impactsStore.clearImpact('Wounded')
+    characterStore.takeHealth(2)
+  } else {
+    characterStore.takeHealth(3)
+  }
+}
+
 const clearMove = () => {
   selectedStatName.value = ''
   moveMade.value = false
@@ -88,34 +99,62 @@ const clearMove = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
-        <fieldset v-if="healOtherStat && healSelfAltStat && healSelfStat">
+        <p>
+          When you <strong>{{ move.trigger }}</strong
+          >, envision the situation and roll. If you...
+        </p>
+        <fieldset>
           <div>
             <input
               type="radio"
               name="chooseStat"
-              :id="healOtherStat.name"
-              :value="healOtherStat.name"
+              id="receiveTreatment"
+              value="Iron"
               @input="selectedStatName = ($event.target as HTMLInputElement).value"
             />
-            <label :for="healOtherStat.name"
-              >When you <strong>{{ move.trigger }}</strong> for another, roll +{{
-                healOtherStat.name
-              }}
-              ({{ healOtherStat.score }}).</label
+            <label for="receiveTreatment"
+              >Receive treatment from someone (not an ally): roll +Iron ({{
+                findStat('Iron')?.score
+              }}).</label
+            >
+          </div>
+          <div v-if="healOtherStat && healSelfAltStat && healSelfStat">
+            <input
+              type="radio"
+              name="chooseStat"
+              id="mendOwnWounds"
+              :value="healSelfStat.name"
+              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+            />
+            <label for="mendOwnWounds"
+              >Mend your own wounds: roll +{{ healOtherStat.name }} or +{{ healSelfAltStat.name }},
+              whichever is lower: +{{ healSelfStat.name }} ({{ healSelfStat.score }})</label
             >
           </div>
           <div>
             <input
               type="radio"
               name="chooseStat"
-              :id="healSelfStat.name"
-              :value="healSelfStat.name"
+              id="forCompanion"
+              value="Heart"
               @input="selectedStatName = ($event.target as HTMLInputElement).value"
             />
-            <label :for="healSelfStat.name"
-              >If you <strong>mend your own wounds</strong>, roll +{{ healOtherStat.name }} or +{{
-                healSelfAltStat.name
-              }}, whichever is lower: +{{ healSelfStat.name }} ({{ healSelfStat.score }})</label
+            <label for="forCompanion"
+              >Obtain treatment for a companion: roll +Heart ({{
+                findStat('Heart')?.score
+              }}).</label
+            >
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="chooseStat"
+              id="provideCare"
+              value="Wits"
+              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+            />
+            <label for="provideCare"
+              >Provide care: roll +Wits ({{ findStat('Wits')?.score }}).</label
             >
           </div>
         </fieldset>
@@ -125,25 +164,27 @@ const clearMove = () => {
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
-            Your care is helpful.
-            <span :class="{ notWounded: !isWounded }"
-              >If you (or the ally under your care) have the wounded condition, you may clear it:
-              <AdjustDebility operation="Clear" debility="Wounded" />.</span
-            >
-            Then, take or give up to +2 health.
-            <AdjustHealthButton operation="take" :amount="2" />.
+            The care is helpful.
+            <span :class="{ disabled: !isWounded }">
+              If you (or the ally under your care) are wounded, clear the impact and take or give +2
+              health.
+            </span>
+            <span :class="{ disabled: isWounded }">Otherwise, take or give +3 health.</span>
+            <button @click="takeRewards">Take rewards</button>
           </p>
         </template>
         <template v-slot:weak>
           <p>
-            Your care is helpful.
-            <span :class="{ notWounded: !isWounded }"
-              >If you (or the ally under your care) have the wounded condition, you may clear it:
-              <AdjustDebility operation="Clear" debility="Wounded" />.</span
-            >
+            The care is helpful.
+            <span :class="{ disabled: !isWounded }">
+              If you (or the ally under your care) are wounded, clear the impact and take or give +2
+              health.
+            </span>
+            <span :class="{ disabled: isWounded }">Otherwise, take or give +3 health.</span>
+            <button @click="takeRewards">Take rewards</button>
           </p>
           <fieldset>
-            <legend>Then suffer -1 supply or -1 momentum (your choice):</legend>
+            <legend>But the recovery costs extra time or resources. Choose one:</legend>
             <div>
               <input
                 type="radio"
@@ -155,8 +196,8 @@ const clearMove = () => {
               />
               <label for="supplyCost"
                 ><span class="disabled" v-if="characterStore.supply == 0"
-                  >Suffer -1 supply: your supply is already at 0</span
-                ><span v-else>Suffer -1 supply</span></label
+                  >Sacrifice resources (-2) your supply is already at 0</span
+                ><span v-else>Sacrifice resources (-2)</span></label
               >
             </div>
             <div>
@@ -171,23 +212,13 @@ const clearMove = () => {
               <label for="momentumCost"
                 ><span v-if="momentumStore.momentum == momentumStore.minMomentum" class="disabled">
                   Your momentum is already at minumum. Face a setback instead. </span
-                ><span v-else>Suffer -1 momentum</span></label
+                ><span v-else>Lose momentum (-2)</span></label
               >
             </div>
           </fieldset>
-
-          <p>
-            and take or give up to +2 health
-            <AdjustHealthButton
-              operation="take"
-              :amount="2"
-              @click="takeCost"
-              :disabled="!selectedCost.length"
-            />.
-          </p>
         </template>
         <template v-slot:miss>
-          <p>Your aid is ineffective. Pay the Price.</p>
+          <p>The aid is ineffective and the situation worsens. Pay the Price.</p>
         </template>
       </MoveOutcome>
     </template>

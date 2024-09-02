@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { actionDie } from '@/composables/useDiceStore'
 import BaseDie from './BaseDie.vue'
+import { useDiceStore } from '@/stores/DiceStore'
+
+const diceStore = useDiceStore()
 </script>
 <template>
-  <BaseDie :die="actionDie" />
+  <BaseDie :die="diceStore.actionDie" />
 </template>

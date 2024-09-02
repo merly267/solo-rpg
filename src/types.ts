@@ -1,6 +1,6 @@
 import type {
-  debilityCategoriesList,
-  debilityOperations,
+  impactCategoriesList,
+  impactOperations,
   moveTypeList,
   outcomeList,
   outcomeResultsList,
@@ -23,9 +23,9 @@ export type Stat = {
   // set: boolean
 }
 
-export type Debility = {
+export type Impact = {
   name: string
-  category: DebilityCategory
+  category: ImpactCategory
   status: boolean
 }
 
@@ -49,13 +49,12 @@ export type StashedAdd = {
 }
 
 export type Die = {
-  id: string
+  id?: string
   max: number
   rolled: boolean
   result: number
-  cancelled: boolean
+  cancelled?: boolean
   isSuccess?: boolean
-  isCancellable?: boolean
 }
 
 export type Move = {
@@ -74,9 +73,9 @@ export type Outcome = {
   outcome: OutcomeResult
 }
 
-export type DebilityCategory = (typeof debilityCategoriesList)[number]
+export type ImpactCategory = (typeof impactCategoriesList)[number]
 
-export type DebilityOperation = (typeof debilityOperations)[number]
+export type ImpactOperation = (typeof impactOperations)[number]
 
 export type OutcomeList = typeof outcomeList
 
