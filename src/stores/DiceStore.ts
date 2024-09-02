@@ -28,8 +28,8 @@ export const useDiceStore = defineStore('diceStore', {
     ])
   }),
   getters: {
-    failures: (state) => {
-      return state.challengeDice.filter((die) => die.rolled && !die.isSuccess)
+    successes: (state) => {
+      return state.challengeDice.filter((die) => die.rolled && die.isSuccess)
     }
   },
   actions: {
