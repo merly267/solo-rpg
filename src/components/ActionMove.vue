@@ -3,7 +3,6 @@ import { computed } from 'vue'
 import ActionDie from '@/components/ActionDie.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
-import AdjustMomentum from '@/components/AdjustMomentum.vue'
 import StashedMoves from '@/components/StashedMoves.vue'
 import { useDiceStore } from '@/stores/DiceStore'
 import { usestashedAddstore } from '@/stores/MoveAddsStore'
@@ -45,19 +44,32 @@ const rollAllDice = () => {
   moveOutcomeStore.calculateActionScore(props.stat, props.adds)
   moveOutcomeStore.checkSuccess()
   moveOutcomeStore.checkMomentumSuccess()
+  checkReplaceable()
   stashedStore.clearUsedAndExpiredStashed()
   makeMove()
 }
 
-// const burnMomentum = () => {
-//   anyCancellable.value.forEach((die) => {
-//     die.result = 0
-//     die.isSuccess = true
-//     die.isCancellable = false
-//     die.cancelled = true
-//   })
-//   momentumStore.resetMomentum()
-// }
+let anyReplaceable = false
+
+const checkReplaceable = () => {
+  if (diceStore.actionDie.rolled) {
+    if (moveOutcomeStore.possibleMomentumSuccesses > diceStore.successes.length) {
+      anyReplaceable = true
+    }
+  }
+}
+
+const replaceActionScore = () => {}
+
+const burnMomentum = () => {
+  // anyCancellable.value.forEach((die) => {
+  //   die.result = 0
+  //   die.isSuccess = true
+  //   die.isCancellable = false
+  //   die.cancelled = true
+  // })
+  momentumStore.resetMomentum()
+}
 
 const anyClearable = computed(() => {
   const challengeClearable = diceStore.challengeDice.filter((die) => die.rolled)
@@ -80,6 +92,7 @@ const clearAll = () => {
   clearAllDice()
   moveOutcomeStore.clearActionScore()
   moveOutcomeStore.resetMomentumSuccess()
+  anyReplaceable = false
   clearMove()
 }
 </script>
@@ -106,9 +119,13 @@ const clearAll = () => {
   <ChallengeDice />
   <button type="button" :disabled="disabled" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
-  <!-- <AdjustMomentum :numberCancellable="anyCancellable.length" @burnMomentum="burnMomentum" /> -->
-  possibleMomentumSuccesses:
-  <pre>{{ moveOutcomeStore.possibleMomentumSuccesses }}</pre>
+  <span v-if="anyReplaceable">
+    <button type="button" @click="burnMomentum">Burn momentum</button> to turn a
+    {{ moveOutcomeStore.getOutcomeLabel(diceStore.successes.length) }} into a
+    {{ moveOutcomeStore.getOutcomeLabel(moveOutcomeStore.possibleMomentumSuccesses) }}
+  </span>
+  anyReplaceable:
+  <pre>{{ anyReplaceable }}</pre>
 </template>
 
 <style scoped>
