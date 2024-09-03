@@ -7,7 +7,8 @@ export const useCharacterStore = defineStore('characterStore', {
     name: '',
     health: useLocalStorage('health', 5),
     spirit: 5,
-    supply: useLocalStorage('supply', 5)
+    supply: useLocalStorage('supply', 5),
+    hold: useLocalStorage('hold', 5)
   }),
   actions: {
     takeHealth(x: number) {

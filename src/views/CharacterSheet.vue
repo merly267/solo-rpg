@@ -23,7 +23,8 @@ const impactsStore = useImpactsStore()
   <p>Momentum: {{ momentumStore.momentum }}</p>
   <p>Health: {{ characterStore.health }}</p>
   <p>Spirit: {{ character.spirit }}</p>
-  <p>Supply: {{ character.supply }}</p>
+  <p>Supply: {{ characterStore.supply }}</p>
+  <p>Hold: {{ characterStore.hold }}</p>
   <h2>Impacts: {{ impactsStore.impactsTotal }}</h2>
   <ul v-if="impactsStore.impactsTotal">
     <li v-for="category in impactCategoriesList" :key="category">
