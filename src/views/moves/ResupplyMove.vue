@@ -9,8 +9,11 @@ import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
+import { maxSupply } from '@/constants'
 
 const move = movesList.resupplyMove
+
+const selectedSupply = ref<string>('Equipped')
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
@@ -65,6 +68,31 @@ const clearMove = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
+        <fieldset>
+          <div>
+            <input
+              type="radio"
+              name="chooseSupply"
+              id="equipped"
+              value="Equipped"
+              v-model="selectedSupply"
+              :disabled="characterStore.supply === maxSupply"
+            />
+            <label for="equipped">Equipped supply ({{ characterStore.supply }})</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="chooseSupply"
+              id="hold"
+              value="Hold"
+              v-model="selectedSupply"
+              :disabled="characterStore.hold === maxSupply"
+            />
+            <label for="hold">Hold supply ({{ characterStore.hold }})</label>
+          </div>
+        </fieldset>
+        selectedSupply: {{ selectedSupply }}
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, envision the opportunity and your approach. If you...
