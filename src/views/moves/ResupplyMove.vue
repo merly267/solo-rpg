@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import { useCharacterStore } from '@/stores/CharacterStore'
+import { useImpactsStore } from '@/stores/ImpactsStore'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import AdjustSupplyButton from '@/components/AdjustSupplyButton.vue'
@@ -50,6 +51,23 @@ const moveMade = ref(false)
 
 const makeMove = () => {
   moveMade.value = true
+}
+
+const impactsStore = useImpactsStore()
+
+const unprepared = impactsStore.impacts.find((imp) => imp.name === 'Unprepared')
+
+const isUnprepared = computed(() => {
+  return unprepared!.status
+})
+
+const takeRewards = () => {
+  if (isUnprepared.value) {
+    impactsStore.clearImpact('Unprepared')
+    characterStore.takeSupply(1)
+  } else {
+    characterStore.takeSupply(2)
+  }
 }
 
 const chosenReward = ref<string>('')
@@ -169,8 +187,6 @@ const clearMove = () => {
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
-          chosenReward !== 'specific': {{ chosenReward !== 'specific' }} chosenReward:
-          {{ chosenReward }}
           <fieldset>
             <legend>Choose one:</legend>
             <div>
@@ -182,9 +198,14 @@ const clearMove = () => {
                 v-model="chosenReward"
               />
               <label for="general">
-                If you are unprepared, clear the impact and take +1 supply. Otherwise, take +2
-                supply</label
-              >
+                <span :class="{ disabled: !isUnprepared }">
+                  If you are unprepared, clear the impact and take +1 supply.
+                </span>
+                <span :class="{ disabled: isUnprepared }">Otherwise, take +2 supply</span
+                ><button :disabled="chosenReward !== 'general'" @click="takeRewards">
+                  Take rewards
+                </button>
+              </label>
             </div>
             <div>
               <input
@@ -239,3 +260,9 @@ const clearMove = () => {
     </template>
   </MoveLayout>
 </template>
+
+<style scoped>
+.disabled {
+  color: var(--grey-text);
+}
+</style>
