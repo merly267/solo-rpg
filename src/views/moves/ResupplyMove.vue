@@ -52,6 +52,8 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const chosenReward = ref<string>('')
+
 const clearMove = () => {
   moveMade.value = false
 }
@@ -167,6 +169,42 @@ const clearMove = () => {
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
+          chosenReward !== 'specific': {{ chosenReward !== 'specific' }} chosenReward:
+          {{ chosenReward }}
+          <fieldset>
+            <legend>Choose one:</legend>
+            <div>
+              <input
+                type="radio"
+                name="chooseReward"
+                id="general"
+                value="general"
+                v-model="chosenReward"
+              />
+              <label for="general">
+                If you are unprepared, clear the impact and take +1 supply. Otherwise, take +2
+                supply</label
+              >
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="chooseReward"
+                id="specific"
+                value="specific"
+                v-model="chosenReward"
+              />
+              <label for="specific">
+                If you are in need of a specific item, resource, or service that can reasonably be
+                obtained, you acquire it.
+                <AdjustMomentumButton
+                  operation="adds"
+                  :amount="1"
+                  :disabled="chosenReward !== 'specific'"
+              /></label>
+            </div>
+          </fieldset>
+
           <p>
             You bolster your resources.
             <AdjustSupplyButton operation="take" :amount="2" />

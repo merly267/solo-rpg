@@ -18,7 +18,7 @@ const momentumStore = useMomentumStore()
   <button
     v-if="props.operation == 'adds'"
     type="button"
-    :disabled="momentumStore.momentum == momentumStore.maxMomentum"
+    :disabled="props.disabled || momentumStore.momentum == momentumStore.maxMomentum"
     @click="momentumStore.addMomentum(props.amount)"
   >
     Take +{{ props.amount }} momentum
