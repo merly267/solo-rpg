@@ -65,6 +65,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        :disabled="!selectedStatName.length"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
