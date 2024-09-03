@@ -4,9 +4,9 @@ import { maxHealth, maxSupply } from '@/constants'
 
 export const useCharacterStore = defineStore('characterStore', {
   state: () => ({
-    name: '',
+    name: useLocalStorage('name', ''),
     health: useLocalStorage('health', 5),
-    spirit: 5,
+    spirit: useLocalStorage('spirit', 5),
     supply: useLocalStorage('supply', 5),
     hold: useLocalStorage('hold', 5)
   }),
