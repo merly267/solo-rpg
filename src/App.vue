@@ -91,7 +91,8 @@ button {
   padding: 0.25em 0.5em;
   font-size: 1rem;
 }
-button:disabled {
+button:disabled,
+input:disabled + label {
   opacity: 0.5;
 }
 

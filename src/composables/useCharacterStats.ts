@@ -1,19 +1,5 @@
 import { ref } from 'vue'
-import { useStorage } from '@vueuse/core'
-import type { Character, Stat } from '@/types'
-
-const defaultCharacterStats: Character = {
-  name: '',
-  health: 5,
-  spirit: 5,
-  supply: 5
-}
-
-const characterStats = useStorage('characterStats', defaultCharacterStats, localStorage, {
-  mergeDefaults: true
-})
-
-export const character = ref(characterStats)
+import type { Stat } from '@/types'
 
 export const stats = ref<Stat[]>([
   {

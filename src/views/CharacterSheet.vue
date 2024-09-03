@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { backgroundVow, character } from '@/composables/useCharacterStats'
+import { backgroundVow } from '@/composables/useCharacterStats'
 import StatsList from '@/components/StatsList.vue'
 import { useCharacterStore } from '@/stores/CharacterStore'
 import { useExperienceStore } from '@/stores/ExperienceStore'
@@ -14,16 +14,17 @@ const impactsStore = useImpactsStore()
 </script>
 
 <template>
-  <h2>{{ character.name }}</h2>
-  <input v-model="character.name" type="text" />
+  <h2>{{ characterStore.name }}</h2>
+  <input v-model="characterStore.name" type="text" />
   <p>Experience: {{ experienceStore.experience }}</p>
   <p v-if="backgroundVow">Vows: {{ backgroundVow }}</p>
   <p v-else>Make a background vow</p>
   <StatsList />
   <p>Momentum: {{ momentumStore.momentum }}</p>
   <p>Health: {{ characterStore.health }}</p>
-  <p>Spirit: {{ character.spirit }}</p>
-  <p>Supply: {{ character.supply }}</p>
+  <p>Spirit: {{ characterStore.spirit }}</p>
+  <p>Supply: {{ characterStore.supply }}</p>
+  <p>Hold: {{ characterStore.hold }}</p>
   <h2>Impacts: {{ impactsStore.impactsTotal }}</h2>
   <ul v-if="impactsStore.impactsTotal">
     <li v-for="category in impactCategoriesList" :key="category">

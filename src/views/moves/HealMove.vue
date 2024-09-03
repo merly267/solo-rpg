@@ -226,9 +226,6 @@ const clearMove = () => {
 </template>
 
 <style scoped>
-.notWounded {
-  color: var(--grey-text);
-}
 .disabled {
   color: var(--grey-text);
 }
