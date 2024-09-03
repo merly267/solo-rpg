@@ -14,12 +14,19 @@ const move = movesList.resupplyMove
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
-let selectedStatName = ref<String>('')
+let selectedStatName = ref<string>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {
-    const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-    return thisStat
+    if (selectedStatName.value === 'Hold') {
+      return {
+        name: selectedStatName.value,
+        score: characterStore.hold
+      }
+    } else {
+      const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
+      return thisStat
+    }
   }
   return {
     name: '',
@@ -116,12 +123,12 @@ const clearMove = () => {
               type="radio"
               name="chooseStat"
               id="gearUp"
-              value="Wits"
+              value="Hold"
               @input="selectedStatName = ($event.target as HTMLInputElement).value"
             />
             <label for="gearUp"
-              >Gear up from your ship's stores: roll +Supply (hold) - currently using wits ({{
-                findStat('Wits')?.score
+              >Gear up from your ship's stores: roll +Supply (hold) ({{
+                characterStore.hold
               }}).</label
             >
           </div>
