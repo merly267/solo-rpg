@@ -14,8 +14,6 @@ import { maxSupply } from '@/constants'
 
 const move = movesList.resupplyMove
 
-// const selectedSupply = ref<string>('Equipped')
-
 const selectedSupply = computed(() => {
   if (characterStore.supply === maxSupply) {
     return 'Hold'
@@ -203,7 +201,6 @@ const clearMove = () => {
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
-          selectedSupply: {{ selectedSupply }}
           <fieldset>
             <legend>Choose one:</legend>
             <div>
@@ -242,33 +239,54 @@ const clearMove = () => {
               /></label>
             </div>
           </fieldset>
-
           <p>
             You bolster your resources.
             <AdjustSupplyButton operation="take" :amount="2" />
           </p>
         </template>
         <template v-slot:weak>
-          <p>Take up to +2 supply, but suffer -1 momentum for each:</p>
           <p>
-            Take
-            <input
-              type="number"
-              id="supplyTaken"
-              name="supplyTaken"
-              min="0"
-              max="2"
-              value="2"
-              v-model="momentumForSupplyCost"
-            />
-            supply and
-            <AdjustMomentumButton
-              operation="subtracts"
-              :amount="momentumForSupplyCost"
-              :disabled="momentumForSupplyCost == 0"
-              @click="payMomentumforSupply"
-            />
+            You must first deal with a cost, complication, or demand. Envision the nature of this
+            obstacle, and then
           </p>
+          <fieldset>
+            <legend>Choose one:</legend>
+            <div>
+              <input
+                type="radio"
+                name="chooseReward"
+                id="general"
+                value="general"
+                v-model="chosenReward"
+              />
+              <label for="general">
+                <span :class="{ disabled: !isUnprepared }">
+                  If you are unprepared, clear the impact and take +1 supply.
+                </span>
+                <span :class="{ disabled: isUnprepared }">Otherwise, take +2 supply</span
+                ><button :disabled="chosenReward !== 'general'" @click="takeRewards">
+                  Take rewards
+                </button>
+              </label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="chooseReward"
+                id="specific"
+                value="specific"
+                v-model="chosenReward"
+              />
+              <label for="specific">
+                If you are in need of a specific item, resource, or service that can reasonably be
+                obtained, you acquire it.
+                <AdjustMomentumButton
+                  operation="adds"
+                  :amount="1"
+                  :disabled="chosenReward !== 'specific'"
+              /></label>
+            </div>
+          </fieldset>
         </template>
         <template v-slot:miss>
           <p>You gain nothing and the situation worsens. Pay the Price.</p>
