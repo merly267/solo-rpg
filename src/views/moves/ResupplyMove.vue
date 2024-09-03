@@ -92,7 +92,6 @@ const clearMove = () => {
             <label for="hold">Hold supply ({{ characterStore.hold }})</label>
           </div>
         </fieldset>
-        selectedSupply: {{ selectedSupply }}
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, envision the opportunity and your approach. If you...
@@ -153,6 +152,7 @@ const clearMove = () => {
               id="gearUp"
               value="Hold"
               @input="selectedStatName = ($event.target as HTMLInputElement).value"
+              :disabled="selectedSupply === 'Hold'"
             />
             <label for="gearUp"
               >Gear up from your ship's stores: roll +Supply (hold) ({{
