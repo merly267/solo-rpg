@@ -27,6 +27,22 @@ export const useCharacterStore = defineStore('characterStore', {
         this.health -= x
       }
     },
+    takeHoldSupply(x: number) {
+      if (this.hold == maxSupply) {
+        return
+      }
+      if (this.hold + x > maxSupply) {
+        return (this.hold = maxSupply)
+      }
+      this.hold += x
+    },
+    loseHoldSupply(x: number) {
+      if (this.hold == 0) {
+        return
+      } else {
+        this.hold -= x
+      }
+    },
     takeSupply(x: number) {
       if (this.supply == maxSupply) {
         return
