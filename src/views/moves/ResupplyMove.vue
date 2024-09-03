@@ -53,6 +53,8 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const chosenReward = ref<string>('')
+
 const impactsStore = useImpactsStore()
 
 const unprepared = impactsStore.impacts.find((imp) => imp.name === 'Unprepared')
@@ -64,13 +66,19 @@ const isUnprepared = computed(() => {
 const takeRewards = () => {
   if (isUnprepared.value) {
     impactsStore.clearImpact('Unprepared')
-    characterStore.takeSupply(1)
+    if (selectedSupply.value === 'Hold') {
+      characterStore.takeHoldSupply(1)
+    } else {
+      characterStore.takeSupply(1)
+    }
   } else {
-    characterStore.takeSupply(2)
+    if (selectedSupply.value === 'Hold') {
+      characterStore.takeHoldSupply(2)
+    } else {
+      characterStore.takeSupply(2)
+    }
   }
 }
-
-const chosenReward = ref<string>('')
 
 const clearMove = () => {
   moveMade.value = false
@@ -187,6 +195,7 @@ const clearMove = () => {
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
+          selectedSupply: {{ selectedSupply }}
           <fieldset>
             <legend>Choose one:</legend>
             <div>
