@@ -14,7 +14,15 @@ import { maxSupply } from '@/constants'
 
 const move = movesList.resupplyMove
 
-const selectedSupply = ref<string>('Equipped')
+// const selectedSupply = ref<string>('Equipped')
+
+const selectedSupply = computed(() => {
+  if (characterStore.supply === maxSupply) {
+    return 'Hold'
+  } else {
+    return 'Equipped'
+  }
+})
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
