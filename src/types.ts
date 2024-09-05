@@ -38,6 +38,11 @@ export type ProgressTrack = {
   status: ProgressTrackStatus
 }
 
+export type LegacyTrack = {
+  name: string
+  progress: number
+}
+
 export type StashedAdd = {
   uuid: string
   source: string
