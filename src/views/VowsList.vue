@@ -8,6 +8,7 @@ const move = movesList.swearVow
 </script>
 
 <template>
+  <!-- <pre>{{ progressTrackStore.vows }}</pre> -->
   <h2>Vows</h2>
   <div v-if="progressTrackStore.vows.length">
     <div v-for="vow in progressTrackStore.vows" :key="`vow-${vow.uuid}`" class="vow">

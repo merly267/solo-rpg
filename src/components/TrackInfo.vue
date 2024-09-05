@@ -4,7 +4,7 @@ import { progressRanksList } from '@/constants'
 
 type PropTypes = {
   name: string
-  rank: number
+  rank?: number
   progress: number
 }
 
@@ -17,7 +17,7 @@ const translateRank = (level: number) => {
 </script>
 <template>
   <h3>{{ props.name }}</h3>
-  <p class="rank">Rank: {{ translateRank(props.rank) }}</p>
+  <p v-if="props.rank" class="rank">Rank: {{ translateRank(props.rank) }}</p>
   <ProgressTrack :progress="props.progress" />
 </template>
 

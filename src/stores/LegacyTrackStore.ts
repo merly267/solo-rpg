@@ -8,7 +8,7 @@ type State = {
   discoveries: RemovableRef<LegacyTrack>
 }
 
-export const uselegacyTrackStore = defineStore('legacyTrackStore', {
+export const useLegacyTrackStore = defineStore('legacyTrackStore', {
   state: (): State => ({
     quests: useLocalStorage('quests', {
       name: 'Quests',
