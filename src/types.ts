@@ -69,9 +69,9 @@ export type MovesList = {
   [name: string]: Move
 }
 
-export type Outcome = {
-  outcome: OutcomeResult
-}
+// export type Outcome = {
+//   outcome: OutcomeResult
+// }
 
 export type ImpactCategory = (typeof impactCategoriesList)[number]
 

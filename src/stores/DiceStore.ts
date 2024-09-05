@@ -45,7 +45,3 @@ export const useDiceStore = defineStore('diceStore', {
     }
   }
 })
-
-// const failures = computed(() => {
-//   return diceStore.challengeDice.filter((die) => die.isSuccess === false)
-// })
