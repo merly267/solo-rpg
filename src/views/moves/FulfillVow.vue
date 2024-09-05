@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ProgressMove from '@/components/ProgressMove.vue'
-import AdjustExperienceButton from '@/components/AdjustExperienceButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
+import { useDiceStore } from '@/stores/DiceStore'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
-import type { Outcome } from '@/types'
+
+const diceStore = useDiceStore()
 
 const move = movesList.fulfillVow
 const swearMove = movesList.swearVow
@@ -50,27 +51,18 @@ const moveMade = ref(false)
 
 const makeMove = () => {
   // progressTrackStore.resetStatus(selectedVowUuid.value)
-  if (moveOutcome.value === 'Strong hit' || moveOutcome.value === 'Weak hit'){
-    progressTrackStore.markComplete(selectedVowUuid.value)
+  if (diceStore.successes.length > 0){
+    // Mark complete
+    // progressTrackStore.markComplete(selectedVowUuid.value)
   }
   moveMade.value = true
 }
 
-const moveOutcomeRef = ref<Outcome | null>(null)
-
-const moveOutcome = computed(() => moveOutcomeRef.value?.outcome)
-
-
-const fullExperience = computed(() => {
-  if (selectedVow.value) {
-    return selectedVow.value.rank
-  }
-  return 0
-})
 </script>
 <template>
   <MoveLayout>
     <template #text>
+      <pre>diceStore.successes: {{ diceStore.successes.length }}</pre>
       <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove">
         <p>
           When you <strong>{{ move.trigger }}</strong
@@ -104,7 +96,7 @@ const fullExperience = computed(() => {
       </ProgressMove>
     </template>
     <template #outcome>
-      <MoveOutcome v-if="moveMade" ref="moveOutcomeRef">
+      <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
             Your vow is fulfilled. Mark a reward on your quests legacy track per the vow's rank.
