@@ -6,6 +6,7 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
 import { useDiceStore } from '@/stores/DiceStore'
+import { useLegacyTrackStore } from '@/stores/LegacyTrackStore'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
 const diceStore = useDiceStore()
@@ -47,15 +48,22 @@ const setLastTouched = (event: Event) => {
   progressTrackStore.setLastTouched(target.value)
 }
 
+const legacyTrackStore = useLegacyTrackStore()
 const moveMade = ref(false)
 
 const makeMove = () => {
   // progressTrackStore.resetStatus(selectedVowUuid.value)
-  if (diceStore.successes.length > 0){
-    // Mark complete
-    // progressTrackStore.markComplete(selectedVowUuid.value)
+  if (selectedVow.value && diceStore.successes.length > 0){
+    progressTrackStore.markComplete(selectedVowUuid.value)
+    if (diceStore.successes.length === 2) {
+      markLegacyProgress(selectedVow.value.rank)
+    }
   }
   moveMade.value = true
+}
+
+const markLegacyProgress = (rank: number) => {
+  legacyTrackStore.markQuestProgress(rank)
 }
 
 </script>
