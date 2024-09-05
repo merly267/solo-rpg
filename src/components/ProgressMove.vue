@@ -45,5 +45,6 @@ const props = defineProps<PropTypes>()
   <h2>{{ props.title }}</h2>
   <slot></slot>
   <ChallengeDice />
-  <button type="button" @click="rollAllDice()">Roll</button>
+  <button type="button" @click="rollAllDice()">Roll</button
+  ><button type="button" @click="clearAllDice()">Clear</button>
 </template>
