@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import ChallengeDice from '@/components/ChallengeDice.vue'
 import ProgressMove from '@/components/ProgressMove.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
@@ -84,16 +85,29 @@ const markLegacyProgress = (rank: number) => {
   legacyTrackStore.markQuestProgress(rank)
 }
 
+const recommit = ref<boolean>(false)
+
+const recommitToQuest = () => {
+  recommit.value = true
+  diceStore.challengeDice.forEach((die) => diceStore.clear(die))
+  diceStore.challengeDice.forEach((die) => diceStore.roll(die))
+  const results = diceStore.challengeDice.map(die => die.result)
+  const lowest = Math.min(...results)
+  diceStore.challengeDice.forEach((die) => die.result === lowest ? die.lowest = true : !die.lowest )
+
+}
+
 const clearMove = () => {
   moveMade.value = false
   chosenReward.value = ''
+  recommit.value = false
 }
 
 </script>
 <template>
   <MoveLayout>
     <template #text>
-      <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove" @clearMove="clearMove">
+      <ProgressMove :title="move.title" :progressScore="progressScore" :hideDice="recommit" @makeMove="makeMove" @clearMove="clearMove">
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress.
@@ -169,8 +183,11 @@ const clearMove = () => {
             Your vow is undone through an unexpected complication or realization. Envision what happens and choose one:
             <ul>
               <li>Give up on the quest: Forsake Your Vow</li>
-              <li>Recommit to the quest: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the vow's rank by one (if not already epic).</li>
-              
+              <li>Recommit to the quest: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the vow's rank by one (if not already epic). <button @click="recommitToQuest">Recommit</button>
+                <div v-if="recommit">
+                  <ChallengeDice />
+                </div>
+              </li>
             </ul>
           </p>
         </template>

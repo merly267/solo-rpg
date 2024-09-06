@@ -14,7 +14,8 @@ const props = defineProps<PropTypes>()
     class="die rolled"
     :class="{
       success: props.die.isSuccess === true,
-      failure: props.die.isSuccess === false
+      failure: props.die.isSuccess === false,
+      highest: props.die.lowest === false
     }"
     ><span class="number">{{ props.die.result }}</span></span
   >
@@ -92,5 +93,8 @@ const props = defineProps<PropTypes>()
 
 .die.cancelled:after {
   background-color: var(--die-bg);
+}
+.die.highest {
+  opacity: 0.5;
 }
 </style>

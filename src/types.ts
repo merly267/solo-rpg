@@ -60,6 +60,7 @@ export type Die = {
   result: number
   cancelled?: boolean
   isSuccess?: boolean
+  lowest?: boolean
 }
 
 export type Move = {
