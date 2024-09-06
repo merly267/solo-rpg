@@ -62,16 +62,38 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const chosenReward = ref<string>('')
+
+const rewards = computed(() => {
+  if (selectedVow.value) {
+    if (chosenReward.value === 'full') {
+      return selectedVow.value.rank
+    }
+    if (chosenReward.value === 'lower') {
+      return selectedVow.value.rank - 1
+    }
+  }
+  return 0
+})
+
+const takeRewards = () => {
+  legacyTrackStore.markQuestProgress(rewards.value)
+}
+
 const markLegacyProgress = (rank: number) => {
   legacyTrackStore.markQuestProgress(rank)
+}
+
+const clearMove = () => {
+  moveMade.value = false
+  chosenReward.value = ''
 }
 
 </script>
 <template>
   <MoveLayout>
     <template #text>
-      <pre>diceStore.successes: {{ diceStore.successes.length }}</pre>
-      <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove">
+      <ProgressMove :title="move.title" :progressScore="progressScore" @makeMove="makeMove" @clearMove="clearMove">
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress.
@@ -107,13 +129,40 @@ const markLegacyProgress = (rank: number) => {
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
-            Your vow is fulfilled. Mark a reward on your quests legacy track per the vow's rank.
+            Your vow is fulfilled. You gain a reward on your quests legacy track per the vow's rank.
           </p>
         </template>
         <template v-slot:weak>
-          <p>
-            Your vow is fulfilled, but there is more to be done or you realize the truth of your quest. If you <router-link :to="{ path: `/moves/${swearMove.slug}` }">{{ swearMove.title }}</router-link> to set things right, take your full legacy reward. Otherwise, make the legacy reward one rank lower (none for a troublesome quest).
-          </p>
+          <p>Your vow is fulfilled, but there is more to be done or you realize the truth of your quest.</p>
+            <fieldset>
+              <div>
+                <input
+                  type="radio"
+                  name="chooseReward"
+                  id="full"
+                  value="full"
+                  v-model="chosenReward"
+                />
+                <label for="full">
+                  If you <router-link :to="{ path: `/moves/${swearMove.slug}` }">{{ swearMove.title }}</router-link> to set things right, take your full legacy reward.
+                </label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="chooseReward"
+                  id="lower"
+                  value="lower"
+                  v-model="chosenReward"
+                />
+                <label for="lower">
+                  Otherwise, make the legacy reward one rank lower (none for a troublesome quest).
+                </label>
+              </div>
+            </fieldset>
+            <button :disabled="chosenReward === ''" @click="takeRewards">
+              Take rewards
+            </button>
         </template>
         <template v-slot:miss>
           <p>
