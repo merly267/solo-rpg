@@ -39,6 +39,15 @@ const clearAllDice = () => {
   diceStore.challengeDice.forEach((die) => diceStore.clear(die))
 }
 
+const clearMove = () => {
+  emit('clearMove')
+}
+
+const clearAll = () => {
+  clearAllDice()
+  clearMove()
+}
+
 const props = defineProps<PropTypes>()
 </script>
 <template>
@@ -46,5 +55,5 @@ const props = defineProps<PropTypes>()
   <slot></slot>
   <ChallengeDice />
   <button type="button" @click="rollAllDice()">Roll</button
-  ><button type="button" @click="clearAllDice()">Clear</button>
+  ><button type="button" @click="clearAll()">Clear</button>
 </template>
