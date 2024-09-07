@@ -210,6 +210,7 @@ const clearMove = () => {
               <li>Recommit to the quest: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the vow's rank by one (if not already epic). <button @click="recommitToQuest">Recommit</button>
                 <div v-if="recommit">
                   <ChallengeDice />
+                  <button @click="clearMove">Clear</button>
                 </div>
               </li>
             </ul>
