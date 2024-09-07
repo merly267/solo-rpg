@@ -5,6 +5,7 @@ import { useDiceStore } from '@/stores/DiceStore'
 type PropTypes = {
   title: string
   progressScore: number
+  hideDice?: boolean
 }
 
 const diceStore = useDiceStore()
@@ -39,11 +40,23 @@ const clearAllDice = () => {
   diceStore.challengeDice.forEach((die) => diceStore.clear(die))
 }
 
+const clearMove = () => {
+  emit('clearMove')
+}
+
+const clearAll = () => {
+  clearAllDice()
+  clearMove()
+}
+
 const props = defineProps<PropTypes>()
 </script>
 <template>
   <h2>{{ props.title }}</h2>
   <slot></slot>
-  <ChallengeDice />
-  <button type="button" @click="rollAllDice()">Roll</button>
+  <div v-if="!hideDice" class="dice-buttons">
+    <ChallengeDice />
+    <button type="button" @click="rollAllDice()">Roll</button
+    ><button type="button" @click="clearAll()">Clear</button>
+  </div>
 </template>

@@ -38,6 +38,11 @@ export type ProgressTrack = {
   status: ProgressTrackStatus
 }
 
+export type LegacyTrack = {
+  name: string
+  progress: number
+}
+
 export type StashedAdd = {
   uuid: string
   source: string
@@ -55,6 +60,7 @@ export type Die = {
   result: number
   cancelled?: boolean
   isSuccess?: boolean
+  lowest?: boolean
 }
 
 export type Move = {
@@ -69,9 +75,9 @@ export type MovesList = {
   [name: string]: Move
 }
 
-export type Outcome = {
-  outcome: OutcomeResult
-}
+// export type Outcome = {
+//   outcome: OutcomeResult
+// }
 
 export type ImpactCategory = (typeof impactCategoriesList)[number]
 

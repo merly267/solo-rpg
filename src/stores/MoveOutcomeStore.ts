@@ -13,6 +13,7 @@ export const useMoveOutcomeStore = defineStore('moveOutcomeStore', {
   state: () => ({
     latestActionScore: useLocalStorage('latestActionScore', 0),
     possibleMomentumSuccesses: useLocalStorage('possibleMomentumSuccesses', 0)
+    // latestMove: useLocalStorage('latestMove', '')
   }),
   actions: {
     calculateActionScore(stat: number, adds: number) {

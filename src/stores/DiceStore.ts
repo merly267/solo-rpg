@@ -16,16 +16,19 @@ export const useDiceStore = defineStore('diceStore', {
         max: 10,
         rolled: false,
         result: 0,
-        isSuccess: false
+        isSuccess: false,
+        lowest: false
       },
       {
         id: 'challengeDie-1',
         max: 10,
         rolled: false,
         result: 0,
-        isSuccess: false
+        isSuccess: false,
+        lowest: false
       }
-    ])
+    ]),
+    showLowest: false
   }),
   getters: {
     successes: (state) => {
@@ -42,10 +45,7 @@ export const useDiceStore = defineStore('diceStore', {
       die.isSuccess = false
       die.cancelled = false
       die.rolled = false
+      die.lowest = false
     }
   }
 })
-
-// const failures = computed(() => {
-//   return diceStore.challengeDice.filter((die) => die.isSuccess === false)
-// })

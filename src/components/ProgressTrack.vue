@@ -1,10 +1,26 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 type PropTypes = {
   progress: number
 }
 
 const props = defineProps<PropTypes>()
 const maxTrack = 10
+
+const displayProgress = computed(() => {
+  if (props.progress <= maxTrack) {
+    return props.progress
+  }
+  return props.progress % maxTrack
+})
+
+// not sure if I need to display this as I'm already displaying the total?
+// const undisplayedProgress = computed(() => {
+//   if (props.progress <= maxTrack) {
+//     return
+//   }
+//   return props.progress - displayProgress.value
+// })
 
 const boxStyle = (index: number, progress: number) => {
   const filled = Math.floor(progress)
@@ -32,12 +48,13 @@ const boxStyle = (index: number, progress: number) => {
 
 <template>
   Progress: {{ props.progress }}
+  <!-- <div class="undisplayed" v-if="undisplayedProgress">+{{ undisplayedProgress }}</div> -->
   <div class="progress-track">
     <div
       v-for="index in maxTrack"
       :key="index"
       class="box"
-      :class="boxStyle(index, props.progress)"
+      :class="boxStyle(index, displayProgress)"
     ></div>
   </div>
 </template>
