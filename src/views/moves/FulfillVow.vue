@@ -90,12 +90,17 @@ const recommit = ref<boolean>(false)
 const recommitToQuest = () => {
   recommit.value = true
   findLowestChallengeDie()
+  raiseRank()
 }
 
 const adjustProgress = (lostProgress: number) => {
   if (selectedVow.value) {
     const fullBoxes = Math.ceil(selectedVow.value.progress)
-    selectedVow.value.progress = fullBoxes - lostProgress
+    if (fullBoxes - lostProgress == 0) {
+      selectedVow.value.progress =0
+    } else {
+      selectedVow.value.progress = fullBoxes - lostProgress
+    }
   }
 }
 
@@ -107,6 +112,12 @@ const findLowestChallengeDie = () => {
   const lowest = Math.min(...results)
   diceStore.challengeDice.forEach((die) => die.result === lowest ? die.lowest = true : !die.lowest )
   adjustProgress(lowest)
+}
+
+const raiseRank = () => {
+  if (selectedVow.value && selectedVow.value.rank < 5) {
+    selectedVow.value.rank += 1
+  }
 }
 
 const clearMove = () => {
@@ -151,7 +162,6 @@ const clearMove = () => {
           />
         </div>
       </ProgressMove>
-      <pre>{{ diceStore.challengeDice }}</pre>
     </template>
     <template #outcome>
       <MoveOutcome v-if="moveMade">
