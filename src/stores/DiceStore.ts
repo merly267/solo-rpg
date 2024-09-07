@@ -27,7 +27,8 @@ export const useDiceStore = defineStore('diceStore', {
         isSuccess: false,
         lowest: false
       }
-    ])
+    ]),
+    showLowest: false
   }),
   getters: {
     successes: (state) => {
