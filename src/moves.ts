@@ -19,6 +19,12 @@ export const movesList: MovesList = {
     moveType: 'Adventure',
     trigger: 'search for clues, conduct an investigation, analyze evidence, or do research'
   },
+  compelMove: {
+    title: 'Compel',
+    slug: 'compel',
+    moveType: 'Adventure',
+    trigger: 'try to persuade someone or make them an offer'
+  },
   checkGear: {
     title: 'Check your Gear',
     slug: 'check-gear',
