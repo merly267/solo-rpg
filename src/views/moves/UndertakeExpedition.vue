@@ -108,5 +108,28 @@ const clearMove = () => {
         </fieldset>
       </ActionMove>
     </template>
+    <template #outcome>
+      <MoveOutcome v-if="moveMade">
+        <template v-slot:strong>
+          <p>
+            You reach a waypoint. Envision the location and mark progress per the rank of the expedition.
+          </p>
+        </template>
+        <template v-slot:weak>
+          <p>
+            You reach a waypoint. Envision the location and mark progress per the rank of the expedition, but this progress costs you. Choose one:
+            <ul>
+              <li>Suffer costs en route: Make a suffer move (-2), or two suffer moves (-1)</li>
+              <li>Face a peril at the waypoint: Envision what you encounter.</li>
+            </ul>
+          </p>
+        </template>
+        <template v-slot:miss>
+          <p>
+            You are waylaid by a crisis, or arrive at a waypoint to confront an immediate hardship or threat. Do not mark progress, and Pay the Price.
+          </p>
+        </template>
+      </MoveOutcome>
+    </template>
   </MoveLayout>
 </template>
