@@ -36,14 +36,6 @@ export const routes = [
     component: () => import('./views/moves/CheckGear.vue')
   },
   {
-    path: '/moves/heal',
-    component: () => import('./views/moves/HealMove.vue')
-  },
-  {
-    path: '/moves/resupply',
-    component: () => import('./views/moves/ResupplyMove.vue')
-  },
-  {
     path: '/moves/swear-vow',
     component: () => import('./views/moves/SwearVow.vue')
   },
@@ -54,5 +46,17 @@ export const routes = [
   {
     path: '/moves/fulfill-vow',
     component: () => import('./views/moves/FulfillVow.vue')
+  },
+  {
+    path: '/moves/undertake-expedition',
+    component: () => import('./views/moves/UndertakeExpedition.vue')
+  },
+  {
+    path: '/moves/heal',
+    component: () => import('./views/moves/HealMove.vue')
+  },
+  {
+    path: '/moves/resupply',
+    component: () => import('./views/moves/ResupplyMove.vue')
   }
 ]
