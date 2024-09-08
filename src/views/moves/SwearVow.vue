@@ -39,7 +39,7 @@ const noVow = computed(() => {
 const moveMade = ref(false)
 
 const makeMove = () => {
-  progressTrackStore.addVow(progressTrackType)
+  progressTrackStore.addTrack(progressTrackType)
   moveMade.value = true
 }
 

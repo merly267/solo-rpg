@@ -24,12 +24,17 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     lastTouchedVow: useLocalStorage('lastTouchedVow', '')
   }),
   actions: {
-    addVow(trackType: ProgressTrackType) {
+    addTrack(trackType: ProgressTrackType) {
       this.newTrack.uuid = uuidv4()
       this.newTrack.type = trackType
-      const newVow = structuredClone(toRaw(this.newTrack))
-      this.vows.push(newVow)
-      this.setLastTouched(this.newTrack.uuid)
+      const newClonedTrack = structuredClone(toRaw(this.newTrack))
+      if (trackType === 'Expedition') {
+        this.expeditions.push(newClonedTrack)
+      }
+      if (trackType === 'Vow') {
+        this.vows.push(newClonedTrack)
+      }
+      this.setLastTouched(trackType, this.newTrack.uuid)
       this.clearNewTrack()
     },
     clearNewTrack() {
@@ -78,12 +83,18 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
         selectedVow.status = selectedVow.progress < 10 ? 'In progress' : 'Full'
       }
     },
-    setLastTouched(uuid: string) {
-      this.lastTouchedVow = uuid
+    setLastTouched(trackType: ProgressTrackType, uuid: string) {
+      if (trackType === 'Expedition') {
+        this.lastTouchedExpedition = uuid
+      }
+      if (trackType === 'Vow') {
+        this.lastTouchedVow = uuid
+      }
     },
     // to refresh from defaults
     clearLocalStorage() {
       this.vows = []
+      this.expeditions = []
     }
   }
 })
