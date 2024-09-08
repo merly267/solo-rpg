@@ -4,6 +4,7 @@ import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
+import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 
@@ -94,6 +95,25 @@ const clearMove = () => {
         </fieldset>
       </ActionMove>
     </template>
-    <template #outcome> </template>
+    <template #outcome>
+      <MoveOutcome v-if="moveMade">
+        <template v-slot:strong>
+          <p>
+            They’ll do what you want or agree to your conditions.
+            <AdjustMomentumButton operation="adds" :amount="1" />
+          </p>
+        </template>
+        <template v-slot:weak>
+          <p>
+            They’ll do what you want or agree to your conditions, but their agreement comes with a
+            demand or complication. Envision their couteroffer and
+            <AdjustMomentumButton operation="adds" :amount="1" />
+          </p>
+        </template>
+        <template v-slot:miss>
+          <p>They refuse or make a demand that costs you greatly. Pay the Price.</p>
+        </template>
+      </MoveOutcome>
+    </template>
   </MoveLayout>
 </template>
