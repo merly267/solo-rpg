@@ -19,6 +19,12 @@ export const movesList: MovesList = {
     moveType: 'Adventure',
     trigger: 'search for clues, conduct an investigation, analyze evidence, or do research'
   },
+  checkGear: {
+    title: 'Check your Gear',
+    slug: 'check-gear',
+    moveType: 'Adventure',
+    trigger: 'check to see if you have a specific helpful item or resource'
+  },
   healMove: {
     title: 'Heal',
     slug: 'heal',
