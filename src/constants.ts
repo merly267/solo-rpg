@@ -117,7 +117,7 @@ export const impactDefaults: Impact[] = [
   }
 ] as const
 
-export const progressTrackTypesList = ['Vow', ''] as const
+export const progressTrackTypesList = ['Expedition', 'Vow', ''] as const
 
 export const progressTrackStatusList = ['In progress', 'Full', 'Complete', 'Forsaken', ''] as const
 

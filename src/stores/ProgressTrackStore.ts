@@ -7,7 +7,9 @@ import type { ProgressTrack, ProgressTrackType } from '@/types'
 
 type State = {
   newTrack: ProgressTrack
+  expeditions: RemovableRef<ProgressTrack[]>
   vows: RemovableRef<ProgressTrack[]>
+  lastTouchedExpedition: RemovableRef<string>
   lastTouchedVow: RemovableRef<string>
 }
 
@@ -16,7 +18,9 @@ const progressTrack = structuredClone(toRaw(newProgressTrack))
 export const useProgressTrackStore = defineStore('progressTrackStore', {
   state: (): State => ({
     newTrack: progressTrack,
+    expeditions: useLocalStorage('expeditions', []),
     vows: useLocalStorage('vows', []),
+    lastTouchedExpedition: useLocalStorage('lastTouchedExpedition', ''),
     lastTouchedVow: useLocalStorage('lastTouchedVow', '')
   }),
   actions: {
