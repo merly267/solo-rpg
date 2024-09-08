@@ -28,6 +28,10 @@ export const routes = [
     component: () => import('./views/moves/GatherInformation.vue')
   },
   {
+    path: '/moves/compel',
+    component: () => import('./views/moves/CompelMove.vue')
+  },
+  {
     path: '/moves/check-gear',
     component: () => import('./views/moves/CheckGear.vue')
   },
