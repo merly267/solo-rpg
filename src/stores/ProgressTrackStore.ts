@@ -23,6 +23,14 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     lastTouchedExpedition: useLocalStorage('lastTouchedExpedition', ''),
     lastTouchedVow: useLocalStorage('lastTouchedVow', '')
   }),
+  getters: {
+    activeExpeditions: (state) => {
+      return state.expeditions.filter((expedition) => expedition.status === 'In progress')
+    },
+    activeVows: (state) => {
+      return state.vows.filter((vow) => vow.status === 'In progress')
+    }
+  },
   actions: {
     addTrack(trackType: ProgressTrackType) {
       this.newTrack.uuid = uuidv4()
