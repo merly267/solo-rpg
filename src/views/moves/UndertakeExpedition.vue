@@ -31,21 +31,22 @@ const moveAdds = 0
 
 const progressTrackStore = useProgressTrackStore()
 
-const noSelectedExpedition = computed(() => {
+const noNewExpedition = computed(() => {
   if (
-    progressTrackStore.newTrack.name.length &&
-    progressTrackStore.newTrack.rank > 0 &&
-    selectedStatName.value.length
+    progressTrackStore.newTrack.name.length && progressTrackStore.newTrack.rank
   ) {
     return false
   }
   return true
 })
 
+const addTrack = () => {
+  progressTrackStore.addTrack(progressTrackType)
+}
+
 const moveMade = ref(false)
 
 const makeMove = () => {
-  progressTrackStore.addTrack(progressTrackType)
   moveMade.value = true
 }
 
@@ -61,7 +62,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="noSelectedExpedition"
+        :disabled="!selectedStatName.length"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
@@ -71,6 +72,7 @@ const clearMove = () => {
           >, give the expedition a name and rank:
         </p>
         <CreateProgressTrack :type="progressTrackType" />
+        <button @click="addTrack" :disabled="noNewExpedition">Create Expedition</button>
         <p>Then, for each segment of the expedition, envision your approach. If you…</p>
         <fieldset>
           <div>
