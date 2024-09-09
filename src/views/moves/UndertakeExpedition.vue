@@ -5,6 +5,7 @@ import ActionMove from '@/components/ActionMove.vue'
 import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
+import TrackInfo from '@/components/TrackInfo.vue'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
@@ -44,6 +45,12 @@ const addTrack = () => {
   progressTrackStore.addTrack(progressTrackType)
 }
 
+const selectedExpeditionUuid = ref(progressTrackStore.lastTouchedExpedition)
+
+const selectedExpedition = computed(() => {
+  return progressTrackStore.expeditions.find((expedition) => expedition.uuid === selectedExpeditionUuid.value)
+})
+
 const moveMade = ref(false)
 
 const makeMove = () => {
@@ -66,13 +73,23 @@ const clearMove = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
-        <pre>{{ progressTrackStore }}</pre>
+        <pre>{{ progressTrackStore.activeVows }}</pre>
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, give the expedition a name and rank:
         </p>
-        <CreateProgressTrack :type="progressTrackType" />
-        <button @click="addTrack" :disabled="noNewExpedition">Create Expedition</button>
+        <!-- only show if no incomplete expeditions or if create new expedition option chosen -->
+        <div>
+          <CreateProgressTrack :type="progressTrackType" />
+          <button @click="addTrack" :disabled="noNewExpedition">Create Expedition</button>
+        </div>
+        <div v-if="selectedExpedition">
+          <TrackInfo
+            :name="selectedExpedition.name"
+            :rank="selectedExpedition.rank"
+            :progress="selectedExpedition.progress"
+          />
+        </div>
         <p>Then, for each segment of the expedition, envision your approach. If you…</p>
         <fieldset>
           <div>
