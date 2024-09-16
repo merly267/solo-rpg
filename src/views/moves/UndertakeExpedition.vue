@@ -55,6 +55,8 @@ const moveMade = ref(false)
 
 const makeMove = () => {
   moveMade.value = true
+  // only do this if strong or weak hit
+  progressTrackStore.markProgress(selectedExpeditionUuid.value, 'Expedition')
 }
 
 const clearMove = () => {
@@ -73,7 +75,7 @@ const clearMove = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
-        <pre>{{ progressTrackStore.activeVows }}</pre>
+        <pre>{{ progressTrackStore.activeExpeditions }}</pre>
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, give the expedition a name and rank:

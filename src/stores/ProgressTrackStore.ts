@@ -48,6 +48,32 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     clearNewTrack() {
       Object.assign(this.newTrack, newProgressTrack)
     },
+    findTrack(uuid: string, trackType: ProgressTrackType) {
+      if (trackType === 'Vow') {
+        const selectedTrack = this.vows.find((vow) => vow.uuid === uuid)
+        return selectedTrack
+      }
+      if (trackType === 'Expedition') {
+        const selectedTrack = this.expeditions.find((expedition) => expedition.uuid === uuid)
+        return selectedTrack
+      }
+    },
+    increaseTrack(rank: number) {
+      switch (rank) {
+        case 1:
+          return 3
+        case 2:
+          return 2
+        case 3:
+          return 1
+        case 4:
+          return 0.5
+        case 5:
+          return 0.25
+        default:
+          return 0
+      }
+    },
     markComplete(selectedUuid: string) {
       const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
       if (selectedVow) {
@@ -60,28 +86,13 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
         selectedVow.status = 'In progress'
       }
     },
-    markProgress(selectedUuid: string) {
-      const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
-      if (selectedVow) {
-        const increaseAmount = () => {
-          switch (selectedVow.rank) {
-            case 1:
-              return 3
-            case 2:
-              return 2
-            case 3:
-              return 1
-            case 4:
-              return 0.5
-            case 5:
-              return 0.25
-            default:
-              return 0
-          }
-        }
-        const newTotal = (selectedVow.progress += increaseAmount())
-        selectedVow.progress = newTotal < 10 ? newTotal : 10
-        selectedVow.status = selectedVow.progress < 10 ? 'In progress' : 'Full'
+    markProgress(selectedUuid: string, trackType: ProgressTrackType) {
+      const selectedTrack = this.findTrack(selectedUuid, trackType)
+      if (selectedTrack) {
+        const increaseAmount = this.increaseTrack(selectedTrack.rank)
+        const newTotal = (selectedTrack.progress += increaseAmount)
+        selectedTrack.progress = newTotal < 10 ? newTotal : 10
+        selectedTrack.status = selectedTrack.progress < 10 ? 'In progress' : 'Full'
       }
     },
     resetProgress(selectedUuid: string) {

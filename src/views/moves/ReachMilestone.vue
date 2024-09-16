@@ -36,7 +36,7 @@ const setLastTouched = (event: Event) => {
 }
 
 const makeMove = () => {
-  progressTrackStore.markProgress(selectedVowUuid.value)
+  progressTrackStore.markProgress(selectedVowUuid.value, 'Vow')
 }
 </script>
 <template>
