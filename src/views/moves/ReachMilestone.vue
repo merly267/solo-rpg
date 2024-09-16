@@ -7,6 +7,7 @@ import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
 const move = movesList.reachMilestone
 const swearMove = movesList.swearVow
+const progressTrackType = 'Vow'
 
 const progressTrackStore = useProgressTrackStore()
 
@@ -32,11 +33,11 @@ const selectedVow = computed(() => {
 
 const setLastTouched = (event: Event) => {
   const target = event.target as HTMLInputElement
-  progressTrackStore.setLastTouched('Vow', target.value)
+  progressTrackStore.setLastTouched(progressTrackType, target.value)
 }
 
 const makeMove = () => {
-  progressTrackStore.markProgress(selectedVowUuid.value, 'Vow')
+  progressTrackStore.markProgress(selectedVowUuid.value, progressTrackType)
 }
 </script>
 <template>

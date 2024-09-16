@@ -56,7 +56,7 @@ const moveMade = ref(false)
 const makeMove = () => {
   moveMade.value = true
   // only do this if strong or weak hit
-  progressTrackStore.markProgress(selectedExpeditionUuid.value, 'Expedition')
+  progressTrackStore.markProgress(selectedExpeditionUuid.value, progressTrackType)
 }
 
 const clearMove = () => {
