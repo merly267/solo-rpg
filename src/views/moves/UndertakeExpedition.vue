@@ -44,6 +44,13 @@ const noNewExpedition = computed(() => {
   return true
 })
 
+const multipleExpeditions = computed(() => {
+  if (progressTrackStore.activeExpeditions.length <= 1) {
+    return false
+  }
+  return true
+})
+
 const addTrack = () => {
   progressTrackStore.addTrack(progressTrackType)
 }
@@ -53,6 +60,11 @@ const selectedExpeditionUuid = ref(progressTrackStore.lastTouchedExpedition)
 const selectedExpedition = computed(() => {
   return progressTrackStore.expeditions.find((expedition) => expedition.uuid === selectedExpeditionUuid.value)
 })
+
+const setLastTouched = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  progressTrackStore.setLastTouched(progressTrackType, target.value)
+}
 
 const moveMade = ref(false)
 
@@ -80,15 +92,28 @@ const clearMove = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
-        <pre>{{ progressTrackStore.activeExpeditions }}</pre>
+         <!-- <pre>{{ progressTrackStore.activeExpeditions }}</pre> -->
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, give the expedition a name and rank:
         </p>
         <!-- only show if no incomplete expeditions or if create new expedition option chosen -->
+        <!-- <div v-if="progressTrackStore.activeExpeditions.length === 0"> -->
         <div>
           <CreateProgressTrack :type="progressTrackType" />
           <button @click="addTrack" :disabled="noNewExpedition">Create Expedition</button>
+        </div>
+        <div v-if="multipleExpeditions">
+          <label for="expedition-select">Choose an expedition:</label>
+          <select name="expeditions" id="expedition-select" v-model="selectedExpeditionUuid" @change="setLastTouched">
+            <option
+              v-for="expedition in progressTrackStore.activeExpeditions"
+              :key="`expedition-${expedition.uuid}`"
+              :value="expedition.uuid"
+            >
+              {{ expedition.name }}
+            </option>
+          </select>
         </div>
         <div v-if="selectedExpedition">
           <TrackInfo
