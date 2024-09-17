@@ -6,9 +6,12 @@ import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
+import { useDiceStore } from '@/stores/DiceStore'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
+
+const diceStore = useDiceStore()
 
 const move = movesList.undertakeExpedition
 const progressTrackType = 'Expedition'
@@ -56,7 +59,9 @@ const moveMade = ref(false)
 const makeMove = () => {
   moveMade.value = true
   // only do this if strong or weak hit
-  progressTrackStore.markProgress(selectedExpeditionUuid.value, progressTrackType)
+  if (diceStore.successes.length > 0) {
+    progressTrackStore.markProgress(selectedExpeditionUuid.value, progressTrackType)
+  }
 }
 
 const clearMove = () => {
