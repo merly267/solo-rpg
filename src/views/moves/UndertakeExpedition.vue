@@ -114,7 +114,7 @@ const clearMove = () => {
           </select>
           or
         </div>
-        <button @click="createNewExpedition">Create a new expedition</button>
+        <button @click="createNewExpedition">Undertake a new expedition</button>
         <div v-if="progressTrackStore.activeExpeditions.length === 0 || addNewExpedition">
           <CreateProgressTrack :type="progressTrackType" /> 
           <button @click="addTrack" :disabled="noNewExpedition">Create Expedition</button>
