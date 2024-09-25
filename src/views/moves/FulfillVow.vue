@@ -55,7 +55,7 @@ const moveMade = ref(false)
 const makeMove = () => {
   // progressTrackStore.resetStatus(selectedVowUuid.value)
   if (selectedVow.value && diceStore.successes.length > 0){
-    progressTrackStore.markComplete(selectedVowUuid.value)
+    progressTrackStore.markComplete(selectedVowUuid.value, 'Vow')
     if (diceStore.successes.length === 2) {
       markLegacyProgress(selectedVow.value.rank)
     }
