@@ -80,12 +80,6 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
         selectedTrack.status = 'Complete'
       }
     },
-    resetStatus(selectedUuid: string) {
-      const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
-      if (selectedVow) {
-        selectedVow.status = 'In progress'
-      }
-    },
     markProgress(selectedUuid: string, trackType: ProgressTrackType) {
       const selectedTrack = this.findTrack(selectedUuid, trackType)
       if (selectedTrack) {
@@ -93,13 +87,6 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
         const newTotal = (selectedTrack.progress += increaseAmount)
         selectedTrack.progress = newTotal < 10 ? newTotal : 10
         selectedTrack.status = selectedTrack.progress < 10 ? 'In progress' : 'Full'
-      }
-    },
-    resetProgress(selectedUuid: string) {
-      const selectedVow = this.vows.find((vow) => vow.uuid === selectedUuid)
-      if (selectedVow) {
-        selectedVow.progress = 0
-        selectedVow.status = selectedVow.progress < 10 ? 'In progress' : 'Full'
       }
     },
     setLastTouched(trackType: ProgressTrackType, uuid: string) {

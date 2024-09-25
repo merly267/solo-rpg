@@ -83,9 +83,6 @@ const makeMove = () => {
             :progress="selectedVow.progress"
           />
           <button :disabled="selectedVow.status === 'Full'" @click="makeMove">Mark Progress</button>
-          <button @click="progressTrackStore.resetProgress(selectedVow.uuid)">
-            Reset progress
-          </button>
         </div>
       </div>
     </template>
