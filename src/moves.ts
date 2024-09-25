@@ -57,6 +57,13 @@ export const movesList: MovesList = {
     trigger:
       'sail an unfamiliar route through perilous seas, find the way across hazardous terrain, or explore a mysterious site'
   },
+  finishExpedition: {
+    title: 'Finish an Expedition',
+    slug: 'finish-expedition',
+    moveType: 'Exploration',
+    trigger: 'your expedition comes to an end',
+    progress: true
+  },
   healMove: {
     title: 'Heal',
     slug: 'heal',
