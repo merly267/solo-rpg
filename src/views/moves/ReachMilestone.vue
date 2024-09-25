@@ -7,18 +7,19 @@ import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
 const move = movesList.reachMilestone
 const swearMove = movesList.swearVow
+const progressTrackType = 'Vow'
 
 const progressTrackStore = useProgressTrackStore()
 
 const noVow = computed(() => {
-  if (progressTrackStore.vows.length) {
+  if (progressTrackStore.activeVows.length) {
     return false
   }
   return true
 })
 
 const multipleVows = computed(() => {
-  if (progressTrackStore.vows.length <= 1) {
+  if (progressTrackStore.activeVows.length <= 1) {
     return false
   }
   return true
@@ -27,16 +28,16 @@ const multipleVows = computed(() => {
 const selectedVowUuid = ref(progressTrackStore.lastTouchedVow)
 
 const selectedVow = computed(() => {
-  return progressTrackStore.vows.find((vow) => vow.uuid === selectedVowUuid.value)
+  return progressTrackStore.activeVows.find((vow) => vow.uuid === selectedVowUuid.value)
 })
 
 const setLastTouched = (event: Event) => {
   const target = event.target as HTMLInputElement
-  progressTrackStore.setLastTouched(target.value)
+  progressTrackStore.setLastTouched(progressTrackType, target.value)
 }
 
 const makeMove = () => {
-  progressTrackStore.markProgress(selectedVowUuid.value)
+  progressTrackStore.markProgress(selectedVowUuid.value, progressTrackType)
 }
 </script>
 <template>
@@ -66,7 +67,7 @@ const makeMove = () => {
           <label for="vow-select">Choose a vow:</label>
           <select name="vows" id="vow-select" v-model="selectedVowUuid" @change="setLastTouched">
             <option
-              v-for="vow in progressTrackStore.vows"
+              v-for="vow in progressTrackStore.activeVows"
               :key="`vow-${vow.uuid}`"
               :value="vow.uuid"
             >
@@ -82,9 +83,6 @@ const makeMove = () => {
             :progress="selectedVow.progress"
           />
           <button :disabled="selectedVow.status === 'Full'" @click="makeMove">Mark Progress</button>
-          <button @click="progressTrackStore.resetProgress(selectedVow.uuid)">
-            Reset progress
-          </button>
         </div>
       </div>
     </template>

@@ -31,18 +31,6 @@ export const movesList: MovesList = {
     moveType: 'Adventure',
     trigger: 'check to see if you have a specific helpful item or resource'
   },
-  healMove: {
-    title: 'Heal',
-    slug: 'heal',
-    moveType: 'Recover',
-    trigger: 'receive medical care or provide treatment'
-  },
-  resupplyMove: {
-    title: 'Resupply',
-    slug: 'resupply',
-    moveType: 'Recover',
-    trigger: 'attempt to bolster your readiness'
-  },
   swearVow: {
     title: 'Swear an Iron Vow',
     slug: 'swear-vow',
@@ -61,5 +49,24 @@ export const movesList: MovesList = {
     moveType: 'Quest',
     trigger: 'reach the end of your quest',
     progress: true
+  },
+  undertakeExpedition: {
+    title: 'Undertake an Expedition',
+    slug: 'undertake-expedition',
+    moveType: 'Exploration',
+    trigger:
+      'sail an unfamiliar route through perilous seas, find the way across hazardous terrain, or explore a mysterious site'
+  },
+  healMove: {
+    title: 'Heal',
+    slug: 'heal',
+    moveType: 'Recover',
+    trigger: 'receive medical care or provide treatment'
+  },
+  resupplyMove: {
+    title: 'Resupply',
+    slug: 'resupply',
+    moveType: 'Recover',
+    trigger: 'attempt to bolster your readiness'
   }
 }

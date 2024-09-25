@@ -18,14 +18,14 @@ const swearMove = movesList.swearVow
 const progressTrackStore = useProgressTrackStore()
 
 const noVow = computed(() => {
-  if (progressTrackStore.vows.length) {
+  if (progressTrackStore.activeVows.length) {
     return false
   }
   return true
 })
 
 const multipleVows = computed(() => {
-  if (progressTrackStore.vows.length <= 1) {
+  if (progressTrackStore.activeVows.length <= 1) {
     return false
   }
   return true
@@ -34,7 +34,7 @@ const multipleVows = computed(() => {
 const selectedVowUuid = ref(progressTrackStore.lastTouchedVow)
 
 const selectedVow = computed(() => {
-  return progressTrackStore.vows.find((vow) => vow.uuid === selectedVowUuid.value)
+  return progressTrackStore.activeVows.find((vow) => vow.uuid === selectedVowUuid.value)
 })
 
 const progressScore = computed(() => {
@@ -46,16 +46,15 @@ const progressScore = computed(() => {
 
 const setLastTouched = (event: Event) => {
   const target = event.target as HTMLInputElement
-  progressTrackStore.setLastTouched(target.value)
+  progressTrackStore.setLastTouched('Vow', target.value)
 }
 
 const legacyTrackStore = useLegacyTrackStore()
 const moveMade = ref(false)
 
 const makeMove = () => {
-  // progressTrackStore.resetStatus(selectedVowUuid.value)
   if (selectedVow.value && diceStore.successes.length > 0){
-    progressTrackStore.markComplete(selectedVowUuid.value)
+    progressTrackStore.markComplete(selectedVowUuid.value, 'Vow')
     if (diceStore.successes.length === 2) {
       markLegacyProgress(selectedVow.value.rank)
     }
@@ -146,7 +145,7 @@ const clearMove = () => {
           <label for="vow-select">Choose a vow:</label>
           <select name="vows" id="vow-select" v-model="selectedVowUuid" @change="setLastTouched">
             <option
-              v-for="vow in progressTrackStore.vows"
+              v-for="vow in progressTrackStore.activeVows"
               :key="`vow-${vow.uuid}`"
               :value="vow.uuid"
             >
