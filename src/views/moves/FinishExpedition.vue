@@ -70,11 +70,52 @@ const markLegacyProgress = (rank: number) => {
   legacyTrackStore.markDiscoveryProgress(rank)
 }
 
+const returnExp = ref<boolean>(false)
+
+const returnToExpedition = () => {
+  returnExp.value = true
+  findLowestChallengeDie()
+  raiseRank()
+}
+
+const adjustProgress = (lostProgress: number) => {
+  if (selectedExpedition.value) {
+    const fullBoxes = Math.ceil(selectedExpedition.value.progress)
+    if (fullBoxes - lostProgress == 0) {
+      selectedExpedition.value.progress =0
+    } else {
+      selectedExpedition.value.progress = fullBoxes - lostProgress
+    }
+  }
+}
+
+const findLowestChallengeDie = () => {
+  diceStore.challengeDice.forEach((die) => diceStore.clear(die))
+  diceStore.challengeDice.forEach((die) => diceStore.roll(die))
+  diceStore.showLowest = true
+  const results = diceStore.challengeDice.map(die => die.result)
+  const lowest = Math.min(...results)
+  diceStore.challengeDice.forEach((die) => die.result === lowest ? die.lowest = true : !die.lowest )
+  adjustProgress(lowest)
+}
+
+const raiseRank = () => {
+  if (selectedExpedition.value && selectedExpedition.value.rank < 5) {
+    selectedExpedition.value.rank += 1
+  }
+}
+
+const clearMove = () => {
+  moveMade.value = false
+  returnExp.value = false
+  diceStore.showLowest = false
+}
+
 </script>
 <template>
   <MoveLayout>
     <template #text>
-      <ProgressMove :title="move.title" :progressScore="progressScore" :hideDice="recommit" @makeMove="makeMove" @clearMove="clearMove">
+      <ProgressMove :title="move.title" :progressScore="progressScore" :hideDice="returnExp" @makeMove="makeMove" @clearMove="clearMove">
         <p>
           When <strong>{{ move.trigger }}</strong
           >, roll the challenge dice and compare to your progress.
@@ -115,43 +156,14 @@ const markLegacyProgress = (rank: number) => {
         </template>
         <template v-slot:weak>
           <p>You reach your destination or complete your survey, but you face an unforeseen complication at the end of your expedition. Make the legacy reward one rank lower (none for a troublesome expedition), and envision what you encounter.</p>
-            <!-- <fieldset>
-              <div>
-                <input
-                  type="radio"
-                  name="chooseReward"
-                  id="full"
-                  value="full"
-                  v-model="chosenReward"
-                />
-                <label for="full">
-                  If you <router-link :to="{ path: `/moves/${swearMove.slug}` }">{{ swearMove.title }}</router-link> to set things right, take your full legacy reward.
-                </label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="chooseReward"
-                  id="lower"
-                  value="lower"
-                  v-model="chosenReward"
-                />
-                <label for="lower">
-                  Otherwise, make the legacy reward one rank lower (none for a troublesome quest).
-                </label>
-              </div>
-            </fieldset>
-            <button :disabled="chosenReward === ''" @click="takeRewards">
-              Take rewards
-            </button> -->
         </template>
         <template v-slot:miss>
           <p>
-            Your vow is undone through an unexpected complication or realization. Envision what happens and choose one:
+            Your destination is lost to you, or you come to understand the true nature or cost of the expedition. Envision what happens and choose one.:
             <ul>
-              <li>Give up on the quest: Forsake Your Vow</li>
-              <li>Recommit to the quest: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the vow's rank by one (if not already epic). <button @click="recommitToQuest">Recommit</button>
-                <div v-if="recommit">
+              <li>Abandon the expedition: Envision the cost of this setback and Pay the Price.</li>
+              <li>Return to the expedition: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the expedition’s rank by one (if not already epic). <button @click="returnToExpedition">Return</button>
+                <div v-if="returnExp">
                   <ChallengeDice />
                   <button @click="clearMove">Clear</button>
                 </div>
