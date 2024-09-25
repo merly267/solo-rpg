@@ -59,6 +59,8 @@ const makeMove = () => {
     progressTrackStore.markComplete(selectedExpeditionUuid.value, 'Expedition')
     if (diceStore.successes.length === 2) {
       markLegacyProgress(selectedExpedition.value.rank)
+    } else {
+      markLegacyProgress(selectedExpedition.value.rank - 1)
     }
   }
   moveMade.value = true
@@ -112,8 +114,8 @@ const markLegacyProgress = (rank: number) => {
           </p>
         </template>
         <template v-slot:weak>
-          <p>Your vow is fulfilled, but there is more to be done or you realize the truth of your quest.</p>
-            <fieldset>
+          <p>You reach your destination or complete your survey, but you face an unforeseen complication at the end of your expedition. Make the legacy reward one rank lower (none for a troublesome expedition), and envision what you encounter.</p>
+            <!-- <fieldset>
               <div>
                 <input
                   type="radio"
@@ -141,7 +143,7 @@ const markLegacyProgress = (rank: number) => {
             </fieldset>
             <button :disabled="chosenReward === ''" @click="takeRewards">
               Take rewards
-            </button>
+            </button> -->
         </template>
         <template v-slot:miss>
           <p>
