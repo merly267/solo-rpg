@@ -44,7 +44,7 @@ dl {
 .trigger {
   display: inline-block;
   font-size: 0.95rem;
-  margin: 0.5rem 0;
+  margin: 0;
 }
 
 .trigger::first-letter {
