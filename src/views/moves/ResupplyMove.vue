@@ -106,6 +106,7 @@ const clearMove = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
+        <p v-if="allSupplyFull">Both your equipped and hold supply are at maximum.</p>
         <fieldset>
           <div>
             <input
