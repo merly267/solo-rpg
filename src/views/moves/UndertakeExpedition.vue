@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
@@ -61,7 +62,9 @@ const addTrack = () => {
   progressTrackStore.addTrack(progressTrackType)
 }
 
-const selectedExpeditionUuid = ref(progressTrackStore.lastTouchedExpedition)
+const updatingProgressTrackSTore = storeToRefs(progressTrackStore)
+
+const selectedExpeditionUuid = updatingProgressTrackSTore.lastTouchedExpedition
 
 const selectedExpedition = computed(() => {
   return progressTrackStore.expeditions.find((expedition) => expedition.uuid === selectedExpeditionUuid.value)
