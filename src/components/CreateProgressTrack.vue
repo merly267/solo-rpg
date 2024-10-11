@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onUnmounted } from 'vue'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 import { progressRanksList } from '@/constants'
 import type { ProgressTrackType } from '@/types'
@@ -12,6 +13,8 @@ const props = defineProps<PropTypes>()
 const progressTrackStore = useProgressTrackStore()
 
 const track = progressTrackStore.newTrack
+
+onUnmounted(() => progressTrackStore.clearNewTrack())
 </script>
 
 <template>

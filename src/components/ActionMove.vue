@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onUnmounted } from 'vue'
 import ActionDie from '@/components/ActionDie.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
@@ -92,6 +92,7 @@ const clearAll = () => {
   actionScoreReplaced = false
   clearMove()
 }
+onUnmounted(() => clearAll())
 </script>
 <template>
   <h2>{{ title }}</h2>

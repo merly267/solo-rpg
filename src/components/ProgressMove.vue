@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onUnmounted } from 'vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useDiceStore } from '@/stores/DiceStore'
 
@@ -48,6 +49,8 @@ const clearAll = () => {
   clearAllDice()
   clearMove()
 }
+
+onUnmounted(() => clearAll())
 
 const props = defineProps<PropTypes>()
 </script>

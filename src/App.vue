@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Solo RPG</h1>
+    <h1>Sundered Isles</h1>
     <nav>
       <router-link to="/character">Character sheet</router-link>
       <router-link to="/vows">Vows</router-link>

@@ -5,8 +5,6 @@ import { useCharacterStore } from '@/stores/CharacterStore'
 import { useImpactsStore } from '@/stores/ImpactsStore'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import ActionMove from '@/components/ActionMove.vue'
-import AdjustImpact from '@/components/AdjustImpact.vue'
-import AdjustHealthButton from '@/components/AdjustHealthButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
@@ -55,16 +53,6 @@ const isWounded = computed(() => {
 const selectedCost = ref<AdjustableTrack>('')
 const momentumStore = useMomentumStore()
 const characterStore = useCharacterStore()
-
-const takeCost = () => {
-  switch (selectedCost.value) {
-    case 'momentum':
-      momentumStore.loseMomentum(1)
-      break
-    case 'supply':
-      characterStore.loseSupply(1)
-  }
-}
 
 const moveMade = ref(false)
 

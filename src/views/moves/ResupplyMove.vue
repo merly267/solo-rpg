@@ -22,6 +22,14 @@ const selectedSupply = computed(() => {
   }
 })
 
+const allSupplyFull = computed(() => {
+  if (characterStore.supply === maxSupply && characterStore.hold === maxSupply) {
+    return true
+  } else {
+    return false
+  }
+})
+
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
 let selectedStatName = ref<string>('')
@@ -47,11 +55,6 @@ const selectedStat = computed(() => {
 const moveAdds = 0
 
 const characterStore = useCharacterStore()
-
-const momentumForSupplyCost = ref<number>(2)
-const payMomentumforSupply = () => {
-  characterStore.takeSupply(momentumForSupplyCost.value)
-}
 
 const moveMade = ref(false)
 
@@ -99,10 +102,11 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStatName.length"
+        :disabled="!selectedStatName.length || allSupplyFull"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
+        <p v-if="allSupplyFull">Both your equipped and hold supply are at maximum.</p>
         <fieldset>
           <div>
             <input

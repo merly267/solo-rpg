@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
@@ -61,7 +62,9 @@ const addTrack = () => {
   progressTrackStore.addTrack(progressTrackType)
 }
 
-const selectedExpeditionUuid = ref(progressTrackStore.lastTouchedExpedition)
+const updatingProgressTrackSTore = storeToRefs(progressTrackStore)
+
+const selectedExpeditionUuid = updatingProgressTrackSTore.lastTouchedExpedition
 
 const selectedExpedition = computed(() => {
   return progressTrackStore.expeditions.find((expedition) => expedition.uuid === selectedExpeditionUuid.value)
@@ -114,18 +117,20 @@ const clearMove = () => {
           </select>
           or
         </div>
-        <button @click="createNewExpedition">Undertake a new expedition</button>
-        <div v-if="progressTrackStore.activeExpeditions.length === 0 || addNewExpedition">
+        <div class="expeditions-info">
+        <div v-if="progressTrackStore.activeExpeditions.length === 0 || addNewExpedition" class="add-track">
           <CreateProgressTrack :type="progressTrackType" /> 
           <button @click="addTrack" :disabled="noNewExpedition">Create Expedition</button>
         </div>
-        <div v-if="selectedExpedition">
+        <div v-if="selectedExpedition" class="expedition-track">
           <TrackInfo
             :name="selectedExpedition.name"
             :rank="selectedExpedition.rank"
             :progress="selectedExpedition.progress"
           />
         </div>
+        <div class="new-expedition">or <button v-if="progressTrackStore.activeExpeditions.length > 0" @click="createNewExpedition">Undertake a new expedition</button></div>
+      </div>
         <p>Then, for each segment of the expedition, envision your approach. If you…</p>
         <fieldset>
           <div>
@@ -188,3 +193,21 @@ const clearMove = () => {
     </template>
   </MoveLayout>
 </template>
+
+<style scoped>
+@media (min-width: 768px) {
+  .expeditions-info {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .add-track {
+    grid-column: 1 / span 2;
+  }
+  .expedition-track{
+    margin-top: -0.4em;
+  }
+  .new-expedition:before {
+    content: "\00a0";
+  }
+}
+</style>
