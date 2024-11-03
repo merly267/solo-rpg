@@ -63,12 +63,18 @@ export type Die = {
   lowest?: boolean
 }
 
+export type StatToSelect = {
+  value: StatName
+  label: string
+}
+
 export type Move = {
   title: string
   slug: string
   moveType: MoveType
   progress?: boolean
   trigger?: string
+  stats?: StatToSelect[]
 }
 
 export type MovesList = {

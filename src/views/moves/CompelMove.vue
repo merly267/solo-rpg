@@ -4,6 +4,7 @@ import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
+import RadioStatSelector from '@/components/RadioStatSelector.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
@@ -53,6 +54,9 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision your approach. If you...
         </p>
+        <h2>New stat selector</h2>
+        <RadioStatSelector :stats="move.stats" />
+        <h2>Old stat selector</h2>
         <fieldset>
           <div>
             <input

@@ -23,7 +23,21 @@ export const movesList: MovesList = {
     title: 'Compel',
     slug: 'compel',
     moveType: 'Adventure',
-    trigger: 'try to persuade someone or make them an offer'
+    trigger: 'try to persuade someone or make them an offer',
+    stats: [
+      {
+        value: 'Heart',
+        label: 'Charm, pacify, encourage, or barter'
+      },
+      {
+        value: 'Iron',
+        label: 'Threaten or incite'
+      },
+      {
+        value: 'Shadow',
+        label: 'Lie or swindle'
+      }
+    ]
   },
   checkGear: {
     title: 'Check your Gear',
