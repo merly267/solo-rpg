@@ -11,20 +11,38 @@ import { movesList } from '@/moves'
 
 const move = movesList.compelMove
 
-const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
-
-let selectedStatName = ref<string>('')
+const exposedStat = ref(null)
 
 const selectedStat = computed(() => {
-  if (selectedStatName.value.length) {
-    const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-    return thisStat
+  if (exposedStat.value) {
+    // console.log(exposedStat.value.name)
+    return {
+      name: 'exposedStat.value.name',
+      score: 3
+    }
   }
   return {
     name: '',
     score: 0
   }
 })
+
+
+
+// const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
+
+// let selectedStatName = ref<string>('')
+
+// const selectedStat = computed(() => {
+//   if (selectedStatName.value.length) {
+//     const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
+//     return thisStat
+//   }
+//   return {
+//     name: '',
+//     score: 0
+//   }
+// })
 
 const moveAdds = 0
 
@@ -42,11 +60,10 @@ const clearMove = () => {
   <MoveLayout>
     <template #text>
       <ActionMove
-        v-if="selectedStat"
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStatName.length"
+        :disabled="!selectedStat.value"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
@@ -55,8 +72,10 @@ const clearMove = () => {
           >, envision your approach. If you...
         </p>
         <h2>New stat selector</h2>
-        <RadioStatSelector :stats="move.stats" />
-        <h2>Old stat selector</h2>
+        selectedStat: {{ selectedStat }}
+        exposedStat: {{ exposedStat }}
+        <RadioStatSelector :stats="move.stats" ref="exposedStat" />
+        <!-- <h2>Old stat selector</h2>
         <fieldset>
           <div>
             <input
@@ -96,7 +115,7 @@ const clearMove = () => {
               >Lie or swindle: roll +Shadow ({{ findStat('Shadow')?.score }}).</label
             >
           </div>
-        </fieldset>
+        </fieldset> -->
       </ActionMove>
     </template>
     <template #outcome>
