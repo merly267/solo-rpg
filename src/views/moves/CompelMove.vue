@@ -1,24 +1,21 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import RadioStatSelector from '@/components/RadioStatSelector.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
-import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 
 const move = movesList.compelMove
 
-const exposedStat = ref(null)
+const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
 const selectedStat = computed(() => {
-  if (exposedStat.value) {
-    // console.log(exposedStat.value.name)
+  if (childComponent.value?.selectedStat) {
     return {
-      name: 'exposedStat.value.name',
-      score: 3
+      name: childComponent.value.selectedStat.name,
+      score: childComponent.value.selectedStat.score
     }
   }
   return {
@@ -26,23 +23,6 @@ const selectedStat = computed(() => {
     score: 0
   }
 })
-
-
-
-// const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
-
-// let selectedStatName = ref<string>('')
-
-// const selectedStat = computed(() => {
-//   if (selectedStatName.value.length) {
-//     const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-//     return thisStat
-//   }
-//   return {
-//     name: '',
-//     score: 0
-//   }
-// })
 
 const moveAdds = 0
 
@@ -63,7 +43,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStat.value"
+        :disabled="!selectedStat"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
@@ -71,51 +51,7 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision your approach. If you...
         </p>
-        <h2>New stat selector</h2>
-        selectedStat: {{ selectedStat }}
-        exposedStat: {{ exposedStat }}
-        <RadioStatSelector :stats="move.stats" ref="exposedStat" />
-        <!-- <h2>Old stat selector</h2>
-        <fieldset>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="barter"
-              value="Heart"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="barter"
-              >Charm, pacify, encourage, or barter: roll +Heart ({{
-                findStat('Heart')?.score
-              }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="threaten"
-              value="Iron"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="threaten"
-              >Threaten or incite: roll +Iron ({{ findStat('Iron')?.score }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="steal"
-              value="Shadow"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="steal"
-              >Lie or swindle: roll +Shadow ({{ findStat('Shadow')?.score }}).</label
-            >
-          </div>
-        </fieldset> -->
+        <RadioStatSelector v-if="move.stats" :stats="move.stats" ref="childComponent" />
       </ActionMove>
     </template>
     <template #outcome>

@@ -9,21 +9,13 @@ type PropTypes = {
 
 const props = defineProps<PropTypes>()
 
-// const emit = defineEmits<{
-//   (e: 'setSelected', stat: Stat): void
-// }>()
-
-// const setSelected = (stat: Stat) => {
-//   emit('setSelected', stat)
-// }
-
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
 let selectedStatName = ref<string>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {
-    return findStat(selectedStatName.value)
+    return findStat(selectedStatName.value as StatName)
   }
   return {
     name: '',
