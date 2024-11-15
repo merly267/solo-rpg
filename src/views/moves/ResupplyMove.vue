@@ -14,13 +14,7 @@ import { maxSupply } from '@/constants'
 
 const move = movesList.resupplyMove
 
-const selectedSupply = computed(() => {
-  if (characterStore.supply === maxSupply) {
-    return 'Hold'
-  } else {
-    return 'Equipped'
-  }
-})
+let selectedSupply = ref<string>('Equipped')
 
 const allSupplyFull = computed(() => {
   if (characterStore.supply === maxSupply && characterStore.hold === maxSupply) {
