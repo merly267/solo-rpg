@@ -46,5 +46,5 @@ defineExpose({selectedStat})
       <label :for="stat.value">{{ stat.label }}: roll +{{ stat.value }} ({{ findStat(stat.value)?.score }})</label>
     </div>
   </fieldset>
-  <div v-else><p>{{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findStat(selectedStatName)?.score }})</p><p><button @click="selectedStatName = ''">Change</button></p></div>
+  <div v-else><p>{{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findStat(selectedStatName)?.score }})</p><p><button @click="selectedStatName = ''">Change approach</button></p></div>
 </template>

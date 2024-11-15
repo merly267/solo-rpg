@@ -7,6 +7,7 @@ import type {
   progressRanksList,
   progressTrackStatusList,
   progressTrackTypesList,
+  rankNamesList,
   statNamesList
 } from './constants'
 
@@ -36,6 +37,11 @@ export type ProgressTrack = {
   type: ProgressTrackType
   progress: number
   status: ProgressTrackStatus
+}
+
+export type RankInfo = {
+  name: RankName
+  level: number
 }
 
 export type LegacyTrack = {
@@ -100,5 +106,7 @@ export type ProgressTrackStatus = (typeof progressTrackStatusList)[number]
 export type ProgressTrackType = (typeof progressTrackTypesList)[number]
 
 export type StatName = (typeof statNamesList)[number]
+
+export type RankName = (typeof rankNamesList)[number]
 
 export type MoveType = (typeof moveTypeList)[number]
