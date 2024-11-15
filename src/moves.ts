@@ -113,7 +113,21 @@ export const movesList: MovesList = {
     slug: 'undertake-expedition',
     moveType: 'Exploration',
     trigger:
-      'sail an unfamiliar route through perilous seas, find the way across hazardous terrain, or explore a mysterious site'
+      'sail an unfamiliar route through perilous seas, find the way across hazardous terrain, or explore a mysterious site',
+      stats: [
+        {
+          value: 'Edge',
+          label: 'Move at speed'
+        },
+        {
+          value: 'Shadow',
+          label: 'Keep a low profile'
+        },
+        {
+          value: 'Wits',
+          label: 'Stay vigilant'
+        }
+      ]
   },
   finishExpedition: {
     title: 'Finish an Expedition',
