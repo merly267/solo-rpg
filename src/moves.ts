@@ -33,7 +33,29 @@ export const movesList: MovesList = {
     title: 'Secure an Advantage',
     slug: 'secure-advantage',
     moveType: 'Adventure',
-    trigger: 'assess a situation, make preparations, or attempt to gain leverage'
+    trigger: 'assess a situation, make preparations, or attempt to gain leverage',
+    stats: [
+      {
+        value: 'Edge',
+        label: 'With speed, mobility, or agility'
+      },
+      {
+        value: 'Heart',
+        label: 'With resolve, command, or sociability'
+      },
+      {
+        value: 'Iron',
+        label: 'With strength, endurance, or aggression'
+      },
+      {
+        value: 'Shadow',
+        label: 'With deception, stealth, or trickery'
+      },
+      {
+        value: 'Wits',
+        label: 'With expertise, focus, or observation'
+      }
+    ]
   },
   gatherInfo: {
     title: 'Gather Information',
