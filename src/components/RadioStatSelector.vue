@@ -16,7 +16,9 @@ watch(() => props.cleared, () => {
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
-let selectedStatName = ref<string>('')
+const findLabel = (statToFind: StatName) => props.stats.find((stat) => stat.value === statToFind)
+
+let selectedStatName = ref<StatName>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {
@@ -32,7 +34,7 @@ defineExpose({selectedStat})
 
 </script>
 <template>
-  <fieldset>
+  <fieldset v-if="selectedStatName === ''">
     <div v-for="(stat, index) in props.stats" :key="`stat-${index}`" >
       <input 
         type="radio" 
@@ -44,4 +46,5 @@ defineExpose({selectedStat})
       <label :for="stat.value">{{ stat.label }}: roll +{{ stat.value }} ({{ findStat(stat.value)?.score }})</label>
     </div>
   </fieldset>
+  <div v-else><p>{{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findStat(selectedStatName)?.score }})</p><p><button @click="selectedStatName = ''">Change</button></p></div>
 </template>
