@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
@@ -28,6 +28,12 @@ const moveAdds = 0
 
 const moveMade = ref(false)
 const cleared = ref(false)
+
+watch(() => childComponent.value?.selectedStat, () => {
+  if (childComponent.value?.selectedStat) {
+    cleared.value = false
+  }
+})
 
 const makeMove = () => {
   moveMade.value = true
