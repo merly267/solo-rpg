@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import type { StatName, StatToSelect } from '@/types'
 
 type PropTypes = {
   stats: StatToSelect[]
+  cleared?: boolean
 }
 
 const props = defineProps<PropTypes>()
+
+watch(() => props.cleared, () => {
+  selectedStatName.value = ''
+})
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
@@ -34,7 +39,7 @@ defineExpose({selectedStat})
         name="chooseStat"
         :id="stat.value" 
         :value="stat.value"
-        @input="selectedStatName = ($event.target as HTMLInputElement).value" 
+        v-model="selectedStatName"
       />
       <label :for="stat.value">{{ stat.label }}: roll +{{ stat.value }} ({{ findStat(stat.value)?.score }})</label>
     </div>

@@ -27,6 +27,7 @@ const selectedStat = computed(() => {
 const moveAdds = 0
 
 const moveMade = ref(false)
+const cleared = ref(false)
 
 const makeMove = () => {
   moveMade.value = true
@@ -34,6 +35,7 @@ const makeMove = () => {
 
 const clearMove = () => {
   moveMade.value = false
+  cleared.value = true
 }
 </script>
 <template>
@@ -51,7 +53,7 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision your approach. If you...
         </p>
-        <RadioStatSelector v-if="move.stats" :stats="move.stats" ref="childComponent" />
+        <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
       </ActionMove>
     </template>
     <template #outcome>
