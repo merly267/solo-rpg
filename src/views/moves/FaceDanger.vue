@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { stats as statsList } from '@/composables/useCharacterStats.js'
+import { computed, ref, watch } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
-import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
-import type { StatName } from '@/types'
+import MoveOutcome from '@/components/MoveOutcome.vue'
+import RadioStatSelector from '@/components/RadioStatSelector.vue'
 import { movesList } from '@/moves'
 
 const move = movesList.faceDanger
 
-let selectedStatName = ref<String>('')
+const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
 const selectedStat = computed(() => {
-  if (selectedStatName.value.length) {
-    const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-    return thisStat
+  if (childComponent.value?.selectedStat) {
+    return {
+      name: childComponent.value.selectedStat.name,
+      score: childComponent.value.selectedStat.score
+    }
   }
   return {
     name: '',
@@ -23,37 +24,24 @@ const selectedStat = computed(() => {
   }
 })
 
-const matchInstruction = (statName: StatName) => {
-  switch (statName) {
-    case 'Edge':
-      return 'With speed, mobility, or agility:'
-    case 'Heart':
-      return 'With resolve, command, or sociability:'
-    case 'Iron':
-      return 'With strength, endurance, or aggression:'
-    case 'Shadow':
-      return 'With deception, stealth, or trickery'
-    case 'Wits':
-      return 'With expertise, focus, or observation'
-  }
-}
-
-const annotatedStatList = statsList.value.map((stat) => ({
-  ...stat,
-  instructions: matchInstruction(stat.name)
-}))
-
 const moveAdds = 0
 
 const moveMade = ref(false)
+const cleared = ref(false)
+
+watch(() => childComponent.value?.selectedStat, () => {
+  if (childComponent.value?.selectedStat) {
+    cleared.value = false
+  }
+})
 
 const makeMove = () => {
   moveMade.value = true
 }
 
 const clearMove = () => {
-  selectedStatName.value = ''
   moveMade.value = false
+  cleared.value = true
 }
 </script>
 
@@ -65,7 +53,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStatName.length"
+        :disabled="!selectedStat"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
@@ -73,14 +61,7 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision your action and roll. If you act...
         </p>
-        <fieldset>
-          <div v-for="(stat, index) in annotatedStatList" :key="`stat-${index}`">
-            <input type="radio" :id="stat.name" :value="stat.name" v-model="selectedStatName" />
-            <label :for="stat.name"
-              >{{ stat.instructions }} Roll +{{ stat.name }}({{ stat.score }})</label
-            >
-          </div>
-        </fieldset>
+        <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
       </ActionMove>
     </template>
     <template #outcome>

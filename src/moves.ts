@@ -5,13 +5,57 @@ export const movesList: MovesList = {
     title: 'Face Danger',
     slug: 'face-danger',
     moveType: 'Adventure',
-    trigger: 'attempt something risky or react to an imminent threat'
+    trigger: 'attempt something risky or react to an imminent threat',
+    stats: [
+      {
+        value: 'Edge',
+        label: 'With speed, mobility, or agility'
+      },
+      {
+        value: 'Heart',
+        label: 'With resolve, command, or sociability'
+      },
+      {
+        value: 'Iron',
+        label: 'With strength, endurance, or aggression'
+      },
+      {
+        value: 'Shadow',
+        label: 'With deception, stealth, or trickery'
+      },
+      {
+        value: 'Wits',
+        label: 'With expertise, focus, or observation'
+      }
+    ]
   },
   secureAdvantage: {
     title: 'Secure an Advantage',
     slug: 'secure-advantage',
     moveType: 'Adventure',
-    trigger: 'assess a situation, make preparations, or attempt to gain leverage'
+    trigger: 'assess a situation, make preparations, or attempt to gain leverage',
+    stats: [
+      {
+        value: 'Edge',
+        label: 'With speed, mobility, or agility'
+      },
+      {
+        value: 'Heart',
+        label: 'With resolve, command, or sociability'
+      },
+      {
+        value: 'Iron',
+        label: 'With strength, endurance, or aggression'
+      },
+      {
+        value: 'Shadow',
+        label: 'With deception, stealth, or trickery'
+      },
+      {
+        value: 'Wits',
+        label: 'With expertise, focus, or observation'
+      }
+    ]
   },
   gatherInfo: {
     title: 'Gather Information',
@@ -23,7 +67,21 @@ export const movesList: MovesList = {
     title: 'Compel',
     slug: 'compel',
     moveType: 'Adventure',
-    trigger: 'try to persuade someone or make them an offer'
+    trigger: 'try to persuade someone or make them an offer',
+    stats: [
+      {
+        value: 'Heart',
+        label: 'Charm, pacify, encourage, or barter'
+      },
+      {
+        value: 'Iron',
+        label: 'Threaten or incite'
+      },
+      {
+        value: 'Shadow',
+        label: 'Lie or swindle'
+      }
+    ]
   },
   checkGear: {
     title: 'Check your Gear',
@@ -55,7 +113,21 @@ export const movesList: MovesList = {
     slug: 'undertake-expedition',
     moveType: 'Exploration',
     trigger:
-      'sail an unfamiliar route through perilous seas, find the way across hazardous terrain, or explore a mysterious site'
+      'sail an unfamiliar route through perilous seas, find the way across hazardous terrain, or explore a mysterious site',
+      stats: [
+        {
+          value: 'Edge',
+          label: 'Move at speed'
+        },
+        {
+          value: 'Shadow',
+          label: 'Keep a low profile'
+        },
+        {
+          value: 'Wits',
+          label: 'Stay vigilant'
+        }
+      ]
   },
   finishExpedition: {
     title: 'Finish an Expedition',

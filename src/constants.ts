@@ -1,4 +1,4 @@
-import type { Impact, ProgressTrack } from '@/types'
+import type { Impact, ProgressTrack, RankInfo } from '@/types'
 
 export const maxHealth = 5
 export const maxSupply = 5
@@ -41,7 +41,7 @@ export const outcomeList = {
 
 export const outcomeResultsList = ['Strong hit', 'Weak hit', 'Miss'] as const
 
-export const progressRanksList = [
+export const progressRanksList: RankInfo[] = [
   {
     name: 'Troublesome',
     level: 1
@@ -122,6 +122,8 @@ export const progressTrackTypesList = ['Expedition', 'Vow', ''] as const
 export const progressTrackStatusList = ['In progress', 'Full', 'Complete', 'Forsaken', ''] as const
 
 export const statNamesList = ['Edge', 'Heart', 'Iron', 'Shadow', 'Wits', ''] as const
+
+export const rankNamesList = ['Troublesome', 'Dangerous', 'Formidable', 'Extreme', 'Epic', ''] as const
 
 export const impactCategoriesList = [
   'Misfortunes',

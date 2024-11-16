@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { stats as statsList } from '@/composables/useCharacterStats.js'
+import { computed, ref, watch } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
+import RadioStatSelector from '@/components/RadioStatSelector.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
-import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 
 const move = movesList.compelMove
 
-const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
-
-let selectedStatName = ref<string>('')
+const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
 const selectedStat = computed(() => {
-  if (selectedStatName.value.length) {
-    const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-    return thisStat
+  if (childComponent.value?.selectedStat) {
+    return {
+      name: childComponent.value.selectedStat.name,
+      score: childComponent.value.selectedStat.score
+    }
   }
   return {
     name: '',
@@ -28,6 +27,13 @@ const selectedStat = computed(() => {
 const moveAdds = 0
 
 const moveMade = ref(false)
+const cleared = ref(false)
+
+watch(() => childComponent.value?.selectedStat, () => {
+  if (childComponent.value?.selectedStat) {
+    cleared.value = false
+  }
+})
 
 const makeMove = () => {
   moveMade.value = true
@@ -35,17 +41,17 @@ const makeMove = () => {
 
 const clearMove = () => {
   moveMade.value = false
+  cleared.value = true
 }
 </script>
 <template>
   <MoveLayout>
     <template #text>
       <ActionMove
-        v-if="selectedStat"
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStatName.length"
+        :disabled="!selectedStat"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
@@ -53,46 +59,7 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision your approach. If you...
         </p>
-        <fieldset>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="barter"
-              value="Heart"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="barter"
-              >Charm, pacify, encourage, or barter: roll +Heart ({{
-                findStat('Heart')?.score
-              }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="threaten"
-              value="Iron"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="threaten"
-              >Threaten or incite: roll +Iron ({{ findStat('Iron')?.score }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="steal"
-              value="Shadow"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="steal"
-              >Lie or swindle: roll +Shadow ({{ findStat('Shadow')?.score }}).</label
-            >
-          </div>
-        </fieldset>
+        <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
       </ActionMove>
     </template>
     <template #outcome>

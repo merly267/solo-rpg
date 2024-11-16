@@ -13,14 +13,9 @@ import { movesList } from '@/moves'
 import { maxSupply } from '@/constants'
 
 const move = movesList.resupplyMove
+const characterStore = useCharacterStore()
 
-const selectedSupply = computed(() => {
-  if (characterStore.supply === maxSupply) {
-    return 'Hold'
-  } else {
-    return 'Equipped'
-  }
-})
+let selectedSupply = ref<string>('Equipped')
 
 const allSupplyFull = computed(() => {
   if (characterStore.supply === maxSupply && characterStore.hold === maxSupply) {
@@ -32,18 +27,47 @@ const allSupplyFull = computed(() => {
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
+const findLabel = (statToFind: string) => customStats.value.find((stat) => stat.value === statToFind)
+
+const holdSelected = computed(() => selectedSupply.value === 'Hold' ? true : false)
+
+
+const customStats = computed(() => [
+  {
+    value: 'Heart',
+    score: findStat('Heart')?.score,
+    label: 'Barter or make an appeal'
+  },
+  {
+    value: 'Iron',
+    score: findStat('Iron')?.score,
+    label: 'Threaten or seize'
+  },
+  {
+    value: 'Shadow',
+    score: findStat('Shadow')?.score,
+    label: 'Steal or swindle'
+  },
+  {
+    value: 'Wits',
+    score: findStat('Wits')?.score,
+    label: 'Scavenge or craft'
+  },
+  {
+    value: 'Hold',
+    score: characterStore.hold,
+    label: "Gear up from your ship's stores",
+    disabled: holdSelected.value
+  }
+])
+
 let selectedStatName = ref<string>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {
-    if (selectedStatName.value === 'Hold') {
-      return {
-        name: selectedStatName.value,
-        score: characterStore.hold
-      }
-    } else {
-      const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-      return thisStat
+    return {
+      name: findLabel(selectedStatName.value as string)?.value,
+      score: findLabel(selectedStatName.value as string)?.score
     }
   }
   return {
@@ -53,8 +77,6 @@ const selectedStat = computed(() => {
 })
 
 const moveAdds = 0
-
-const characterStore = useCharacterStore()
 
 const moveMade = ref(false)
 
@@ -91,6 +113,8 @@ const takeRewards = () => {
 
 const clearMove = () => {
   moveMade.value = false
+  selectedStatName.value = ''
+  selectedSupply.value = 'Equipped'
 }
 </script>
 
@@ -98,9 +122,8 @@ const clearMove = () => {
   <MoveLayout>
     <template #text>
       <ActionMove
-        v-if="selectedStat"
         :title="move.title"
-        :stat="selectedStat.score"
+        :stat="selectedStat.score!"
         :adds="moveAdds"
         :disabled="!selectedStatName.length || allSupplyFull"
         @makeMove="makeMove"
@@ -135,71 +158,27 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision the opportunity and your approach. If you...
         </p>
-        <fieldset>
-          <div>
-            <input
-              type="radio"
+        <fieldset v-if="selectedStatName === ''">
+          <div v-for="(stat, index) in customStats" :key="`stat-${index}`" >
+            <input 
+              type="radio" 
               name="chooseStat"
-              id="barter"
-              value="Heart"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
+              :id="`${index}-${stat.value}`" 
+              :value="stat.value"
+              v-model="selectedStatName"
+              :disabled="stat.disabled"
             />
-            <label for="barter"
-              >Barter or make an appeal: roll +Heart ({{ findStat('Heart')?.score }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="threaten"
-              value="Iron"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="threaten"
-              >Threaten or seize: roll +Iron ({{ findStat('Iron')?.score }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="steal"
-              value="Shadow"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="steal"
-              >Steal or swindle: roll +Shadow ({{ findStat('Shadow')?.score }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="scavenge"
-              value="Wits"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="scavenge"
-              >Scavenge or craft: roll +Wits ({{ findStat('Wits')?.score }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="gearUp"
-              value="Hold"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-              :disabled="selectedSupply === 'Hold'"
-            />
-            <label for="gearUp"
-              >Gear up from your ship's stores: roll +Supply (hold) ({{
-                characterStore.hold
-              }}).</label
-            >
+            <label :for="`${index}-${stat.value}`">{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label>
           </div>
         </fieldset>
+        <div v-else>
+          <p>
+            {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findLabel(selectedStatName)?.score }})
+          </p>
+          <p>
+            <button @click="selectedStatName = ''">Change approach</button>
+          </p>
+        </div>
       </ActionMove>
     </template>
     <template #outcome>

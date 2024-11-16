@@ -7,6 +7,7 @@ import type {
   progressRanksList,
   progressTrackStatusList,
   progressTrackTypesList,
+  rankNamesList,
   statNamesList
 } from './constants'
 
@@ -38,6 +39,11 @@ export type ProgressTrack = {
   status: ProgressTrackStatus
 }
 
+export type RankInfo = {
+  name: RankName
+  level: number
+}
+
 export type LegacyTrack = {
   name: string
   progress: number
@@ -63,12 +69,18 @@ export type Die = {
   lowest?: boolean
 }
 
+export type StatToSelect = {
+  value: StatName
+  label: string
+}
+
 export type Move = {
   title: string
   slug: string
   moveType: MoveType
   progress?: boolean
   trigger?: string
+  stats?: StatToSelect[]
 }
 
 export type MovesList = {
@@ -94,5 +106,7 @@ export type ProgressTrackStatus = (typeof progressTrackStatusList)[number]
 export type ProgressTrackType = (typeof progressTrackTypesList)[number]
 
 export type StatName = (typeof statNamesList)[number]
+
+export type RankName = (typeof rankNamesList)[number]
 
 export type MoveType = (typeof moveTypeList)[number]

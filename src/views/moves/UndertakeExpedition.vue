@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import CreateProgressTrack from '@/components/CreateProgressTrack.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
+import RadioStatSelector from '@/components/RadioStatSelector.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { useDiceStore } from '@/stores/DiceStore'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
-import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 
 const diceStore = useDiceStore()
@@ -17,14 +16,14 @@ const diceStore = useDiceStore()
 const move = movesList.undertakeExpedition
 const progressTrackType = 'Expedition'
 
-const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
-
-let selectedStatName = ref<string>('')
+const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
 const selectedStat = computed(() => {
-  if (selectedStatName.value.length) {
-    const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-    return thisStat
+  if (childComponent.value?.selectedStat) {
+    return {
+      name: childComponent.value.selectedStat.name,
+      score: childComponent.value.selectedStat.score
+    }
   }
   return {
     name: '',
@@ -76,6 +75,13 @@ const setLastTouched = (event: Event) => {
 }
 
 const moveMade = ref(false)
+const cleared = ref(false)
+
+watch(() => childComponent.value?.selectedStat, () => {
+  if (childComponent.value?.selectedStat) {
+    cleared.value = false
+  }
+})
 
 const makeMove = () => {
   moveMade.value = true
@@ -86,6 +92,7 @@ const makeMove = () => {
 
 const clearMove = () => {
   moveMade.value = false
+  cleared.value = true
 }
 </script>
 <template>
@@ -96,7 +103,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStatName.length"
+        :disabled="!selectedStat"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
@@ -122,50 +129,17 @@ const clearMove = () => {
           <CreateProgressTrack :type="progressTrackType" /> 
           <button @click="addTrack" :disabled="noNewExpedition">Create Expedition</button>
         </div>
-        <div v-if="selectedExpedition" class="expedition-track">
+        <div v-if="selectedExpedition && !addNewExpedition" class="expedition-track">
           <TrackInfo
             :name="selectedExpedition.name"
             :rank="selectedExpedition.rank"
             :progress="selectedExpedition.progress"
           />
         </div>
-        <div class="new-expedition">or <button v-if="progressTrackStore.activeExpeditions.length > 0" @click="createNewExpedition">Undertake a new expedition</button></div>
+        <div v-if="progressTrackStore.activeExpeditions.length > 0 && !addNewExpedition" class="new-expedition">or <button  @click="createNewExpedition">Undertake a new expedition</button></div>
       </div>
         <p>Then, for each segment of the expedition, envision your approach. If you…</p>
-        <fieldset>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="speed"
-              value="Edge"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="speed">Move at speed: Roll +edge ({{ findStat('Edge')?.score }}).</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="lowProfile"
-              value="Shadow"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="lowProfile"
-              >Keep a low profile: Roll +shadow ({{ findStat('Shadow')?.score }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="vigilant"
-              value="Wits"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="vigilant">Stay vigilant: Roll +wits ({{ findStat('Wits')?.score }}).</label>
-          </div>
-        </fieldset>
+        <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
       </ActionMove>
     </template>
     <template #outcome>
