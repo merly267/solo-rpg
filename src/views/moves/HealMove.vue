@@ -18,6 +18,8 @@ const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.n
 
 const findLabel = (statToFind: string) => customStats.value.find((stat) => stat.value === statToFind)
 
+const ownWoundsStat = findStat('Wits')!.score <= findStat('Iron')!.score ? 'Wits' : 'Iron'
+
 const customStats = computed(() => [
   {
     value: 'Iron',
@@ -25,8 +27,8 @@ const customStats = computed(() => [
     label: 'Receive treatment from someone (not an ally)'
   },
   {
-    value: 'Iron',
-    score: findStat('Iron')?.score,
+    value: ownWoundsStat,
+    score: findStat(ownWoundsStat)?.score,
     label: 'Mend your own wounds (roll +Wits or +Iron, whichever is lower)'
   },
   {
@@ -55,19 +57,6 @@ const selectedStat = computed(() => {
     score: 0
   }
 })
-
-
-
-const healOtherStatForMove: StatName = 'Wits'
-
-const healOtherStat = statsList.value.find((stat) => stat.name === healOtherStatForMove)
-
-const healSelfAltStatForMove: StatName = 'Iron'
-
-const healSelfAltStat = statsList.value.find((stat) => stat.name === healSelfAltStatForMove)
-
-const healSelfStat =
-  healSelfAltStat!.score <= healOtherStat!.score ? healSelfAltStat : healOtherStat
 
 const moveAdds = 0
 
@@ -139,61 +128,6 @@ const clearMove = () => {
             <button @click="selectedStatName = ''">Change approach</button>
           </p>
         </div>
-        <!-- <fieldset>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="receiveTreatment"
-              value="Iron"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="receiveTreatment"
-              >Receive treatment from someone (not an ally): roll +Iron ({{
-                findStat('Iron')?.score
-              }}).</label
-            >
-          </div>
-          <div v-if="healOtherStat && healSelfAltStat && healSelfStat">
-            <input
-              type="radio"
-              name="chooseStat"
-              id="mendOwnWounds"
-              :value="healSelfStat.name"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="mendOwnWounds"
-              >Mend your own wounds: roll +{{ healOtherStat.name }} or +{{ healSelfAltStat.name }},
-              whichever is lower: +{{ healSelfStat.name }} ({{ healSelfStat.score }})</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="forCompanion"
-              value="Heart"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="forCompanion"
-              >Obtain treatment for a companion: roll +Heart ({{
-                findStat('Heart')?.score
-              }}).</label
-            >
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="chooseStat"
-              id="provideCare"
-              value="Wits"
-              @input="selectedStatName = ($event.target as HTMLInputElement).value"
-            />
-            <label for="provideCare"
-              >Provide care: roll +Wits ({{ findStat('Wits')?.score }}).</label
-            >
-          </div>
-        </fieldset> -->
       </ActionMove>
     </template>
     <template #outcome>
