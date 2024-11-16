@@ -23,6 +23,11 @@ export const useLegacyTrackStore = defineStore('legacyTrackStore', {
       progress: 0
     })
   }),
+  getters: {
+    questsXP: (state) => {
+      return Math.floor(state.quests.progress) * 2
+    }
+  },
   actions: {
     markQuestProgress(rank: number) {
       const increaseAmount = () => {

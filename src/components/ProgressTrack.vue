@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 type PropTypes = {
   progress: number
+  experience?: number
 }
 
 const props = defineProps<PropTypes>()
@@ -49,13 +50,23 @@ const boxStyle = (index: number, progress: number) => {
 <template>
   Progress: {{ props.progress }}
   <!-- <div class="undisplayed" v-if="undisplayedProgress">+{{ undisplayedProgress }}</div> -->
-  <div class="progress-track">
+  <div 
+    class="progress-track"
+    :class="{ legacy: props.experience }"
+  >
     <div
       v-for="index in maxTrack"
       :key="index"
       class="box"
       :class="boxStyle(index, displayProgress)"
     ></div>
+    <!-- <div v-if="props.experience" class="xp-container">
+      <div
+        v-for="index in props.experience"
+        :key="index"
+        class="xp"
+      ></div>
+    </div> -->
   </div>
 </template>
 
@@ -68,7 +79,7 @@ const boxStyle = (index: number, progress: number) => {
   .box {
     --stripe-start: calc(50% - 1px);
     --stripe-end: calc(50% + 1px);
-    grid-row: 1/1;
+    grid-row: 1/2;
     aspect-ratio: 1/1;
     border: 2px solid var(--die-bg);
     border-left-width: 0;
@@ -125,6 +136,43 @@ const boxStyle = (index: number, progress: number) => {
           var(--app-text) var(--stripe-start) var(--stripe-end),
           transparent var(--stripe-end)
         );
+    }
+  }
+  &.legacy {
+    .box.filled {
+      position: relative;
+      &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: -0.5rem;
+        width: 30%;
+        height: 30%;
+        border: 2px solid var(--app-text);
+        background-color: var(--app-bg);
+        @media (min-width: 768px) {
+          bottom: -0.5rem;
+          width: 20%;
+          height: 20%;
+        }
+      }
+      &:before {
+        left: 10%;
+      }
+      &:after {
+        right: 10%;
+      }
+      @media (min-width: 768px) {
+        &:before {
+        left: 24%;
+      }
+      &:after {
+        right: 24%;
+      }
+      }
+    }
+    @media (min-width: 768px) {
+      max-width: 35rem;
     }
   }
 }

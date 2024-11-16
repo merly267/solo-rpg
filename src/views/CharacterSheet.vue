@@ -29,7 +29,11 @@ const legacyTrackStore = useLegacyTrackStore()
   <p>Supply: {{ characterStore.supply }}</p>
   <p>Hold: {{ characterStore.hold }}</p>
   <h2>Legacy tracks</h2>
-  <TrackInfo :name="legacyTrackStore.quests.name" :progress="legacyTrackStore.quests.progress" />
+  <TrackInfo 
+    :name="legacyTrackStore.quests.name" 
+    :progress="legacyTrackStore.quests.progress"
+    :experience="legacyTrackStore.questsXP"
+  />
   <TrackInfo :name="legacyTrackStore.bonds.name" :progress="legacyTrackStore.bonds.progress" />
   <TrackInfo
     :name="legacyTrackStore.discoveries.name"
