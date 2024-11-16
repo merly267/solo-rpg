@@ -163,12 +163,12 @@ const clearMove = () => {
             <input 
               type="radio" 
               name="chooseStat"
-              :id="stat.value" 
+              :id="`${index}-${stat.value}`" 
               :value="stat.value"
               v-model="selectedStatName"
               :disabled="stat.disabled"
             />
-            <label :for="stat.value">{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label>
+            <label :for="`${index}-${stat.value}`">{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label>
           </div>
         </fieldset>
         <div v-else>

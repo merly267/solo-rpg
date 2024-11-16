@@ -39,11 +39,11 @@ defineExpose({selectedStat})
       <input 
         type="radio" 
         name="chooseStat"
-        :id="stat.value" 
+        :id="`${index}-${stat.value}`" 
         :value="stat.value"
         v-model="selectedStatName"
       />
-      <label :for="stat.value">{{ stat.label }}: roll +{{ stat.value }} ({{ findStat(stat.value)?.score }})</label>
+      <label :for="`${index}-${stat.value}`">{{ stat.label }}: roll +{{ stat.value }} ({{ findStat(stat.value)?.score }})</label>
     </div>
   </fieldset>
   <div v-else>
