@@ -16,18 +16,47 @@ const move = movesList.healMove
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
-let selectedStatName = ref<String>('')
+const findLabel = (statToFind: string) => customStats.value.find((stat) => stat.value === statToFind)
+
+const customStats = computed(() => [
+  {
+    value: 'Iron',
+    score: findStat('Iron')?.score,
+    label: 'Receive treatment from someone (not an ally)'
+  },
+  {
+    value: 'Iron',
+    score: findStat('Iron')?.score,
+    label: 'Mend your own wounds (roll +Wits or +Iron, whichever is lower)'
+  },
+  {
+    value: 'Heart',
+    score: findStat('Heart')?.score,
+    label: 'Obtain treatment for a companion'
+  },
+  {
+    value: 'Wits',
+    score: findStat('Wits')?.score,
+    label: "Provide care"
+  }
+])
+
+let selectedStatName = ref<string>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {
-    const thisStat = statsList.value.find((stat) => stat.name === selectedStatName.value)
-    return thisStat
+    return {
+      name: findLabel(selectedStatName.value as string)?.value,
+      score: findLabel(selectedStatName.value as string)?.score
+    }
   }
   return {
     name: '',
     score: 0
   }
 })
+
+
 
 const healOtherStatForMove: StatName = 'Wits'
 
@@ -79,9 +108,8 @@ const clearMove = () => {
   <MoveLayout>
     <template #text>
       <ActionMove
-        v-if="selectedStat"
         :title="move.title"
-        :stat="selectedStat.score"
+        :stat="selectedStat.score!"
         :adds="moveAdds"
         :disabled="!selectedStatName.length"
         @makeMove="makeMove"
@@ -91,7 +119,27 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision the situation and roll. If you...
         </p>
-        <fieldset>
+        <fieldset v-if="selectedStatName === ''">
+          <div v-for="(stat, index) in customStats" :key="`stat-${index}`" >
+            <input 
+              type="radio" 
+              name="chooseStat"
+              :id="stat.value" 
+              :value="stat.value"
+              v-model="selectedStatName"
+            />
+            <label :for="stat.value">{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label>
+          </div>
+        </fieldset>
+        <div v-else>
+          <p>
+            {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findLabel(selectedStatName)?.score }})
+          </p>
+          <p>
+            <button @click="selectedStatName = ''">Change approach</button>
+          </p>
+        </div>
+        <!-- <fieldset>
           <div>
             <input
               type="radio"
@@ -145,7 +193,7 @@ const clearMove = () => {
               >Provide care: roll +Wits ({{ findStat('Wits')?.score }}).</label
             >
           </div>
-        </fieldset>
+        </fieldset> -->
       </ActionMove>
     </template>
     <template #outcome>
