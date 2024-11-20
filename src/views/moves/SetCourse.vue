@@ -1,9 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
+import { useCharacterStore } from '@/stores/CharacterStore'
+import { movesList } from '@/moves'
+
+const move = movesList.checkGear
+const characterStore = useCharacterStore()
+
+const selectedSupplyType = ref<string>('')
+
+const selectedSupplyScore = computed(() => {
+  if (selectedSupplyType.value === 'Hold') {
+    return characterStore.hold
+  } else if (selectedSupplyType.value === 'Equipped') {
+    return characterStore.supply
+  } else {
+    return 0
+  }
+})
+
+const moveAdds = 0
 
 const moveMade = ref(false)
 
@@ -13,25 +32,47 @@ const makeMove = () => {
 
 const clearMove = () => {
   moveMade.value = false
+  selectedSupplyType.value = ''
 }
 </script>
 <template>
   <MoveLayout>
     <template #text>
-      Set a course
-      <!-- <ActionMove
-        v-if="selectedStat"
+      <ActionMove
         :title="move.title"
-        :stat="selectedStat.score"
+        :stat="selectedSupplyScore"
         :adds="moveAdds"
+        :disabled="!selectedSupplyScore"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
         <p>
           When you <strong>{{ move.trigger }}</strong
-          >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
+          >, roll:
         </p>
-      </ActionMove> -->
+        <fieldset>
+          <div>
+            <input
+              type="radio"
+              name="chooseSupply"
+              id="equipped"
+              value="Equipped"
+              v-model="selectedSupplyType"
+            />
+            <label for="equipped">Equipped supply ({{ characterStore.supply }})</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="chooseSupply"
+              id="hold"
+              value="Hold"
+              v-model="selectedSupplyType"
+            />
+            <label for="hold">Hold supply ({{ characterStore.hold }})</label>
+          </div>
+        </fieldset>
+      </ActionMove>
     </template>
     <template #outcome>
       <MoveOutcome v-if="moveMade">
