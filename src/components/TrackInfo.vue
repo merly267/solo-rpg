@@ -6,6 +6,7 @@ type PropTypes = {
   name: string
   rank?: number
   progress: number
+  experience?: number
 }
 
 const props = defineProps<PropTypes>()
@@ -18,7 +19,8 @@ const translateRank = (level: number) => {
 <template>
   <h3>{{ props.name }}</h3>
   <p v-if="props.rank" class="rank">Rank: {{ translateRank(props.rank) }}</p>
-  <ProgressTrack :progress="props.progress" />
+  <ProgressTrack :progress="props.progress" :experience="props.experience" />
+  <p v-if="props.experience">XP: {{ props.experience }}</p>
 </template>
 
 <style scoped>
