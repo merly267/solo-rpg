@@ -19,7 +19,7 @@ const legacyTrackStore = useLegacyTrackStore()
 <template>
   <h2>{{ characterStore.name }}</h2>
   <input v-model="characterStore.name" type="text" />
-  <p>Experience: {{ experienceStore.experience }}</p>
+  <p>Experience: {{ legacyTrackStore.totalXP }}</p>
   <p v-if="backgroundVow">Vows: {{ backgroundVow }}</p>
   <p v-else>Make a background vow</p>
   <StatsList />
@@ -38,6 +38,7 @@ const legacyTrackStore = useLegacyTrackStore()
   <TrackInfo
     :name="legacyTrackStore.discoveries.name"
     :progress="legacyTrackStore.discoveries.progress"
+    :experience="legacyTrackStore.questsXP"
   />
   <h2>Impacts: {{ impactsStore.impactsTotal }}</h2>
   <ul v-if="impactsStore.impactsTotal">
