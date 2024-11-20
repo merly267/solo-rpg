@@ -3,14 +3,12 @@ import { backgroundVow } from '@/composables/useCharacterStats'
 import StatsList from '@/components/StatsList.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { useCharacterStore } from '@/stores/CharacterStore'
-import { useExperienceStore } from '@/stores/ExperienceStore'
 import { useImpactsStore } from '@/stores/ImpactsStore'
 import { useMomentumStore } from '@/stores/MomentumStore'
 import { useLegacyTrackStore } from '@/stores/LegacyTrackStore'
 import { impactCategoriesList } from '@/constants'
 
 const characterStore = useCharacterStore()
-const experienceStore = useExperienceStore()
 const momentumStore = useMomentumStore()
 const impactsStore = useImpactsStore()
 const legacyTrackStore = useLegacyTrackStore()
