@@ -136,6 +136,13 @@ export const movesList: MovesList = {
     trigger: 'your expedition comes to an end',
     progress: true
   },
+  setCourse: {
+    title: 'Set a Course',
+    slug: 'set-course',
+    moveType: 'Exploration',
+    trigger:
+      'travel a known route through perilous seas, across hazardous terrain, or within a mysterious site'
+  },
   healMove: {
     title: 'Heal',
     slug: 'heal',

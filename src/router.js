@@ -56,6 +56,10 @@ export const routes = [
     component: () => import('./views/moves/FinishExpedition.vue')
   },
   {
+    path: '/moves/set-course',
+    component: () => import('./views/moves/SetCourse.vue')
+  },
+  {
     path: '/moves/heal',
     component: () => import('./views/moves/HealMove.vue')
   },
