@@ -13,6 +13,7 @@ import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
 const move = movesList.exploreWaypoint
 const newExpeditionMove = movesList.undertakeExpedition
+const progressTrackType = 'Expedition'
 
 const diceStore = useDiceStore()
 const progressTrackStore = useProgressTrackStore()
@@ -41,7 +42,7 @@ const selectedExpedition = computed(() => {
 
 const setLastTouched = (event: Event) => {
   const target = event.target as HTMLInputElement
-  progressTrackStore.setLastTouched('Expedition', target.value)
+  progressTrackStore.setLastTouched(progressTrackType, target.value)
 }
 
 const statForMove: StatName = 'Wits'
@@ -52,7 +53,12 @@ const moveAdds = 0
 
 const moveMade = ref(false)
 
+const markProgress = () => {
+  progressTrackStore.markProgress(selectedExpeditionUuid.value, progressTrackType)
+}
+
 const makeMove = () => {
+
   moveMade.value = true
 }
 
@@ -111,8 +117,7 @@ const clearMove = () => {
               <ul>
                 <li>Find an opportunity: Envision a favorable insight, situation, resource, or encounter. Then
                   <AdjustMomentumButton operation="adds" :amount="2" />.</li>
-                <!-- TODO - MARK EXPEDITION PROGRESS -->
-                <li>Gain progress: Mark progress on your expedition, per its rank.</li>
+                <li>Gain progress: <button @click="markProgress">Mark Progress</button> on your expedition, per its rank.</li>
                 <li v-if="diceStore.match?.length">With a strong hit with a match, you may instead Make a Discovery.</li>
               </ul>
            </p>
