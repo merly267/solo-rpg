@@ -52,6 +52,10 @@ export const routes = [
     component: () => import('./views/moves/UndertakeExpedition.vue')
   },
   {
+    path: '/moves/explore-waypoint',
+    component: () => import('./views/moves/ExploreWaypoint.vue')
+  },
+  {
     path: '/moves/finish-expedition',
     component: () => import('./views/moves/FinishExpedition.vue')
   },

@@ -129,6 +129,12 @@ export const movesList: MovesList = {
         }
       ]
   },
+  exploreWaypoint: {
+    title: 'Explore a Waypoint',
+    slug: 'explore-waypoint',
+    moveType: 'Exploration',
+    trigger: 'divert from an expedition to examine a notable location'
+  },
   finishExpedition: {
     title: 'Finish an Expedition',
     slug: 'finish-expedition',
