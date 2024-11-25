@@ -107,17 +107,15 @@ const clearMove = () => {
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
-          <!-- TODO Check for match -->
-           <p>On a strong hit, choose one. On a strong hit with a match, you may instead Make a Discovery.
-            <!-- TODO - MAKE RADIOS -->
-✴ Find an opportunity: Envision a favorable insight, situation, resource, or encounter. Then, take +2 momentum.
-<!-- TODO - MARK EXPEDITION PROGRESS -->
-✴ Gain progress: Mark progress on your expedition, per its rank.</p>
-          <p>
-            You discover something helpful and specific. The path you must follow or action you must
-            take to make progress is made clear. Envision what you learn. Then
-            <AdjustMomentumButton operation="adds" :amount="2" />.
-          </p>
+           <p>Choose one:
+              <ul>
+                <li>Find an opportunity: Envision a favorable insight, situation, resource, or encounter. Then
+                  <AdjustMomentumButton operation="adds" :amount="2" />.</li>
+                <!-- TODO - MARK EXPEDITION PROGRESS -->
+                <li>Gain progress: Mark progress on your expedition, per its rank.</li>
+                <li v-if="diceStore.match?.length">With a strong hit with a match, you may instead Make a Discovery.</li>
+              </ul>
+           </p>
         </template>
         <template v-slot:weak>
           <p>
@@ -126,7 +124,7 @@ const clearMove = () => {
           </p>
         </template>
         <template v-slot:miss>
-          <p v-if="diceStore.match?.length">You encounter an immediate hardship or threa. Choose one:
+          <p v-if="diceStore.match?.length">You encounter an immediate hardship or threat. Choose one:
             <ul>
               <li>Pay the Price</li>
               <li>With a miss with a match, you may instead Confront Chaos.</li>
