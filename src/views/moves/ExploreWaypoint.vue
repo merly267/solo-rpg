@@ -8,11 +8,13 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
+import { useDiceStore } from '@/stores/DiceStore'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
 const move = movesList.exploreWaypoint
 const newExpeditionMove = movesList.undertakeExpedition
 
+const diceStore = useDiceStore()
 const progressTrackStore = useProgressTrackStore()
 
 const noExpedition = computed(() => {
@@ -124,9 +126,14 @@ const clearMove = () => {
           </p>
         </template>
         <template v-slot:miss>
-          <p>
-            <!-- TODO Check for match -->
-            You encounter an immediate hardship or threat, and must Pay the Price. On a miss with a match, you may instead Confront Chaos.
+          <p v-if="diceStore.match?.length">You encounter an immediate hardship or threa. Choose one:
+            <ul>
+              <li>Pay the Price</li>
+              <li>With a miss with a match, you may instead Confront Chaos.</li>
+            </ul>
+          </p>
+          <p v-else>
+            You encounter an immediate hardship or threat, and must Pay the Price.
           </p>
         </template>
       </MoveOutcome>
