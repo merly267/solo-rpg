@@ -133,8 +133,7 @@ export const movesList: MovesList = {
     title: 'Explore a Waypoint',
     slug: 'explore-waypoint',
     moveType: 'Exploration',
-    trigger:
-      'divert from an expedition to examine a notable location'
+    trigger: 'divert from an expedition to examine a notable location'
   },
   finishExpedition: {
     title: 'Finish an Expedition',
