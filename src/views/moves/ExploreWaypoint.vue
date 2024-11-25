@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
@@ -7,8 +7,19 @@ import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
+import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
 const move = movesList.exploreWaypoint
+const newExpeditionMove = movesList.undertakeExpedition
+
+const progressTrackStore = useProgressTrackStore()
+
+const noExpedition = computed(() => {
+  if (progressTrackStore.activeExpeditions.length) {
+    return false
+  }
+  return true
+})
 
 const statForMove: StatName = 'Wits'
 
@@ -30,16 +41,22 @@ const clearMove = () => {
 <template>
    <MoveLayout>
     <template #text>
-      <!-- TODO - check for expedition -->
        <!-- TODO - select expedition -->
       <ActionMove
         v-if="selectedStat"
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
+        :disabled="noExpedition"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
+      <div v-if="noExpedition">
+          First you must
+          <button @click="$router.push(`/moves/${newExpeditionMove.slug}`)">
+            {{ newExpeditionMove.title }}
+          </button>
+        </div>
         <p>
           When you <strong>{{ move.trigger }}</strong
           >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
@@ -51,7 +68,9 @@ const clearMove = () => {
         <template v-slot:strong>
           <!-- TODO Check for match -->
            <p>On a strong hit, choose one. On a strong hit with a match, you may instead Make a Discovery.
+            <!-- TODO - MAKE RADIOS -->
 ✴ Find an opportunity: Envision a favorable insight, situation, resource, or encounter. Then, take +2 momentum.
+<!-- TODO - MARK EXPEDITION PROGRESS -->
 ✴ Gain progress: Mark progress on your expedition, per its rank.</p>
           <p>
             You discover something helpful and specific. The path you must follow or action you must
