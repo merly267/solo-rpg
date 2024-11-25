@@ -5,6 +5,7 @@ import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
+import TrackInfo from '@/components/TrackInfo.vue'
 import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
@@ -20,6 +21,26 @@ const noExpedition = computed(() => {
   }
   return true
 })
+
+const multipleExpeditions = computed(() => {
+  if (progressTrackStore.activeExpeditions.length <= 1) {
+    return false
+  }
+  return true
+})
+
+const selectedExpeditionUuid = ref(progressTrackStore.lastTouchedExpedition)
+
+const selectedExpedition = computed(() => {
+  return progressTrackStore.activeExpeditions.find(
+    (expedition) => expedition.uuid === selectedExpeditionUuid.value
+  )
+})
+
+const setLastTouched = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  progressTrackStore.setLastTouched('Expedition', target.value)
+}
 
 const statForMove: StatName = 'Wits'
 
@@ -41,7 +62,6 @@ const clearMove = () => {
 <template>
    <MoveLayout>
     <template #text>
-       <!-- TODO - select expedition -->
       <ActionMove
         v-if="selectedStat"
         :title="move.title"
@@ -51,7 +71,7 @@ const clearMove = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
-      <div v-if="noExpedition">
+        <div v-if="noExpedition">
           First you must
           <button @click="$router.push(`/moves/${newExpeditionMove.slug}`)">
             {{ newExpeditionMove.title }}
@@ -61,6 +81,25 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, roll +{{ selectedStat.name }} ({{ selectedStat.score }}).
         </p>
+        <div v-if="multipleExpeditions">
+          <label for="expedition-select">Divert from:</label>
+          <select name="expeditions" id="expedition-select" v-model="selectedExpeditionUuid" @change="setLastTouched">
+            <option
+              v-for="expedition in progressTrackStore.activeExpeditions"
+              :key="`expedition-${expedition.uuid}`"
+              :value="expedition.uuid"
+            >
+              {{ expedition.name }}
+            </option>
+          </select>
+        </div>
+        <div v-if="selectedExpedition">
+          <TrackInfo
+            :name="`Divert from: ${selectedExpedition.name}`"
+            :rank="selectedExpedition.rank"
+            :progress="selectedExpedition.progress"
+          />
+        </div>
       </ActionMove>
     </template>
     <template #outcome>
