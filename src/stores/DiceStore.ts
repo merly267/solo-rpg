@@ -33,6 +33,11 @@ export const useDiceStore = defineStore('diceStore', {
   getters: {
     successes: (state) => {
       return state.challengeDice.filter((die) => die.rolled && die.isSuccess)
+    },
+    match: (state) => {
+      if (state.challengeDice[0].rolled && state.challengeDice[0].result === state.challengeDice[1].result) {
+        return 'true'
+      }
     }
   },
   actions: {

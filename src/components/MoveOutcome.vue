@@ -7,22 +7,17 @@ const diceStore = useDiceStore()
 const moveOutcomeStore = useMoveOutcomeStore()
 
 const match = computed(() => {
-  if (diceStore.challengeDice[0].result) {
-    const toMatch = diceStore.challengeDice[0].result
-    const matches = diceStore.challengeDice.filter((die) => die.result === toMatch)
-    if (matches.length > 1) {
-      if (toMatch === 10) {
-        return ' and a match on 10, the worst possible result...'
+  if (diceStore.match?.length) {
+    const result = diceStore.challengeDice[0].result
+    if (result === 10) {
+      return ' and a match on 10, the worst possible result...'
       } else {
         return ' and a match!'
       }
     } else {
       return null
     }
-  } else {
-    return null
-  }
-})
+  })
 </script>
 <template>
   <div>
