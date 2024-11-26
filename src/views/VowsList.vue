@@ -12,7 +12,7 @@ const inactiveVows = computed(() => {
 })
 
 const defaultDisplay = computed(() => {
-  return progressTrackStore.activeVows ? 'Active' : 'All'
+  return progressTrackStore.activeVows.length ? 'Active' : 'All'
 })
 
 const displayVows = ref<string>(defaultDisplay.value)
