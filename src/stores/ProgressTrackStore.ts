@@ -25,10 +25,13 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
   }),
   getters: {
     activeExpeditions: (state) => {
-      return state.expeditions.filter((expedition) => expedition.status === 'In progress' || 'Full')
+      return state.expeditions.filter((expedition) => expedition.status === 'In progress' || expedition.status === 'Full')
     },
     activeVows: (state) => {
-      return state.vows.filter((vow) => vow.status === 'In progress' || 'Full')
+      return state.vows.filter((vow) => vow.status === 'In progress' || vow.status === 'Full')
+    },
+    completedVows: (state) => {
+      return state.vows.filter((vow) => vow.status === 'Complete')
     }
   },
   actions: {

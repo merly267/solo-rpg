@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import ProgressTrack from '@/components/ProgressTrack.vue'
 import { progressRanksList } from '@/constants'
+import type { ProgressTrackStatus } from '@/types'
 
 type PropTypes = {
   name: string
   rank?: number
   progress: number
   experience?: number
+  status?: ProgressTrackStatus
 }
 
 const props = defineProps<PropTypes>()
@@ -17,10 +19,11 @@ const translateRank = (level: number) => {
 }
 </script>
 <template>
-  <h3>{{ props.name }}</h3>
+  <h3>{{ props.name }}<span v-if="props.status"> ({{ props.status }})</span></h3>
   <p v-if="props.rank" class="rank">Rank: {{ translateRank(props.rank) }}</p>
   <ProgressTrack :progress="props.progress" :experience="props.experience" />
   <p v-if="props.experience">XP: {{ props.experience }}</p>
+  
 </template>
 
 <style scoped>
