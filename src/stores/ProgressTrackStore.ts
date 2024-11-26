@@ -29,6 +29,9 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     },
     activeVows: (state) => {
       return state.vows.filter((vow) => vow.status === 'In progress' || vow.status === 'Full')
+    },
+    completedVows: (state) => {
+      return state.vows.filter((vow) => vow.status === 'Complete')
     }
   },
   actions: {
