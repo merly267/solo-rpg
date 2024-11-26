@@ -32,6 +32,9 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     },
     completedVows: (state) => {
       return state.vows.filter((vow) => vow.status === 'Complete')
+    },
+    forsakenVows: (state) => {
+      return state.vows.filter((vow) => vow.status === 'Forsaken')
     }
   },
   actions: {
@@ -81,6 +84,12 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
       const selectedTrack = this.findTrack(selectedUuid, trackType)
       if (selectedTrack) {
         selectedTrack.status = 'Complete'
+      }
+    },
+    markForsaken(selectedUuid: string, trackType: ProgressTrackType) {
+      const selectedTrack = this.findTrack(selectedUuid, trackType)
+      if (selectedTrack) {
+        selectedTrack.status = 'Forsaken'
       }
     },
     markProgress(selectedUuid: string, trackType: ProgressTrackType) {
