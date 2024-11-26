@@ -8,11 +8,11 @@ const progressTrackStore = useProgressTrackStore()
 const move = movesList.swearVow
 
 const inactiveVows = computed(() => {
-  return progressTrackStore.completedVows
+  return progressTrackStore.completedVows.concat(progressTrackStore.forsakenVows)
 })
 
 const defaultDisplay = computed(() => {
-  return progressTrackStore.activeVows ? 'Active' : 'All'
+  return progressTrackStore.activeVows.length ? 'Active' : 'All'
 })
 
 const displayVows = ref<string>(defaultDisplay.value)
@@ -26,6 +26,7 @@ const displayVows = ref<string>(defaultDisplay.value)
       <select v-if="inactiveVows.length" v-model="displayVows">
         <option v-if="progressTrackStore.activeVows.length">Active</option>
         <option v-if="progressTrackStore.completedVows.length">Completed</option>
+        <option v-if="progressTrackStore.forsakenVows.length">Forsaken</option>
         <option>All</option>
       </select>
     </div>
@@ -36,6 +37,11 @@ const displayVows = ref<string>(defaultDisplay.value)
     </div>
     <div v-show="displayVows === 'Completed'">
       <div v-for="vow in progressTrackStore.completedVows" :key="`vow-complete-${vow.uuid}`" class="vow">
+        <TrackInfo :name="vow.name" :rank="vow.rank" :progress="vow.progress" />
+      </div>
+    </div>
+    <div v-show="displayVows === 'Forsaken'">
+      <div v-for="vow in progressTrackStore.forsakenVows" :key="`vow-forsaken-${vow.uuid}`" class="vow">
         <TrackInfo :name="vow.name" :rank="vow.rank" :progress="vow.progress" />
       </div>
     </div>

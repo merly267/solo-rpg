@@ -32,6 +32,9 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     },
     completedVows: (state) => {
       return state.vows.filter((vow) => vow.status === 'Complete')
+    },
+    forsakenVows: (state) => {
+      return state.vows.filter((vow) => vow.status === 'Forsaken')
     }
   },
   actions: {
@@ -83,6 +86,12 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
         selectedTrack.status = 'Complete'
       }
     },
+    markForsaken(selectedUuid: string, trackType: ProgressTrackType) {
+      const selectedTrack = this.findTrack(selectedUuid, trackType)
+      if (selectedTrack) {
+        selectedTrack.status = 'Forsaken'
+      }
+    },
     markProgress(selectedUuid: string, trackType: ProgressTrackType) {
       const selectedTrack = this.findTrack(selectedUuid, trackType)
       if (selectedTrack) {
@@ -94,10 +103,18 @@ export const useProgressTrackStore = defineStore('progressTrackStore', {
     },
     setLastTouched(trackType: ProgressTrackType, uuid: string) {
       if (trackType === 'Expedition') {
-        this.lastTouchedExpedition = uuid
+        if (this.activeExpeditions.some(exp => exp.uuid === uuid)) {
+          this.lastTouchedExpedition = uuid
+        } else {
+          this.lastTouchedExpedition = this.activeExpeditions[0].uuid
+        }
       }
       if (trackType === 'Vow') {
-        this.lastTouchedVow = uuid
+        if (this.activeVows.some(vow => vow.uuid === uuid)) {
+          this.lastTouchedVow = uuid
+        } else {
+          this.lastTouchedVow = this.activeVows[0].uuid
+        }
       }
     },
     // to refresh from defaults
