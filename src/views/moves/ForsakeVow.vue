@@ -54,7 +54,7 @@ const clearVow = () => {
       <h2>{{ move.title }}</h2>
       <p>
         When you <strong>{{ move.trigger }}</strong>, 
-        <button @click="clearVow">Clear the vow</button>
+        <button @click="clearVow" :disabled="moveMade">Clear the vow</button>
       </p>
       <div v-if="noVow && !moveMade">
           First you must
