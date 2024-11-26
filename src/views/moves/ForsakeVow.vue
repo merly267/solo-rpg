@@ -88,6 +88,15 @@ const clearVow = () => {
             :progress="clearedVow.progress"
             :status="clearedVow.status"
           />
+          <p>Then, envision the impact of this failure and choose one or more as appropriate to the nature of the vow. Any allies who shared this vow may also envision a cost. </p>
+          <ul>
+            <li>You are demoralized or dispirited: Endure Stress</li>
+            <li>A connection loses faith: Test Your Relationship when you next interact.</li>
+            <li>You must abandon a path or resource: Discard an asset.</li>
+            <li>Someone else pays a price: Envision how a person, being, or community bears the cost of the failure.</li>
+            <li>Someone else takes advantage: Envision how an enemy gains power.</li>
+            <li>Your reputation suffers: Envision how this failure marks you.</li>
+          </ul>
         </div>
     </template>
   </MoveLayout>
