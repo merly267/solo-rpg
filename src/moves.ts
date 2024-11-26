@@ -108,6 +108,12 @@ export const movesList: MovesList = {
     trigger: 'reach the end of your quest',
     progress: true
   },
+  forsakeVow: {
+    title: 'Forsake Your Vow',
+    slug: 'forsake-vow',
+    moveType: 'Quest',
+    trigger: 'renounce your quest, betray your promise, or the goal is lost to you'
+  },
   undertakeExpedition: {
     title: 'Undertake an Expedition',
     slug: 'undertake-expedition',

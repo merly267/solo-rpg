@@ -48,6 +48,10 @@ export const routes = [
     component: () => import('./views/moves/FulfillVow.vue')
   },
   {
+    path: '/moves/forsake-vow',
+    component: () => import('./views/moves/ForsakeVow.vue')
+  },
+  {
     path: '/moves/undertake-expedition',
     component: () => import('./views/moves/UndertakeExpedition.vue')
   },
