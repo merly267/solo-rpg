@@ -87,9 +87,13 @@ export type MovesList = {
   [name: string]: Move
 }
 
-// export type Outcome = {
-//   outcome: OutcomeResult
-// }
+export type LogEntry = {
+  timestamp: number
+  move?: string
+  stat?: string
+  outcome?: string
+  match?: string
+}
 
 export type ImpactCategory = (typeof impactCategoriesList)[number]
 
