@@ -6,14 +6,11 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import RadioStatSelector from '@/components/RadioStatSelector.vue'
 import { useLogStore } from '@/stores/LogStore'
-import { useMoveOutcomeStore } from '@/stores/MoveOutcomeStore'
 import { movesList } from '@/moves'
-import type { LogEntry } from '@/types'
 
 const move = movesList.faceDanger
 
 const logStore = useLogStore()
-const moveOutcomeStore = useMoveOutcomeStore()
 
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
@@ -43,13 +40,7 @@ watch(() => childComponent.value?.selectedStat, () => {
 
 const makeMove = () => {
   moveMade.value = true
-  logStore.addEntry({
-    timestamp: Math.floor(Date.now()),
-    move: move.title,
-    stat: selectedStat.value.name,
-    outcome: moveOutcomeStore.outcomeLabel,
-    match: moveOutcomeStore.matchMessage ? moveOutcomeStore.matchMessage : ''
-  })
+  logStore.addEntry(move.title, selectedStat.value.name)
 }
 
 const clearMove = () => {
@@ -66,7 +57,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStat"
+        :disabled="!selectedStat.score"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
