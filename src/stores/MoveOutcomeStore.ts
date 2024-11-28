@@ -15,6 +15,40 @@ export const useMoveOutcomeStore = defineStore('moveOutcomeStore', {
     possibleMomentumSuccesses: useLocalStorage('possibleMomentumSuccesses', 0)
     // latestMove: useLocalStorage('latestMove', '')
   }),
+  getters: {
+    outcomeLabel() {
+      switch (diceStore.successes.length) {
+        case 2:
+          return outcomes.strong.label
+        case 1:
+          return outcomes.weak.label
+        case 0:
+          return outcomes.miss.label
+      }
+    },
+    possibleOutcomeLabel(state) {
+      switch (state.possibleMomentumSuccesses) {
+        case 2:
+          return outcomes.strong.label
+        case 1:
+          return outcomes.weak.label
+        case 0:
+          return outcomes.miss.label
+      }
+    },
+    matchMessage() {
+      if (diceStore.match?.length) {
+        const result = diceStore.challengeDice[0].result
+        if (result === 10) {
+          return ' and a match on 10, the worst possible result...'
+        } else {
+            return ' and a match!'
+        }
+      } else {
+        return null
+      }
+    }
+  },
   actions: {
     calculateActionScore(stat: number, adds: number) {
       if (diceStore.actionDie.result + momentumStore.momentum == 0) {
@@ -53,16 +87,6 @@ export const useMoveOutcomeStore = defineStore('moveOutcomeStore', {
     useMomentumSuccess() {
       this.latestActionScore = momentumStore.momentum
       this.checkSuccess()
-    },
-    getOutcomeLabel(successes: number) {
-      switch (successes) {
-        case 2:
-          return outcomes.strong.label
-        case 1:
-          return outcomes.weak.label
-        case 0:
-          return outcomes.miss.label
-      }
     }
   }
 })
