@@ -12,6 +12,10 @@ export const routes = [
     component: () => import('./views/VowsList.vue')
   },
   {
+    path: '/journal',
+    component: () => import('./views/LogEntries.vue')
+  },
+  {
     path: '/moves',
     component: () => import('./views/MovesList.vue')
   },
