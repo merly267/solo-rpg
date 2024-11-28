@@ -29,7 +29,7 @@ const boxStyle = (index: number, progress: number) => {
   if (index <= filled) {
     return 'filled'
   }
-  if (semiFilled != 0) {
+  if (semiFilled !== 0) {
     if (index === filled + 1) {
       switch (semiFilled) {
         case 0.25:
