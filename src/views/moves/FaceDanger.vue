@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
+import MakeLogEntry from '@/components/MakeLogEntry.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import RadioStatSelector from '@/components/RadioStatSelector.vue'
@@ -13,6 +14,10 @@ const move = movesList.faceDanger
 const logStore = useLogStore()
 
 const setupLog = ref('')
+
+const setupLogEntry = (text: string) => {
+  setupLog.value = text
+}
 
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
@@ -60,7 +65,7 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStat.score"
+        :disabled="!selectedStat.score || moveMade"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
@@ -68,10 +73,10 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >:
           </p>
-          <div class="setup-log-entry">
-            <label for="setupLog">Envision your action:</label>
-            <textarea v-model="setupLog" id="setupLog"></textarea>
-          </div>
+          <MakeLogEntry
+            @logEntry="setupLogEntry"
+            :cleared="cleared"
+          />
           <p>
            Then roll. If you act &hellip;
         </p>
