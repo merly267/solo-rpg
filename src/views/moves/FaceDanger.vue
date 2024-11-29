@@ -12,6 +12,8 @@ const move = movesList.faceDanger
 
 const logStore = useLogStore()
 
+const setupLog = ref('')
+
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
 const selectedStat = computed(() => {
@@ -40,11 +42,12 @@ watch(() => childComponent.value?.selectedStat, () => {
 
 const makeMove = () => {
   moveMade.value = true
-  logStore.addEntry(move.title, selectedStat.value.name)
+  logStore.addEntry(setupLog.value, move.title, selectedStat.value.name)
 }
 
 const clearMove = () => {
   moveMade.value = false
+  setupLog.value = ''
   cleared.value = true
 }
 </script>
@@ -63,7 +66,14 @@ const clearMove = () => {
       >
         <p>
           When you <strong>{{ move.trigger }}</strong
-          >, envision your action and roll. If you act...
+          >:
+          </p>
+          <div class="setup-log-entry">
+            <label for="setupLog">Envision your action:</label>
+            <textarea v-model="setupLog" id="setupLog"></textarea>
+          </div>
+          <p>
+           Then roll. If you act &hellip;
         </p>
         <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
       </ActionMove>

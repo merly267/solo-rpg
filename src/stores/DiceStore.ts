@@ -43,6 +43,11 @@ export const useDiceStore = defineStore('diceStore', {
   actions: {
     roll(die: Die) {
       die.result = Math.ceil(Math.random() * die.max)
+      // for testing: 
+      // const min = 4
+      // const max = 6
+      // die.result = Math.floor(Math.random() * (max - min + 1)) + min
+
       die.rolled = true
     },
     clear(die: Die) {

@@ -100,4 +100,8 @@ input:disabled + label {
 select {
   max-width: 100%;
 }
+
+.setup-log-entry label {
+  display: block;
+}
 </style>

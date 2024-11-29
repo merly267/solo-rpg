@@ -89,6 +89,7 @@ export type MovesList = {
 
 export type LogEntry = {
   timestamp: number
+  setupText?: string
   move?: string
   stat?: string
   outcome?: string
