@@ -74,7 +74,7 @@ const takeRewards = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStat"
+        :disabled="!selectedStat.score"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >

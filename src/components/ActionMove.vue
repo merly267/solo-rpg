@@ -120,8 +120,8 @@ onUnmounted(() => clearAll())
     <button type="button" @click="burnMomentum">
       Burn momentum ({{ momentumStore.momentum }})
     </button>
-    to turn a {{ moveOutcomeStore.getOutcomeLabel(diceStore.successes.length) }} into a
-    {{ moveOutcomeStore.getOutcomeLabel(moveOutcomeStore.possibleMomentumSuccesses) }}
+    to turn a {{ moveOutcomeStore.outcomeLabel }} into a
+    {{ moveOutcomeStore.possibleOutcomeLabel }}
   </span>
 </template>
 

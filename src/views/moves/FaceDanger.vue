@@ -2,12 +2,22 @@
 import { computed, ref, watch } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
+import MakeLogEntry from '@/components/MakeLogEntry.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import RadioStatSelector from '@/components/RadioStatSelector.vue'
+import { useLogStore } from '@/stores/LogStore'
 import { movesList } from '@/moves'
 
 const move = movesList.faceDanger
+
+const logStore = useLogStore()
+
+const setupLog = ref('')
+
+const setupLogEntry = (text: string) => {
+  setupLog.value = text
+}
 
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
@@ -37,10 +47,12 @@ watch(() => childComponent.value?.selectedStat, () => {
 
 const makeMove = () => {
   moveMade.value = true
+  logStore.addEntry(setupLog.value, move.title, selectedStat.value.name)
 }
 
 const clearMove = () => {
   moveMade.value = false
+  setupLog.value = ''
   cleared.value = true
 }
 </script>
@@ -53,15 +65,17 @@ const clearMove = () => {
         :title="move.title"
         :stat="selectedStat.score"
         :adds="moveAdds"
-        :disabled="!selectedStat"
+        :disabled="!selectedStat.score || moveMade"
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
-        <p>
-          When you <strong>{{ move.trigger }}</strong
-          >, envision your action and roll. If you act...
-        </p>
-        <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
+        <div v-show="!moveMade">
+          <p>When you <strong>{{ move.trigger }}</strong>:</p>
+          <MakeLogEntry @logEntry="setupLogEntry" :cleared="cleared" />
+          <p>Then roll. If you act &hellip;</p>
+          <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
+        </div>
+        <div v-if="moveMade">{{ setupLog }}</div>
       </ActionMove>
     </template>
     <template #outcome>
