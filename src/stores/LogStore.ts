@@ -14,10 +14,16 @@ export const useLogStore = defineStore('progressLogStore', {
     log: useLocalStorage('log', [])
   }),
   actions: {
-    addEntry(setupLog: string, name: string, stat: string) {
+    addEntry(entryText: string) {
       this.log.push({
         timestamp: Math.floor(Date.now()),
-        setupText: setupLog,
+        entryText: entryText,
+      })
+    },
+    addMoveEntry(setupLog: string, name: string, stat: string) {
+      this.log.push({
+        timestamp: Math.floor(Date.now()),
+        entryText: setupLog,
         move: name,
         stat: stat,
         outcome: moveOutcomeStore.outcomeLabel,

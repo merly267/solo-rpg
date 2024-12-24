@@ -19,6 +19,7 @@
   --mukta: 'Mukta', sans-serif;
   --app-text: #eeeeee;
   --app-bg: #222222;
+  --form-bg: #3c3c3c;
   --grey-text: #b0b0b0;
   --die-size: 2em;
   --die-text: var(--app-text);
@@ -99,6 +100,26 @@ input:disabled + label {
 
 select {
   max-width: 100%;
+}
+
+textarea, input[type=text] {
+  font-family: var(--noto);
+  color: var(--app-text);
+  background-color: var(--form-bg);
+  border-width: 0;
+  border-radius: 0;
+  &:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+input[type=text] {
+  height: 2em;
+}
+
+textarea {
+  width: 100%;
+  height: 6em;
 }
 
 </style>

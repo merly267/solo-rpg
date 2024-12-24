@@ -47,7 +47,7 @@ watch(() => childComponent.value?.selectedStat, () => {
 
 const makeMove = () => {
   moveMade.value = true
-  logStore.addEntry(setupLog.value, move.title, selectedStat.value.name)
+  logStore.addMoveEntry(setupLog.value, move.title, selectedStat.value.name)
 }
 
 const clearMove = () => {
@@ -71,7 +71,7 @@ const clearMove = () => {
       >
         <div v-show="!moveMade">
           <p>When you <strong>{{ move.trigger }}</strong>:</p>
-          <MakeLogEntry @logEntry="setupLogEntry" :cleared="cleared" />
+          <MakeLogEntry @logEntry="setupLogEntry" :cleared="cleared" move />
           <p>Then roll. If you act &hellip;</p>
           <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
         </div>
