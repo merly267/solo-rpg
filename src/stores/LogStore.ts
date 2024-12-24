@@ -17,13 +17,13 @@ export const useLogStore = defineStore('progressLogStore', {
     addEntry(entryText: string) {
       this.log.push({
         timestamp: Math.floor(Date.now()),
-        setupText: entryText,
+        entryText: entryText,
       })
     },
     addMoveEntry(setupLog: string, name: string, stat: string) {
       this.log.push({
         timestamp: Math.floor(Date.now()),
-        setupText: setupLog,
+        entryText: setupLog,
         move: name,
         stat: stat,
         outcome: moveOutcomeStore.outcomeLabel,
