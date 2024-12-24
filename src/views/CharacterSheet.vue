@@ -31,12 +31,14 @@ const legacyTrackStore = useLegacyTrackStore()
     :name="legacyTrackStore.quests.name" 
     :progress="legacyTrackStore.quests.progress"
     :experience="legacyTrackStore.questsXP"
+    legacy
   />
-  <TrackInfo :name="legacyTrackStore.bonds.name" :progress="legacyTrackStore.bonds.progress" />
+  <TrackInfo :name="legacyTrackStore.bonds.name" :progress="legacyTrackStore.bonds.progress" legacy />
   <TrackInfo
     :name="legacyTrackStore.discoveries.name"
     :progress="legacyTrackStore.discoveries.progress"
     :experience="legacyTrackStore.questsXP"
+    legacy
   />
   <h2>Impacts: {{ impactsStore.impactsTotal }}</h2>
   <ul v-if="impactsStore.impactsTotal">

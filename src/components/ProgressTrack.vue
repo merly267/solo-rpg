@@ -3,6 +3,7 @@ import { computed } from 'vue'
 type PropTypes = {
   progress: number
   experience?: number
+  legacy?: boolean
 }
 
 const props = defineProps<PropTypes>()
@@ -52,7 +53,7 @@ const boxStyle = (index: number, progress: number) => {
   <!-- <div class="undisplayed" v-if="undisplayedProgress">+{{ undisplayedProgress }}</div> -->
   <div 
     class="progress-track"
-    :class="{ legacy: props.experience }"
+    :class="{ legacy: props.legacy }"
   >
     <div
       v-for="index in maxTrack"
