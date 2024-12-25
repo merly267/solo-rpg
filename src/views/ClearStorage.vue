@@ -12,6 +12,9 @@ const legacyTrackStore = useLegacyTrackStore()
 const clearAll = () => {
   characterStore.clearLocalStorage()
   impactsStore.clearLocalStorage()
+  legacyTrackStore.clearQuests()
+  legacyTrackStore.clearBonds()
+  legacyTrackStore.clearDiscoveries()
 }
 </script>
 <template>
@@ -20,4 +23,8 @@ const clearAll = () => {
   <button @click="characterStore.clearLocalStorage">Clear name and reset meters</button>
   <hr>
   <button @click="impactsStore.clearLocalStorage">Clear impacts</button>
+  <hr>
+  <button @click="legacyTrackStore.clearQuests">Clear quests progress</button>
+  <button @click="legacyTrackStore.clearBonds">Clear bonds progress</button>
+  <button @click="legacyTrackStore.clearDiscoveries">Clear discoveries progress</button>
 </template>

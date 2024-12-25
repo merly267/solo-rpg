@@ -72,6 +72,16 @@ export const useLegacyTrackStore = defineStore('legacyTrackStore', {
         }
       }
       this.discoveries.progress += increaseAmount()
+    },
+    // to refresh from defaults
+    clearQuests() {
+      this.quests.progress = 0
+    },
+    clearBonds() {
+      this.bonds.progress = 0
+    },
+    clearDiscoveries() {
+      this.discoveries.progress = 0
     }
   }
 })
