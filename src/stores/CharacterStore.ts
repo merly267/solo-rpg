@@ -58,6 +58,14 @@ export const useCharacterStore = defineStore('characterStore', {
       } else {
         this.supply -= x
       }
+    },
+    // to refresh from defaults
+    clearLocalStorage() {
+      this.name = ''
+      this.health = 5
+      this.spirit = 5
+      this.supply = 5
+      this.hold = 5
     }
   }
 })
