@@ -29,6 +29,10 @@ export const useLogStore = defineStore('progressLogStore', {
         outcome: moveOutcomeStore.outcomeLabel,
         match: moveOutcomeStore.matchMessage ? moveOutcomeStore.matchMessage : ''
       })
+    },
+    // to refresh from defaults
+    clearLog() {
+      this.log = []
     }
   }
 })

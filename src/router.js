@@ -20,6 +20,10 @@ export const routes = [
     component: () => import('./views/MovesList.vue')
   },
   {
+    path: '/clear-storage',
+    component: () => import('./views/ClearStorage.vue')
+  },
+  {
     path: '/moves/face-danger',
     component: () => import('./views/moves/FaceDanger.vue')
   },
