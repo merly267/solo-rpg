@@ -2,7 +2,12 @@
 import MakeLogEntry from '@/components/MakeLogEntry.vue'
 import { useLogStore } from '@/stores/LogStore'
 
+import CheckGear from '@/views/moves/CheckGear.vue'
+import FaceDanger from '@/views/moves/FaceDanger.vue'
+
 const logStore = useLogStore()
+
+const currentComponent = FaceDanger
 </script>
 <template>
   <h2>Journal</h2>
@@ -11,6 +16,8 @@ const logStore = useLogStore()
     <p v-if="entry.move" class="move-info"><strong>{{ entry.move }}</strong><span v-if="entry.stat"> + {{ entry.stat }}</span>: {{ entry.outcome }}<span v-if="entry.match"> {{ entry.match }}</span></p>
   </section>
   <MakeLogEntry />
+  <button>Make a move</button>
+  <component :is=currentComponent></component>
 </template>
 <style scoped>
   .text-entry {
