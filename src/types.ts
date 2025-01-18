@@ -76,6 +76,7 @@ export type StatToSelect = {
 
 export type Move = {
   title: string
+  componentName: string
   slug: string
   moveType: MoveType
   progress?: boolean

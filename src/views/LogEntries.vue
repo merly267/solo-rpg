@@ -1,8 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import MakeLogEntry from '@/components/MakeLogEntry.vue'
+import MoveSearch from '@/components/MoveSearch.vue'
 import { useLogStore } from '@/stores/LogStore'
 
+import CheckGear from '@/views/moves/CheckGear.vue'
+import FaceDanger from '@/views/moves/FaceDanger.vue'
+
 const logStore = useLogStore()
+const visibleMove = ref(false)
+const showMove = () => {
+  visibleMove.value = true
+}
+
+const currentMove = FaceDanger
+
 </script>
 <template>
   <h2>Journal</h2>
@@ -11,6 +23,9 @@ const logStore = useLogStore()
     <p v-if="entry.move" class="move-info"><strong>{{ entry.move }}</strong><span v-if="entry.stat"> + {{ entry.stat }}</span>: {{ entry.outcome }}<span v-if="entry.match"> {{ entry.match }}</span></p>
   </section>
   <MakeLogEntry />
+  <!-- <button @click="showMove">Make a move</button>
+  <component v-if="visibleMove" :is=currentMove></component> -->
+  <MoveSearch />
 </template>
 <style scoped>
   .text-entry {

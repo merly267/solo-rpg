@@ -70,9 +70,12 @@ const clearMove = () => {
         @clearMove="clearMove"
       >
         <div v-show="!moveMade">
-          <p>When you <strong>{{ move.trigger }}</strong>:</p>
+          <!-- <p>When you <strong>{{ move.trigger }}</strong>:</p>
           <MakeLogEntry @logEntry="setupLogEntry" :cleared="cleared" move />
-          <p>Then roll. If you act &hellip;</p>
+          <p>Then roll. If you act &hellip;</p> -->
+
+          <p>When you <strong>{{ move.trigger }}</strong>, envision your action. Then roll. If you act &hellip;</p>
+
           <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
         </div>
         <div v-if="moveMade">{{ setupLog }}</div>
