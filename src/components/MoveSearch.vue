@@ -39,10 +39,41 @@ const getComponent = (name: string) => {
 
 <template>
   <input type="text" v-model="search" @input="onChange" />
-  <ul class="results" v-show="isOpen">
-    <li v-for="(move, i) in results" :key="i" @click="setResult(move.componentName)">
-      {{ move }}
-    </li>
-  </ul>
+  <div class="results" v-show="isOpen">
+    <dl
+      v-for="(move, index) in results"
+      :key="`move-${index}`"
+      @click="setResult(move.componentName)"
+    >
+      <dt class="move">{{ move.title }}</dt>
+      <dd class="trigger">{{ move.trigger }}.</dd>
+    </dl>
+  </div>
   <component v-if="selectedMove" :is="getComponent(selectedMove)"></component>
 </template>
+
+<style scoped>
+dl {
+  margin: 0;
+  cursor: pointer;
+}
+.trigger {
+  display: inline-block;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.trigger::first-letter {
+  text-transform: capitalize;
+}
+
+@media (min-width: 768px) {
+  dt,
+  .trigger {
+    display: inline;
+  }
+  .trigger:before {
+    content: ' - ';
+  }
+}
+</style>
