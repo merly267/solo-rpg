@@ -3,6 +3,7 @@ import type { MovesList } from '@/types'
 export const movesList: MovesList = {
   faceDanger: {
     title: 'Face Danger',
+    componentName: 'FaceDanger',
     slug: 'face-danger',
     moveType: 'Adventure',
     trigger: 'attempt something risky or react to an imminent threat',
@@ -31,6 +32,7 @@ export const movesList: MovesList = {
   },
   secureAdvantage: {
     title: 'Secure an Advantage',
+    componentName: 'SecureAdvantage',
     slug: 'secure-advantage',
     moveType: 'Adventure',
     trigger: 'assess a situation, make preparations, or attempt to gain leverage',
@@ -59,12 +61,14 @@ export const movesList: MovesList = {
   },
   gatherInfo: {
     title: 'Gather Information',
+    componentName: 'GatherInformation',
     slug: 'gather-information',
     moveType: 'Adventure',
     trigger: 'search for clues, conduct an investigation, analyze evidence, or do research'
   },
   compelMove: {
     title: 'Compel',
+    componentName: 'CompelMove',
     slug: 'compel',
     moveType: 'Adventure',
     trigger: 'try to persuade someone or make them an offer',
@@ -85,24 +89,28 @@ export const movesList: MovesList = {
   },
   checkGear: {
     title: 'Check your Gear',
+    componentName: 'CheckGear',
     slug: 'check-gear',
     moveType: 'Adventure',
     trigger: 'check to see if you have a specific helpful item or resource'
   },
   swearVow: {
     title: 'Swear an Iron Vow',
+    componentName: 'SwearVow',
     slug: 'swear-vow',
     moveType: 'Quest',
     trigger: 'swear to complete a quest'
   },
   reachMilestone: {
     title: 'Reach a Milestone',
+    componentName: 'ReachMilestone',
     slug: 'reach-milestone',
     moveType: 'Quest',
     trigger: 'make headway in your quest'
   },
   fulfillVow: {
     title: 'Fulfill Your Vow',
+    componentName: 'FulfillVow',
     slug: 'fulfill-vow',
     moveType: 'Quest',
     trigger: 'reach the end of your quest',
@@ -110,12 +118,14 @@ export const movesList: MovesList = {
   },
   forsakeVow: {
     title: 'Forsake Your Vow',
+    componentName: 'ForsakeVow',
     slug: 'forsake-vow',
     moveType: 'Quest',
     trigger: 'renounce your quest, betray your promise, or the goal is lost to you'
   },
   undertakeExpedition: {
     title: 'Undertake an Expedition',
+    componentName: 'UndertakeExpedition',
     slug: 'undertake-expedition',
     moveType: 'Exploration',
     trigger:
@@ -137,12 +147,14 @@ export const movesList: MovesList = {
   },
   exploreWaypoint: {
     title: 'Explore a Waypoint',
+    componentName: 'ExploreWaypoint',
     slug: 'explore-waypoint',
     moveType: 'Exploration',
     trigger: 'divert from an expedition to examine a notable location'
   },
   finishExpedition: {
     title: 'Finish an Expedition',
+    componentName: 'FinishExpedition',
     slug: 'finish-expedition',
     moveType: 'Exploration',
     trigger: 'your expedition comes to an end',
@@ -150,6 +162,7 @@ export const movesList: MovesList = {
   },
   setCourse: {
     title: 'Set a Course',
+    componentName: 'SetCourse',
     slug: 'set-course',
     moveType: 'Exploration',
     trigger:
@@ -157,12 +170,14 @@ export const movesList: MovesList = {
   },
   healMove: {
     title: 'Heal',
+    componentName: 'HealMove',
     slug: 'heal',
     moveType: 'Recover',
     trigger: 'receive medical care or provide treatment'
   },
   resupplyMove: {
     title: 'Resupply',
+    componentName: 'ResupplyMove',
     slug: 'resupply',
     moveType: 'Recover',
     trigger: 'attempt to bolster your readiness'
