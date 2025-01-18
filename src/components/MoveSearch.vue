@@ -8,6 +8,13 @@ const movesArray = Object.entries(movesList).map((i) => i[1])
 const search = ref('')
 const results = ref<Move[]>([])
 const isOpen = ref(false)
+const moveSelected = ref(false)
+const selectedMove = ref('')
+
+const onChange = () => {
+  isOpen.value = true
+  filterResults()
+}
 
 const filterResults = () => {
   results.value = movesArray.filter(
@@ -16,20 +23,17 @@ const filterResults = () => {
 }
 
 const setResult = (result: string) => {
-  search.value = result
   isOpen.value = false
-  getComponent(search.value)
-}
-
-const onChange = () => {
-  isOpen.value = true
-  filterResults()
+  moveSelected.value = true
+  selectedMove.value = result
 }
 
 const getComponent = (name: string) => {
-  return defineAsyncComponent({
-    loader: () => import(`@/views/moves/${name}.vue`)
-  })
+  if (moveSelected.value) {
+    return defineAsyncComponent({
+      loader: () => import(`@/views/moves/${name}.vue`)
+    })
+  }
 }
 </script>
 
@@ -40,5 +44,5 @@ const getComponent = (name: string) => {
       {{ move }}
     </li>
   </ul>
-  <component v-if="search.length" :is="getComponent(search)"></component>
+  <component v-if="selectedMove" :is="getComponent(selectedMove)"></component>
 </template>
