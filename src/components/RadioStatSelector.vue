@@ -3,20 +3,21 @@ import { ref, computed, watch } from 'vue'
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import type { StatName, StatToSelect } from '@/types'
 
-type PropTypes = {
+const { stats, cleared } = defineProps<{
   stats: StatToSelect[]
   cleared?: boolean
-}
+}>()
 
-const props = defineProps<PropTypes>()
-
-watch(() => props.cleared, () => {
-  selectedStatName.value = ''
-})
+watch(
+  () => cleared,
+  () => {
+    selectedStatName.value = ''
+  }
+)
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
-const findLabel = (statToFind: StatName) => props.stats.find((stat) => stat.value === statToFind)
+const findLabel = (statToFind: StatName) => stats.find((stat) => stat.value === statToFind)
 
 let selectedStatName = ref<StatName>('')
 
@@ -30,25 +31,28 @@ const selectedStat = computed(() => {
   }
 })
 
-defineExpose({selectedStat})
-
+defineExpose({ selectedStat })
 </script>
 <template>
   <fieldset v-if="selectedStatName === ''">
-    <div v-for="(stat, index) in props.stats" :key="`stat-${index}`" >
-      <input 
-        type="radio" 
+    <div v-for="(stat, index) in stats" :key="`stat-${index}`">
+      <input
+        type="radio"
         name="chooseStat"
-        :id="`${index}-${stat.value}`" 
+        :id="`${index}-${stat.value}`"
         :value="stat.value"
         v-model="selectedStatName"
       />
-      <label :for="`${index}-${stat.value}`">{{ stat.label }}: roll +{{ stat.value }} ({{ findStat(stat.value)?.score }})</label>
+      <label :for="`${index}-${stat.value}`"
+        >{{ stat.label }}: roll +{{ stat.value }} ({{ findStat(stat.value)?.score }})</label
+      >
     </div>
   </fieldset>
   <div v-else>
     <p>
-      {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findStat(selectedStatName)?.score }})
+      {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{
+        findStat(selectedStatName)?.score
+      }})
     </p>
     <p>
       <button @click="selectedStatName = ''">Change approach</button>

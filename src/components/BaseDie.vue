@@ -2,11 +2,9 @@
 import { useDiceStore } from '@/stores/DiceStore'
 import type { Die } from '@/types'
 
-type PropTypes = {
+const { die } = defineProps<{
   die: Die
-}
-
-const props = defineProps<PropTypes>()
+}>()
 
 const diceStore = useDiceStore()
 </script>
@@ -15,19 +13,19 @@ const diceStore = useDiceStore()
     v-if="diceStore.showLowest"
     class="die"
     :class="{
-      highest: props.die.lowest === false
+      highest: die.lowest === false
     }"
-    ><span class="number">{{ props.die.result }}</span></span
+    ><span class="number">{{ die.result }}</span></span
   >
-  <span v-else-if="props.die.cancelled" class="die cancelled"><span class="number">x</span></span>
+  <span v-else-if="die.cancelled" class="die cancelled"><span class="number">x</span></span>
   <span
-    v-else-if="props.die.result"
+    v-else-if="die.result"
     class="die rolled"
     :class="{
-      success: props.die.isSuccess === true,
-      failure: props.die.isSuccess === false
+      success: die.isSuccess === true,
+      failure: die.isSuccess === false
     }"
-    ><span class="number">{{ props.die.result }}</span></span
+    ><span class="number">{{ die.result }}</span></span
   >
   <span v-else class="die"><span class="number">?</span></span>
 </template>

@@ -3,11 +3,11 @@ import { onUnmounted } from 'vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useDiceStore } from '@/stores/DiceStore'
 
-type PropTypes = {
+const { title, progressScore, hideDice } = defineProps<{
   title: string
   progressScore: number
   hideDice?: boolean
-}
+}>()
 
 const diceStore = useDiceStore()
 
@@ -29,7 +29,7 @@ const rollAllDice = () => {
 
 const checkSuccess = () => {
   diceStore.challengeDice.forEach((die) => {
-    if (props.progressScore > die.result) {
+    if (progressScore > die.result) {
       die.isSuccess = true
     } else {
       die.isSuccess = false
@@ -51,11 +51,9 @@ const clearAll = () => {
 }
 
 onUnmounted(() => clearAll())
-
-const props = defineProps<PropTypes>()
 </script>
 <template>
-  <h2>{{ props.title }}</h2>
+  <h2>{{ title }}</h2>
   <slot></slot>
   <div v-if="!hideDice" class="dice-buttons">
     <ChallengeDice />
