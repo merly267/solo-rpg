@@ -8,19 +8,17 @@ import { useDiceStore } from '@/stores/DiceStore'
 import { usestashedAddstore } from '@/stores/MoveAddsStore'
 import { useMoveOutcomeStore } from '@/stores/MoveOutcomeStore'
 
-type PropTypes = {
+const { title, stat, adds, disabled } = defineProps<{
   title: string
   stat: number
   adds: number
   disabled?: boolean
-}
-
-const props = defineProps<PropTypes>()
+}>()
 
 const stashedStore = usestashedAddstore()
 
 const moveAdds = computed(() => {
-  return props.adds ? Number(stashedStore.selected) + Number(props.adds) : stashedStore.selected
+  return adds ? Number(stashedStore.selected) + Number(adds) : stashedStore.selected
 })
 
 const momentumStore = useMomentumStore()
@@ -41,7 +39,7 @@ const rollAllDice = () => {
   clearAllDice()
   diceStore.challengeDice.forEach((die) => diceStore.roll(die))
   diceStore.roll(diceStore.actionDie)
-  moveOutcomeStore.calculateActionScore(props.stat, props.adds)
+  moveOutcomeStore.calculateActionScore(stat, adds)
   moveOutcomeStore.checkSuccess()
   moveOutcomeStore.checkMomentumSuccess()
   checkReplaceable()

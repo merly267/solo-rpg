@@ -2,9 +2,9 @@
 import { stats as statsList } from '@/composables/useCharacterStats.js'
 import type { Stat } from '@/types'
 
-type PropTypes = {
+const { selected } = defineProps<{
   selected: Stat
-}
+}>()
 
 const emit = defineEmits<{
   (e: 'setSelected', stat: Stat): void
@@ -13,8 +13,6 @@ const emit = defineEmits<{
 const setSelected = (stat: Stat) => {
   emit('setSelected', stat)
 }
-
-const props = defineProps<PropTypes>()
 </script>
 <template>
   <h3>Stats</h3>
@@ -25,7 +23,7 @@ const props = defineProps<PropTypes>()
         type="button"
         class="aspect"
         @click="setSelected(stat)"
-        :class="{ chosen: stat.name === props.selected.name }"
+        :class="{ chosen: stat.name === selected.name }"
       >
         <span class="name">{{ stat.name }}</span
         >:

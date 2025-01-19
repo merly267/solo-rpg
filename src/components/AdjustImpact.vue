@@ -2,26 +2,24 @@
 import { useImpactsStore } from '@/stores/ImpactsStore'
 import type { ImpactOperation } from '@/types'
 
-type PropTypes = {
+const { operation, impact } = defineProps<{
   operation: ImpactOperation
   impact: string
-}
-
-const props = defineProps<PropTypes>()
+}>()
 
 const impactsStore = useImpactsStore()
 
-const impactToAdjust = impactsStore.impacts.find((imp) => imp.name === props.impact)
+const impactToAdjust = impactsStore.impacts.find((imp) => imp.name === impact)
 
 const clearImpact = () => {
-  if (props.operation === 'Clear') {
-    impactsStore.clearImpact(props.impact)
+  if (operation === 'Clear') {
+    impactsStore.clearImpact(impact)
   }
 }
 
 const markImpact = () => {
-  if (props.operation === 'Mark') {
-    impactsStore.markImpact(props.impact)
+  if (operation === 'Mark') {
+    impactsStore.markImpact(impact)
   }
 }
 </script>

@@ -4,33 +4,31 @@ import { maxSupply } from '@/constants'
 
 type Operation = 'take' | 'suffer'
 
-type PropTypes = {
+const { operation, amount, disabled } = defineProps<{
   operation: Operation
   amount: number
   disabled?: boolean
-}
-
-const props = defineProps<PropTypes>()
+}>()
 
 const characterStore = useCharacterStore()
 </script>
 
 <template>
   <button
-    v-if="props.operation == 'take'"
+    v-if="operation == 'take'"
     type="button"
-    :disabled="props.disabled || characterStore.supply == maxSupply"
-    @click="characterStore.takeSupply(props.amount)"
+    :disabled="disabled || characterStore.supply == maxSupply"
+    @click="characterStore.takeSupply(amount)"
   >
-    Take +{{ props.amount }} supply
+    Take +{{ amount }} supply
   </button>
-  <span v-else-if="props.operation == 'suffer'">
+  <span v-else-if="operation == 'suffer'">
     <button
       type="button"
-      :disabled="props.disabled || characterStore.supply == 0"
-      @click="characterStore.loseSupply(props.amount)"
+      :disabled="disabled || characterStore.supply == 0"
+      @click="characterStore.loseSupply(amount)"
     >
-      Suffer -{{ props.amount }} supply
+      Suffer -{{ amount }} supply
     </button>
     <!-- <span v-if="characterStore.health == 0">
       Your health is already at minumum. Face a setback instead.

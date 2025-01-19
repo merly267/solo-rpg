@@ -2,15 +2,13 @@
 import { ref, watch } from 'vue'
 import { useLogStore } from '@/stores/LogStore'
 
-type PropTypes = {
+const { move, cleared } = defineProps<{
   move?: boolean
   cleared?: boolean
-}
-
-const props = defineProps<PropTypes>()
+}>()
 const logStore = useLogStore()
 
-const label = props.move ? 'Envision your action' : 'Add to journal'
+const label = move ? 'Envision your action' : 'Add to journal'
 
 const logText = ref('')
 
@@ -31,10 +29,12 @@ const emit = defineEmits<{
   (e: 'logEntry', value: string): void
 }>()
 
-watch(() => props.cleared, () => {
-  clearEntry()
-})
-
+watch(
+  () => cleared,
+  () => {
+    clearEntry()
+  }
+)
 </script>
 
 <template>
@@ -47,7 +47,8 @@ watch(() => props.cleared, () => {
 
 <style scoped>
 .log-entry {
-  label, button {
+  label,
+  button {
     display: block;
   }
 }

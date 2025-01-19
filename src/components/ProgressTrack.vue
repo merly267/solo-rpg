@@ -1,27 +1,26 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-type PropTypes = {
+
+const { progress, experience, legacy } = defineProps<{
   progress: number
   experience?: number
   legacy?: boolean
-}
-
-const props = defineProps<PropTypes>()
+}>()
 const maxTrack = 10
 
 const displayProgress = computed(() => {
-  if (props.progress <= maxTrack) {
-    return props.progress
+  if (progress <= maxTrack) {
+    return progress
   }
-  return props.progress % maxTrack
+  return progress % maxTrack
 })
 
 // not sure if I need to display this as I'm already displaying the total?
 // const undisplayedProgress = computed(() => {
-//   if (props.progress <= maxTrack) {
+//   if (progress <= maxTrack) {
 //     return
 //   }
-//   return props.progress - displayProgress.value
+//   return progress - displayProgress.value
 // })
 
 const boxStyle = (index: number, progress: number) => {
@@ -49,12 +48,9 @@ const boxStyle = (index: number, progress: number) => {
 </script>
 
 <template>
-  Progress: {{ props.progress }}
+  Progress: {{ progress }}
   <!-- <div class="undisplayed" v-if="undisplayedProgress">+{{ undisplayedProgress }}</div> -->
-  <div 
-    class="progress-track"
-    :class="{ legacy: props.legacy }"
-  >
+  <div class="progress-track" :class="{ legacy: legacy }">
     <div
       v-for="index in maxTrack"
       :key="index"
@@ -142,7 +138,8 @@ const boxStyle = (index: number, progress: number) => {
   &.legacy {
     .box.filled {
       position: relative;
-      &:before, &:after {
+      &:before,
+      &:after {
         content: '';
         display: block;
         position: absolute;
@@ -165,11 +162,11 @@ const boxStyle = (index: number, progress: number) => {
       }
       @media (min-width: 768px) {
         &:before {
-        left: 24%;
-      }
-      &:after {
-        right: 24%;
-      }
+          left: 24%;
+        }
+        &:after {
+          right: 24%;
+        }
       }
     }
     @media (min-width: 768px) {

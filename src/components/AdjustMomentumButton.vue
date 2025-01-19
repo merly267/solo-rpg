@@ -3,33 +3,31 @@ import { useMomentumStore } from '@/stores/MomentumStore'
 
 type Operation = 'adds' | 'subtracts'
 
-type PropTypes = {
+const { operation, amount, disabled } = defineProps<{
   operation: Operation
   amount: number
   disabled?: boolean
-}
-
-const props = defineProps<PropTypes>()
+}>()
 
 const momentumStore = useMomentumStore()
 </script>
 
 <template>
   <button
-    v-if="props.operation == 'adds'"
+    v-if="operation == 'adds'"
     type="button"
-    :disabled="props.disabled || momentumStore.momentum == momentumStore.maxMomentum"
-    @click="momentumStore.addMomentum(props.amount)"
+    :disabled="disabled || momentumStore.momentum == momentumStore.maxMomentum"
+    @click="momentumStore.addMomentum(amount)"
   >
-    Take +{{ props.amount }} momentum
+    Take +{{ amount }} momentum
   </button>
-  <span v-else-if="props.operation == 'subtracts'">
+  <span v-else-if="operation == 'subtracts'">
     <button
       type="button"
-      :disabled="props.disabled || momentumStore.momentum == momentumStore.minMomentum"
-      @click="momentumStore.loseMomentum(props.amount)"
+      :disabled="disabled || momentumStore.momentum == momentumStore.minMomentum"
+      @click="momentumStore.loseMomentum(amount)"
     >
-      Suffer -{{ props.amount }} momentum
+      Suffer -{{ amount }} momentum
     </button>
     <span v-if="momentumStore.momentum == momentumStore.minMomentum">
       Your momentum is already at minumum. Face a setback instead.
