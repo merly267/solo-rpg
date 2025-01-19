@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue'
+import { defineAsyncComponent, hydrateOnVisible, ref } from 'vue'
 import { movesList } from '@/moves'
 import type { Move } from '@/types'
 
@@ -31,7 +31,8 @@ const setResult = (result: string) => {
 const getComponent = (name: string) => {
   if (moveSelected.value) {
     return defineAsyncComponent({
-      loader: () => import(`@/views/moves/${name}.vue`)
+      loader: () => import(`@/views/moves/${name}.vue`),
+      hydrate: hydrateOnVisible()
     })
   }
 }
