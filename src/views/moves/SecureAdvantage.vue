@@ -41,11 +41,14 @@ const moveAdds = 0
 const moveMade = ref(false)
 const cleared = ref(false)
 
-watch(() => childComponent.value?.selectedStat, () => {
-  if (childComponent.value?.selectedStat) {
-    cleared.value = false
+watch(
+  () => childComponent.value?.selectedStat,
+  () => {
+    if (childComponent.value?.selectedStat) {
+      cleared.value = false
+    }
   }
-})
+)
 
 const makeMove = () => {
   moveMade.value = true
@@ -63,7 +66,6 @@ const takeRewards = () => {
   momentumStore.addMomentum(2)
   stashedAddsStore.addToStash(stash)
 }
-
 </script>
 
 <template>
@@ -78,31 +80,40 @@ const takeRewards = () => {
         @makeMove="makeMove"
         @clearMove="clearMove"
       >
-      
         <p>
-          When you <strong>{{ move.trigger }}</strong>, envision your action and roll. If you act...
+          When you <strong>{{ move.trigger }}</strong
+          >, envision your action and roll. If you act...
         </p>
-        <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
+        <RadioStatSelector
+          v-if="move.stats"
+          :stats="move.stats"
+          :cleared="cleared"
+          ref="childComponent"
+        />
       </ActionMove>
     </template>
     <template #outcome>
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
-          <p>You succeed. Take +2 momentum and add +1 on your next move (not a progress move). <button @click="takeRewards">Take rewards</button></p>
+          <p>
+            You succeed. Take +2 momentum and add +1 on your next move (not a progress move).
+            <button @click="takeRewards">Take rewards</button>
+          </p>
         </template>
         <template v-slot:weak>
-          <p>
-            You succeed. Choose one.
+          <div>
+            <p>You succeed. Choose one.</p>
             <ul>
               <li><AdjustMomentumButton operation="adds" :amount="2" /></li>
-              <li><StashMoveAdd text="Add +1 on your next move" :addToStash=stash /> (not a progress move).</li>
+              <li>
+                <StashMoveAdd text="Add +1 on your next move" :addToStash="stash" /> (not a progress
+                move).
+              </li>
             </ul>
-          </p>
+          </div>
         </template>
         <template v-slot:miss>
-          <p>
-            You fail or your assumptions betray you. Pay the Price.
-          </p>
+          <p>You fail or your assumptions betray you. Pay the Price.</p>
         </template>
       </MoveOutcome>
     </template>

@@ -44,8 +44,10 @@ const makeMove = () => {
   <MoveLayout>
     <template #text>
       <h2>{{ move.title }}</h2>
-      <p>
-        When you <strong>{{ move.trigger }}</strong> by doing any of the following... 
+      <div>
+        <p>
+          When you <strong>{{ move.trigger }}</strong> by doing any of the following...
+        </p>
         <ul>
           <li>overcoming a critical obstacle</li>
           <li>gaining meaningful insight</li>
@@ -54,8 +56,8 @@ const makeMove = () => {
           <li>earning vital support</li>
           <li>defeating a notable foe</li>
         </ul>
-        ... you may mark progres per the rank of the vow.
-      </p>
+        <p>... you may mark progres per the rank of the vow.</p>
+      </div>
       <div v-if="noVow">
         First you must
         <button @click="$router.push(`/moves/${swearMove.slug}`)">
