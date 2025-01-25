@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onUnmounted } from 'vue'
+import { computed, onUnmounted, ref } from 'vue'
 import ActionDie from '@/components/ActionDie.vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useMomentumStore } from '@/stores/MomentumStore'
@@ -17,7 +17,13 @@ const { title, stat, adds, disabled } = defineProps<{
 
 const stashedStore = usestashedAddstore()
 
+const moveMade = ref(false)
+let usedAdds = 0
+
 const moveAdds = computed(() => {
+  if (moveMade.value) {
+    return usedAdds
+  }
   return adds ? Number(stashedStore.selected) + Number(adds) : stashedStore.selected
 })
 
@@ -32,7 +38,10 @@ const diceStore = useDiceStore()
 const moveOutcomeStore = useMoveOutcomeStore()
 
 const makeMove = () => {
+  usedAdds = moveAdds.value
+  moveMade.value = true
   emit('makeMove')
+  stashedStore.clearUsedAndExpiredStashed()
 }
 
 const rollAllDice = () => {
@@ -43,7 +52,6 @@ const rollAllDice = () => {
   moveOutcomeStore.checkSuccess()
   moveOutcomeStore.checkMomentumSuccess()
   checkReplaceable()
-  stashedStore.clearUsedAndExpiredStashed()
   makeMove()
 }
 
@@ -80,6 +88,7 @@ const clearAllDice = () => {
 
 const clearMove = () => {
   emit('clearMove')
+  moveMade.value = false
 }
 
 const clearAll = () => {
