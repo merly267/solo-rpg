@@ -84,13 +84,13 @@ const clearMove = () => {
             You have it, but must choose one:
             <ul>
               <li>Your supply is diminished: Sacrifice Resources (-1)</li>
-              <li>It’s not quite right, and causes a complication or delay: <AdjustMomentumButton operation="subtracts" :amount="2" /></li>
+              <li>It's not quite right, and causes a complication or delay: <AdjustMomentumButton operation="subtracts" :amount="2" /></li>
             </ul>
           </p>
         </template>
         <template v-slot:miss>
           <p>
-            You don’t have it and the situation grows more perilous. Pay the Price.
+            You don't have it and the situation grows more perilous. Pay the Price.
           </p>
         </template>
       </MoveOutcome>

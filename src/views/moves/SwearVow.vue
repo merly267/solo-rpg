@@ -18,11 +18,12 @@ const statForMove: StatName = 'Heart'
 
 const selectedStat = statsList.value.find((stat) => stat.name === statForMove)
 
+// becomes a string https://github.com/vuejs/core/issues/10886
 const connectionAdds = ref(0)
 
 const moveAdds = computed(() => {
   if (connectionAdds.value) {
-    return connectionAdds.value
+    return Number(connectionAdds.value)
   }
   return 0
 })
