@@ -66,13 +66,13 @@ const clearMove = () => {
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
-            They’ll do what you want or agree to your conditions.
+            They'll do what you want or agree to your conditions.
             <AdjustMomentumButton operation="adds" :amount="1" />
           </p>
         </template>
         <template v-slot:weak>
           <p>
-            They’ll do what you want or agree to your conditions, but their agreement comes with a
+            They'll do what you want or agree to your conditions, but their agreement comes with a
             demand or complication. Envision their couteroffer and
             <AdjustMomentumButton operation="adds" :amount="1" />
           </p>
