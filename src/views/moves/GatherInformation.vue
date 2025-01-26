@@ -22,8 +22,12 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const rewardsTaken = ref(false)
+const takeRewards = () => rewardsTaken.value = true
+
 const clearMove = () => {
   moveMade.value = false
+  rewardsTaken.value = false
 }
 </script>
 
@@ -50,14 +54,14 @@ const clearMove = () => {
           <p>
             You discover something helpful and specific. The path you must follow or action you must
             take to make progress is made clear. Envision what you learn. Then
-            <AdjustMomentumButton operation="adds" :amount="2" />.
+            <AdjustMomentumButton operation="adds" :amount="2" @click="takeRewards" :disabled="rewardsTaken" />.
           </p>
         </template>
         <template v-slot:weak>
           <p>
             The information provides new insight, but also complicates your quest. Envision what you
             discover. Then
-            <AdjustMomentumButton operation="adds" :amount="1" />.
+            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />.
           </p>
         </template>
         <template v-slot:miss>

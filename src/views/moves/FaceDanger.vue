@@ -50,8 +50,12 @@ const makeMove = () => {
   logStore.addMoveEntry(setupLog.value, move.title, selectedStat.value.name)
 }
 
+const rewardsTaken = ref(false)
+const takeRewards = () => rewardsTaken.value = true
+
 const clearMove = () => {
   moveMade.value = false
+  rewardsTaken.value = false
   setupLog.value = ''
   cleared.value = true
 }
@@ -86,7 +90,7 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             You are successful.
-            <AdjustMomentumButton operation="adds" :amount="1" />
+            <AdjustMomentumButton operation="adds" :amount="1"  @click="takeRewards" :disabled="rewardsTaken" />
           </p>
         </template>
         <template v-slot:weak>

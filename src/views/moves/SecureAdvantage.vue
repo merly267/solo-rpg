@@ -54,18 +54,23 @@ const makeMove = () => {
   moveMade.value = true
 }
 
-const clearMove = () => {
-  moveMade.value = false
-  cleared.value = true
-}
-
 const momentumStore = useMomentumStore()
 const stashedAddsStore = usestashedAddstore()
 
+const rewardsTaken = ref(false)
 const takeRewards = () => {
   momentumStore.addMomentum(2)
   stashedAddsStore.addToStash(stash)
+  rewardsTaken.value = true
 }
+const takeMomentumRewards = () => rewardsTaken.value = true
+
+const clearMove = () => {
+  moveMade.value = false
+  rewardsTaken.value = false
+  cleared.value = true
+}
+
 </script>
 
 <template>
@@ -97,16 +102,16 @@ const takeRewards = () => {
         <template v-slot:strong>
           <p>
             You succeed. Take +2 momentum and add +1 on your next move (not a progress move).
-            <button @click="takeRewards">Take rewards</button>
+            <button @click="takeRewards" :disabled="rewardsTaken">Take rewards</button>
           </p>
         </template>
         <template v-slot:weak>
           <div>
             <p>You succeed. Choose one.</p>
             <ul>
-              <li><AdjustMomentumButton operation="adds" :amount="2" /></li>
+              <li><AdjustMomentumButton operation="adds" :amount="2" @click="takeMomentumRewards" :disabled="rewardsTaken" /></li>
               <li>
-                <StashMoveAdd text="Add +1 on your next move" :addToStash="stash" /> (not a progress
+                <StashMoveAdd text="Add +1 on your next move" :addToStash="stash" @click="takeMomentumRewards" :disabled="rewardsTaken" /> (not a progress
                 move).
               </li>
             </ul>

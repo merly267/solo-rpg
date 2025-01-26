@@ -44,9 +44,13 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const rewardsTaken = ref(false)
+const takeRewards = () => rewardsTaken.value = true
+
 const clearMove = () => {
   connectionAdds.value = 0
   moveMade.value = false
+  rewardsTaken.value = false
 }
 </script>
 <template>
@@ -96,13 +100,13 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             You are emboldened and it is clear what you must do next.
-            <AdjustMomentumButton operation="adds" :amount="2" />.
+            <AdjustMomentumButton operation="adds" :amount="2" @click="takeRewards" :disabled="rewardsTaken" />.
           </p>
         </template>
         <template v-slot:weak>
           <p>
             You are determined but begin your quest with more questions than answers.
-            <AdjustMomentumButton operation="adds" :amount="1" />, and envision what you do to find
+            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />, and envision what you do to find
             a path forward.
           </p>
         </template>

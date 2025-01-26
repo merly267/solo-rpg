@@ -62,6 +62,8 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const rewardsTaken = ref(false)
+
 const chosenReward = ref<string>('')
 
 const rewards = computed(() => {
@@ -78,6 +80,7 @@ const rewards = computed(() => {
 
 const takeRewards = () => {
   legacyTrackStore.markQuestProgress(rewards.value)
+  rewardsTaken.value = true
 }
 
 const markLegacyProgress = (rank: number) => {
@@ -197,7 +200,7 @@ const clearMove = () => {
                 </label>
               </div>
             </fieldset>
-            <button :disabled="chosenReward === ''" @click="takeRewards">
+            <button :disabled="chosenReward === '' || rewardsTaken" @click="takeRewards">
               Take rewards
             </button>
         </template>

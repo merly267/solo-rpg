@@ -30,8 +30,12 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const rewardsTaken = ref(false)
+const takeRewards = () => rewardsTaken.value = true
+
 const clearMove = () => {
   moveMade.value = false
+  rewardsTaken.value = false
   selectedSupplyType.value = ''
 }
 </script>
@@ -79,7 +83,7 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             You reach your destination and the situation there favors you
-            <AdjustMomentumButton operation="adds" :amount="1" />.
+            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />.
           </p>
         </template>
         <template v-slot:weak>

@@ -94,6 +94,8 @@ const isUnprepared = computed(() => {
   return unprepared!.status
 })
 
+const rewardsTaken = ref(false)
+
 const takeRewards = () => {
   if (isUnprepared.value) {
     impactsStore.clearImpact('Unprepared')
@@ -109,10 +111,14 @@ const takeRewards = () => {
       characterStore.takeSupply(2)
     }
   }
+  rewardsTaken.value = true
 }
+
+const takeMomentumRewards = () => rewardsTaken.value = true
 
 const clearMove = () => {
   moveMade.value = false
+  rewardsTaken.value = false
   selectedStatName.value = ''
   selectedSupply.value = 'Equipped'
 }
@@ -199,7 +205,7 @@ const clearMove = () => {
                   If you are unprepared, clear the impact and take +1 supply.
                 </span>
                 <span :class="{ disabled: isUnprepared }">Otherwise, take +2 supply</span
-                ><button :disabled="chosenReward !== 'general'" @click="takeRewards">
+                ><button :disabled="chosenReward !== 'general' || rewardsTaken" @click="takeRewards">
                   Take rewards
                 </button>
               </label>
@@ -218,14 +224,11 @@ const clearMove = () => {
                 <AdjustMomentumButton
                   operation="adds"
                   :amount="1"
-                  :disabled="chosenReward !== 'specific'"
+                  @click="takeMomentumRewards"
+                  :disabled="chosenReward !== 'specific' || rewardsTaken"
               /></label>
             </div>
           </fieldset>
-          <p>
-            You bolster your resources.
-            <AdjustSupplyButton operation="take" :amount="2" />
-          </p>
         </template>
         <template v-slot:weak>
           <p>
@@ -247,7 +250,7 @@ const clearMove = () => {
                   If you are unprepared, clear the impact and take +1 supply.
                 </span>
                 <span :class="{ disabled: isUnprepared }">Otherwise, take +2 supply</span
-                ><button :disabled="chosenReward !== 'general'" @click="takeRewards">
+                ><button :disabled="chosenReward !== 'general' || rewardsTaken" @click="takeRewards">
                   Take rewards
                 </button>
               </label>
@@ -266,7 +269,8 @@ const clearMove = () => {
                 <AdjustMomentumButton
                   operation="adds"
                   :amount="1"
-                  :disabled="chosenReward !== 'specific'"
+                  @click="takeMomentumRewards"
+                  :disabled="chosenReward !== 'specific' || rewardsTaken"
               /></label>
             </div>
           </fieldset>

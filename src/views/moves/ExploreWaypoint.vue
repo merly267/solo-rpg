@@ -53,17 +53,21 @@ const moveAdds = 0
 
 const moveMade = ref(false)
 
-const markProgress = () => {
-  progressTrackStore.markProgress(selectedExpeditionUuid.value, progressTrackType)
+const makeMove = () => {
+  moveMade.value = true
 }
 
-const makeMove = () => {
+const rewardsTaken = ref(false)
+const takeRewards = () => rewardsTaken.value = true
 
-  moveMade.value = true
+const markProgress = () => {
+  progressTrackStore.markProgress(selectedExpeditionUuid.value, progressTrackType)
+  takeRewards()
 }
 
 const clearMove = () => {
   moveMade.value = false
+  rewardsTaken.value = false
 }
 </script>
 
@@ -116,8 +120,8 @@ const clearMove = () => {
            <p>Choose one:
               <ul>
                 <li>Find an opportunity: Envision a favorable insight, situation, resource, or encounter. Then
-                  <AdjustMomentumButton operation="adds" :amount="2" />.</li>
-                <li>Gain progress: <button @click="markProgress">Mark Progress</button> on your expedition, per its rank.</li>
+                  <AdjustMomentumButton operation="adds" :amount="2" @click="takeRewards" :disabled="rewardsTaken" />.</li>
+                <li>Gain progress: <button @click="markProgress" :disabled="rewardsTaken">Mark Progress</button> on your expedition, per its rank.</li>
                 <li v-if="diceStore.match?.length">With a strong hit with a match, you may instead Make a Discovery.</li>
               </ul>
            </p>
