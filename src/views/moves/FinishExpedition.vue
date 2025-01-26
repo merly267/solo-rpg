@@ -162,7 +162,7 @@ const clearMove = () => {
             Your destination is lost to you, or you come to understand the true nature or cost of the expedition. Envision what happens and choose one:
             <ul>
               <li>Abandon the expedition: Envision the cost of this setback and Pay the Price.</li>
-              <li>Return to the expedition: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the expedition’s rank by one (if not already epic). <button @click="returnToExpedition">Return</button>
+              <li>Return to the expedition: Roll both challenge dice, take the lowest value, and clear that number of progress boxes. Then, raise the expedition's rank by one (if not already epic). <button @click="returnToExpedition">Return</button>
                 <div v-if="returnExp">
                   <ChallengeDice />
                   <button @click="clearMove">Clear</button>
