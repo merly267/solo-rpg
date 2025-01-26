@@ -39,8 +39,12 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const rewardsTaken = ref(false)
+const takeRewards = () => rewardsTaken.value = true
+
 const clearMove = () => {
   moveMade.value = false
+  rewardsTaken.value = false
   cleared.value = true
 }
 </script>
@@ -66,15 +70,15 @@ const clearMove = () => {
       <MoveOutcome v-if="moveMade">
         <template v-slot:strong>
           <p>
-            They’ll do what you want or agree to your conditions.
-            <AdjustMomentumButton operation="adds" :amount="1" />
+            They'll do what you want or agree to your conditions.
+            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />
           </p>
         </template>
         <template v-slot:weak>
           <p>
-            They’ll do what you want or agree to your conditions, but their agreement comes with a
+            They'll do what you want or agree to your conditions, but their agreement comes with a
             demand or complication. Envision their couteroffer and
-            <AdjustMomentumButton operation="adds" :amount="1" />
+            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />
           </p>
         </template>
         <template v-slot:miss>

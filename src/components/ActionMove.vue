@@ -15,9 +15,11 @@ const { title, stat, adds, disabled } = defineProps<{
   disabled?: boolean
 }>()
 
+const moveMade = ref(false)
+const disableRoll = computed(() => moveMade.value || disabled)
+
 const stashedStore = usestashedAddstore()
 
-const moveMade = ref(false)
 let usedAdds = 0
 
 const moveAdds = computed(() => {
@@ -121,7 +123,7 @@ onUnmounted(() => clearAll())
   <span v-else>?</span>
 
   <ChallengeDice />
-  <button type="button" :disabled="disabled" @click="rollAllDice()">Roll</button>
+  <button type="button" :disabled="disableRoll" @click="rollAllDice()">Roll</button>
   <button type="button" @click="clearAll()" :disabled="!anyClearable">Clear</button>
   <span v-if="anyReplaceable && !actionScoreReplaced">
     <button type="button" @click="burnMomentum">

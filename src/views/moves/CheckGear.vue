@@ -27,8 +27,12 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const rewardsTaken = ref(false)
+const takeRewards = () => rewardsTaken.value = true
+
 const clearMove = () => {
   moveMade.value = false
+  rewardsTaken.value = false
   selectedSupplyType.value = 'Equipped'
 }
 </script>
@@ -76,7 +80,7 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             You have it, and are ready to act.
-            <AdjustMomentumButton operation="adds" :amount="1" />
+            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />
           </p>
         </template>
         <template v-slot:weak>
@@ -84,7 +88,7 @@ const clearMove = () => {
             You have it, but must choose one:
             <ul>
               <li>Your supply is diminished: Sacrifice Resources (-1)</li>
-              <li>It's not quite right, and causes a complication or delay: <AdjustMomentumButton operation="subtracts" :amount="2" /></li>
+              <li>It's not quite right, and causes a complication or delay: <AdjustMomentumButton operation="subtracts" :amount="2" @click="takeRewards" :disabled="rewardsTaken" /></li>
             </ul>
           </p>
         </template>

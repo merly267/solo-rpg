@@ -78,6 +78,8 @@ const makeMove = () => {
   moveMade.value = true
 }
 
+const rewardsTaken = ref(false)
+
 const takeRewards = () => {
   if (isWounded.value) {
     impactsStore.clearImpact('Wounded')
@@ -85,11 +87,13 @@ const takeRewards = () => {
   } else {
     characterStore.takeHealth(3)
   }
+  rewardsTaken.value = true
 }
 
 const clearMove = () => {
   selectedStatName.value = ''
   moveMade.value = false
+  rewardsTaken.value = false
 }
 </script>
 
@@ -140,7 +144,7 @@ const clearMove = () => {
               health.
             </span>
             <span :class="{ disabled: isWounded }">Otherwise, take or give +3 health.</span>
-            <button @click="takeRewards">Take rewards</button>
+            <button @click="takeRewards" :disabled="rewardsTaken">Take rewards</button>
           </p>
         </template>
         <template v-slot:weak>
@@ -151,7 +155,7 @@ const clearMove = () => {
               health.
             </span>
             <span :class="{ disabled: isWounded }">Otherwise, take or give +3 health.</span>
-            <button @click="takeRewards">Take rewards</button>
+            <button @click="takeRewards" :disabled="rewardsTaken">Take rewards</button>
           </p>
           <fieldset>
             <legend>But the recovery costs extra time or resources. Choose one:</legend>

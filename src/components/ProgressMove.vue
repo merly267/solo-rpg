@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted } from 'vue'
+import { onUnmounted, ref } from 'vue'
 import ChallengeDice from '@/components/ChallengeDice.vue'
 import { useDiceStore } from '@/stores/DiceStore'
 
@@ -11,12 +11,15 @@ const { title, progressScore, hideDice } = defineProps<{
 
 const diceStore = useDiceStore()
 
+const moveMade = ref(false)
+
 const emit = defineEmits<{
   (e: 'makeMove'): void
   (e: 'clearMove'): void
 }>()
 
 const makeMove = () => {
+  moveMade.value = true
   emit('makeMove')
 }
 
@@ -42,6 +45,7 @@ const clearAllDice = () => {
 }
 
 const clearMove = () => {
+  moveMade.value = false
   emit('clearMove')
 }
 
@@ -57,7 +61,7 @@ onUnmounted(() => clearAll())
   <slot></slot>
   <div v-if="!hideDice" class="dice-buttons">
     <ChallengeDice />
-    <button type="button" @click="rollAllDice()">Roll</button
+    <button type="button" :disabled="moveMade" @click="rollAllDice()">Roll</button
     ><button type="button" @click="clearAll()">Clear</button>
   </div>
 </template>
