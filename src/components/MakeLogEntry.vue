@@ -39,13 +39,23 @@ watch(
 
 <template>
   <div class="log-entry">
-    <label for="logText">{{ label }}:</label>
-    <textarea @input="logEntry()" v-model="logText" id="logText"></textarea>
+    <textarea
+      @input="logEntry()"
+      v-model="logText"
+      id="logText"
+      placeholder="Add a journal entry"
+    ></textarea>
     <button v-if="!move" @click="saveEntry">Add</button>
   </div>
 </template>
 
 <style scoped>
+textarea {
+  position: relative;
+  width: calc(100% - 0.5rem);
+  padding: 0.25em;
+  z-index: 1;
+}
 .log-entry {
   label,
   button {

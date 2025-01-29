@@ -39,7 +39,13 @@ const getComponent = (name: string) => {
 </script>
 
 <template>
-  <input type="text" v-model="search" @input="onChange" />
+  <input
+    type="text"
+    v-model="search"
+    id="moveSearch"
+    placeholder="Search for a move"
+    @input="onChange"
+  />
   <div class="results" v-show="isOpen">
     <dl
       v-for="(move, index) in results"
@@ -54,6 +60,14 @@ const getComponent = (name: string) => {
 </template>
 
 <style scoped>
+input {
+  position: relative;
+  min-height: 3em;
+  width: calc(100% - 0.5rem);
+  margin-top: 0;
+  padding-left: 0.5em;
+  z-index: 1;
+}
 dl {
   margin: 0;
   cursor: pointer;
