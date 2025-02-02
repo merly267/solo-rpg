@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import MakeLogEntry from '@/components/MakeLogEntry.vue'
 import MoveSearch from '@/components/MoveSearch.vue'
 
 const visibleTab = ref('Journal')
+const nextAction = useTemplateRef('next-action')
+
+onMounted(() => {
+  nextAction.value?.scrollIntoView({ behavior: 'smooth' })
+})
 </script>
 <template>
-  <div class="next-action">
+  <div class="next-action" ref="next-action">
     <button
       aria-label="logText"
       @click="visibleTab = 'Journal'"

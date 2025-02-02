@@ -69,6 +69,14 @@ a {
   }
 }
 
+nav {
+  position: sticky;
+  top: 0;
+  padding: 0.5em 0;
+  background-color: var(--app-bg);
+  border-bottom: 1px solid var(--grey-text);
+}
+
 nav a {
   margin-right: 0.5em;
   color: var(--app-text);
@@ -102,7 +110,8 @@ select {
   max-width: 100%;
 }
 
-textarea, input[type=text] {
+textarea,
+input[type='text'] {
   font-family: var(--noto);
   color: var(--app-text);
   background-color: var(--form-bg);
@@ -113,7 +122,7 @@ textarea, input[type=text] {
   }
 }
 
-input[type=text] {
+input[type='text'] {
   height: 2em;
 }
 
@@ -121,5 +130,4 @@ textarea {
   width: 100%;
   height: 6em;
 }
-
 </style>
