@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, hydrateOnVisible, ref } from 'vue'
+import { watch, defineAsyncComponent, hydrateOnVisible, onUpdated, ref, useTemplateRef } from 'vue'
 import { movesList } from '@/moves'
 import type { Move } from '@/types'
 
@@ -36,6 +36,25 @@ const getComponent = (name: string) => {
     })
   }
 }
+
+const selectedMoveDiv = useTemplateRef('selected-move')
+
+onUpdated(() => {
+  watch(moveSelected, async () => {
+    if (moveSelected.value) {
+      console.log(selectedMoveDiv.value)
+      selectedMoveDiv.value?.scrollTo(0, 0)
+    }
+  })
+})
+
+// watchEffect(async () => {
+//   if (moveSelected.value) {
+//     console.log(selectedMoveDiv.value)
+//     selectedMoveDiv.value?.scrollTo(0, 0)
+//     console.log('done?')
+//   }
+// })
 </script>
 
 <template>
@@ -56,6 +75,7 @@ const getComponent = (name: string) => {
       <dd class="trigger">{{ move.trigger }}.</dd>
     </dl>
   </div>
+  <div ref="selected-move">Hey</div>
   <component v-if="selectedMove" :is="getComponent(selectedMove)"></component>
 </template>
 
