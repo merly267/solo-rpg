@@ -4,7 +4,7 @@ import type { Stat } from '@/types'
 export const stats = ref<Stat[]>([
   {
     name: 'Edge',
-    score: 3
+    score: 1
   },
   {
     name: 'Heart',
@@ -16,7 +16,7 @@ export const stats = ref<Stat[]>([
   },
   {
     name: 'Shadow',
-    score: 1
+    score: 3
   },
   {
     name: 'Wits',
