@@ -82,5 +82,9 @@ export const routes = [
   {
     path: '/moves/resupply',
     component: () => import('./views/moves/ResupplyMove.vue')
+  },
+  {
+    path: '/moves/pay-price',
+    component: () => import('./views/moves/PayPrice.vue')
   }
 ]

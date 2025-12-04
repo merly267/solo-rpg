@@ -181,5 +181,12 @@ export const movesList: MovesList = {
     slug: 'resupply',
     moveType: 'Recover',
     trigger: 'attempt to bolster your readiness'
+  },
+  payPrice: {
+    title: 'Pay the Price',
+    componentName: 'PayPrice',
+    slug: 'pay-price',
+    moveType: 'Fate',
+    trigger: 'suffer the outcome of an action'
   }
 }
