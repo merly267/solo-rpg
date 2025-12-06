@@ -92,17 +92,20 @@ button {
   margin: 0.25em;
   padding: 0.25em 0.5em;
   font-size: 1rem;
+  cursor: pointer;
 }
 button:disabled,
 input:disabled + label {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 select {
   max-width: 100%;
 }
 
-textarea, input[type=text] {
+textarea,
+input[type='text'] {
   font-family: var(--noto);
   color: var(--app-text);
   background-color: var(--form-bg);
@@ -113,7 +116,7 @@ textarea, input[type=text] {
   }
 }
 
-input[type=text] {
+input[type='text'] {
   height: 2em;
 }
 
@@ -121,5 +124,4 @@ textarea {
   width: 100%;
   height: 6em;
 }
-
 </style>
