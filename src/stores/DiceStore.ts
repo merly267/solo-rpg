@@ -28,6 +28,12 @@ export const useDiceStore = defineStore('diceStore', {
         lowest: false
       }
     ]),
+    oracleDie: useLocalStorage('oracleDie', {
+      max: 100,
+      rolled: false,
+      result: 0,
+      cancelled: false
+    }),
     showLowest: false
   }),
   getters: {
@@ -35,7 +41,10 @@ export const useDiceStore = defineStore('diceStore', {
       return state.challengeDice.filter((die) => die.rolled && die.isSuccess)
     },
     match: (state) => {
-      if (state.challengeDice[0].rolled && state.challengeDice[0].result === state.challengeDice[1].result) {
+      if (
+        state.challengeDice[0].rolled &&
+        state.challengeDice[0].result === state.challengeDice[1].result
+      ) {
         return 'true'
       }
     }
@@ -43,7 +52,7 @@ export const useDiceStore = defineStore('diceStore', {
   actions: {
     roll(die: Die) {
       die.result = Math.ceil(Math.random() * die.max)
-      // for testing: 
+      // for testing:
       // const min = 4
       // const max = 6
       // die.result = Math.floor(Math.random() * (max - min + 1)) + min
