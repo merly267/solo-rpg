@@ -18,21 +18,25 @@ const tableResult = computed(() => {
   )
 })
 
+const clear = () => {
+  diceStore.clear(diceStore.oracleDie)
+}
+
 const payPriceTable = [
   {
     min: 1,
     max: 33,
-    res: 'A trusted individual or community acts against you'
+    text: 'A trusted individual or community acts against you'
   },
   {
     min: 34,
     max: 66,
-    res: 'Something of value is lost or destroyed'
+    text: 'Something of value is lost or destroyed'
   },
   {
     min: 67,
     max: 100,
-    res: 'Roll twice'
+    text: 'Roll twice'
   }
 ]
 </script>
@@ -58,8 +62,21 @@ const payPriceTable = [
           </li>
         </ul>
         <OracleDie />
-        <div v-if="tableResult">{{ tableResult.res }}</div>
+        <span class="table-result" v-if="tableResult">{{ tableResult.text }}</span>
+        <button class="clear-result" type="button" @click="clear()" :disabled="!tableResult">
+          Clear
+        </button>
       </div>
     </template>
   </MoveLayout>
 </template>
+
+<style scoped>
+.table-result {
+  margin-left: 0.5rem;
+}
+.clear-result {
+  display: block;
+  margin-top: 1rem;
+}
+</style>
