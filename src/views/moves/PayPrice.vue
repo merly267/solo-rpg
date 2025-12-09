@@ -3,13 +3,21 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import { movesList } from '@/moves'
 import OracleDie from '@/components/OracleDie.vue'
 import { useDiceStore } from '@/stores/DiceStore'
+import type { Die, TableRow } from '@/types'
 
 const move = movesList.payPrice
 const diceStore = useDiceStore()
 
-const roll = () => diceStore.roll(diceStore.oracleDie)
+const checkResult = (die: Die, table: TableRow[]) => {
+  console.log(die.result)
+}
 
-const table = [
+const roll = () => {
+  diceStore.roll(diceStore.oracleDie)
+  checkResult(diceStore.oracleDie, payPriceTable)
+}
+
+const payPriceTable = [
   {
     min: 1,
     max: 33,

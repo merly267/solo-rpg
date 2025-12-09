@@ -69,6 +69,12 @@ export type Die = {
   lowest?: boolean
 }
 
+export type TableRow = {
+  min: number
+  max: number
+  res: string
+}
+
 export type StatToSelect = {
   value: StatName
   label: string
