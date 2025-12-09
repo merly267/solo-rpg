@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import OracleDie from '@/components/OracleDie.vue'
+import payPriceTable from '@/tables/moves/payPrice'
 import { useDiceStore } from '@/stores/DiceStore'
 import { movesList } from '@/moves'
 
@@ -21,24 +22,6 @@ const tableResult = computed(() => {
 const clear = () => {
   diceStore.clear(diceStore.oracleDie)
 }
-
-const payPriceTable = [
-  {
-    min: 1,
-    max: 33,
-    text: 'A trusted individual or community acts against you'
-  },
-  {
-    min: 34,
-    max: 66,
-    text: 'Something of value is lost or destroyed'
-  },
-  {
-    min: 67,
-    max: 100,
-    text: 'Roll twice'
-  }
-]
 </script>
 
 <template>
