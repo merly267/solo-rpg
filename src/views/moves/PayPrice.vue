@@ -8,6 +8,24 @@ const move = movesList.payPrice
 const diceStore = useDiceStore()
 
 const roll = () => diceStore.roll(diceStore.oracleDie)
+
+const table = [
+  {
+    min: 1,
+    max: 33,
+    res: 'A trusted individual or community acts against you'
+  },
+  {
+    min: 34,
+    max: 66,
+    res: 'Something of value is lost or destroyed'
+  },
+  {
+    min: 67,
+    max: 100,
+    res: 'Roll twice'
+  }
+]
 </script>
 
 <template>
