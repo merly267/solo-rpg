@@ -9,7 +9,8 @@ const move = movesList.payPrice
 const diceStore = useDiceStore()
 
 const checkResult = (die: Die, table: TableRow[]) => {
-  console.log(die.result)
+  const tableResult = table.find((row) => row.min <= die.result && row.max >= die.result)
+  console.log(tableResult?.res)
 }
 
 const roll = () => {
@@ -57,6 +58,7 @@ const payPriceTable = [
           </li>
         </ul>
         <OracleDie />
+        <MoveOutcome> </MoveOutcome>
       </div>
     </template>
   </MoveLayout>
