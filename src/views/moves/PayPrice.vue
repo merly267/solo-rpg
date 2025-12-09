@@ -1,22 +1,22 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import MoveLayout from '@/components/MoveLayout.vue'
-import { movesList } from '@/moves'
 import OracleDie from '@/components/OracleDie.vue'
 import { useDiceStore } from '@/stores/DiceStore'
-import type { Die, TableRow } from '@/types'
+import { movesList } from '@/moves'
 
 const move = movesList.payPrice
 const diceStore = useDiceStore()
 
-const checkResult = (die: Die, table: TableRow[]) => {
-  const tableResult = table.find((row) => row.min <= die.result && row.max >= die.result)
-  console.log(tableResult?.res)
-}
-
 const roll = () => {
   diceStore.roll(diceStore.oracleDie)
-  checkResult(diceStore.oracleDie, payPriceTable)
 }
+
+const tableResult = computed(() => {
+  return payPriceTable.find(
+    (row) => row.min <= diceStore.oracleDie.result && row.max >= diceStore.oracleDie.result
+  )
+})
 
 const payPriceTable = [
   {
@@ -58,7 +58,7 @@ const payPriceTable = [
           </li>
         </ul>
         <OracleDie />
-        <MoveOutcome> </MoveOutcome>
+        <div v-if="tableResult">{{ tableResult.res }}</div>
       </div>
     </template>
   </MoveLayout>
