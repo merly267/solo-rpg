@@ -8,6 +8,7 @@ import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
 import { movesList } from '@/moves'
 
 const move = movesList.compelMove
+const payPrice = movesList.payPrice
 
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
@@ -29,18 +30,21 @@ const moveAdds = 0
 const moveMade = ref(false)
 const cleared = ref(false)
 
-watch(() => childComponent.value?.selectedStat, () => {
-  if (childComponent.value?.selectedStat) {
-    cleared.value = false
+watch(
+  () => childComponent.value?.selectedStat,
+  () => {
+    if (childComponent.value?.selectedStat) {
+      cleared.value = false
+    }
   }
-})
+)
 
 const makeMove = () => {
   moveMade.value = true
 }
 
 const rewardsTaken = ref(false)
-const takeRewards = () => rewardsTaken.value = true
+const takeRewards = () => (rewardsTaken.value = true)
 
 const clearMove = () => {
   moveMade.value = false
@@ -63,7 +67,12 @@ const clearMove = () => {
           When you <strong>{{ move.trigger }}</strong
           >, envision your approach. If you...
         </p>
-        <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
+        <RadioStatSelector
+          v-if="move.stats"
+          :stats="move.stats"
+          :cleared="cleared"
+          ref="childComponent"
+        />
       </ActionMove>
     </template>
     <template #outcome>
@@ -71,18 +80,33 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             They'll do what you want or agree to your conditions.
-            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />
+            <AdjustMomentumButton
+              operation="adds"
+              :amount="1"
+              @click="takeRewards"
+              :disabled="rewardsTaken"
+            />
           </p>
         </template>
         <template v-slot:weak>
           <p>
             They'll do what you want or agree to your conditions, but their agreement comes with a
             demand or complication. Envision their couteroffer and
-            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />
+            <AdjustMomentumButton
+              operation="adds"
+              :amount="1"
+              @click="takeRewards"
+              :disabled="rewardsTaken"
+            />
           </p>
         </template>
         <template v-slot:miss>
-          <p>They refuse or make a demand that costs you greatly. Pay the Price.</p>
+          <p>
+            They refuse or make a demand that costs you greatly.
+            <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >.
+          </p>
         </template>
       </MoveOutcome>
     </template>

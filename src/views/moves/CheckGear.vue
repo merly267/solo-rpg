@@ -8,6 +8,7 @@ import { useCharacterStore } from '@/stores/CharacterStore'
 import { movesList } from '@/moves'
 
 const move = movesList.checkGear
+const payPrice = movesList.payPrice
 const characterStore = useCharacterStore()
 
 const selectedSupplyType = ref<string>('Equipped')
@@ -94,7 +95,7 @@ const clearMove = () => {
         </template>
         <template v-slot:miss>
           <p>
-            You don't have it and the situation grows more perilous. Pay the Price.
+            You don't have it and the situation grows more perilous. <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move">Pay the Price</router-link>.
           </p>
         </template>
       </MoveOutcome>

@@ -14,6 +14,8 @@ import { movesList } from '@/moves'
 const diceStore = useDiceStore()
 
 const move = movesList.undertakeExpedition
+const payPrice = movesList.payPrice
+
 const progressTrackType = 'Expedition'
 
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
@@ -160,7 +162,9 @@ const clearMove = () => {
         </template>
         <template v-slot:miss>
           <p>
-            You are waylaid by a crisis, or arrive at a waypoint to confront an immediate hardship or threat. Do not mark progress, and Pay the Price.
+            You are waylaid by a crisis, or arrive at a waypoint to confront an immediate hardship or threat. Do not mark progress, and <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >.
           </p>
         </template>
       </MoveOutcome>
