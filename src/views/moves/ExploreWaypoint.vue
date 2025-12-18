@@ -12,6 +12,7 @@ import { useDiceStore } from '@/stores/DiceStore'
 import { useProgressTrackStore } from '@/stores/ProgressTrackStore'
 
 const move = movesList.exploreWaypoint
+const payPrice = movesList.payPrice
 const newExpeditionMove = movesList.undertakeExpedition
 const progressTrackType = 'Expedition'
 
@@ -140,7 +141,7 @@ const clearMove = () => {
             </ul>
           </p>
           <p v-else>
-            You encounter an immediate hardship or threat, and must Pay the Price.
+            You encounter an immediate hardship or threat, and must <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move">Pay the Price</router-link>.
           </p>
         </template>
       </MoveOutcome>

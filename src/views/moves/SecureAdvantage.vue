@@ -12,6 +12,7 @@ import type { StashedAdd } from '@/types'
 import { movesList } from '@/moves'
 
 const move = movesList.secureAdvantage
+const payPrice = movesList.payPrice
 
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 
@@ -63,14 +64,13 @@ const takeRewards = () => {
   stashedAddsStore.addToStash(stash)
   rewardsTaken.value = true
 }
-const takeMomentumRewards = () => rewardsTaken.value = true
+const takeMomentumRewards = () => (rewardsTaken.value = true)
 
 const clearMove = () => {
   moveMade.value = false
   rewardsTaken.value = false
   cleared.value = true
 }
-
 </script>
 
 <template>
@@ -109,16 +109,33 @@ const clearMove = () => {
           <div>
             <p>You succeed. Choose one.</p>
             <ul>
-              <li><AdjustMomentumButton operation="adds" :amount="2" @click="takeMomentumRewards" :disabled="rewardsTaken" /></li>
               <li>
-                <StashMoveAdd text="Add +1 on your next move" :addToStash="stash" @click="takeMomentumRewards" :disabled="rewardsTaken" /> (not a progress
-                move).
+                <AdjustMomentumButton
+                  operation="adds"
+                  :amount="2"
+                  @click="takeMomentumRewards"
+                  :disabled="rewardsTaken"
+                />
+              </li>
+              <li>
+                <StashMoveAdd
+                  text="Add +1 on your next move"
+                  :addToStash="stash"
+                  @click="takeMomentumRewards"
+                  :disabled="rewardsTaken"
+                />
+                (not a progress move).
               </li>
             </ul>
           </div>
         </template>
         <template v-slot:miss>
-          <p>You fail or your assumptions betray you. Pay the Price.</p>
+          <p>
+            You fail or your assumptions betray you.
+            <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >.
+          </p>
         </template>
       </MoveOutcome>
     </template>

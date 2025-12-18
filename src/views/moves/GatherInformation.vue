@@ -9,6 +9,7 @@ import type { StatName } from '@/types'
 import { movesList } from '@/moves'
 
 const move = movesList.gatherInfo
+const payPrice = movesList.payPrice
 
 const statForMove: StatName = 'Wits'
 
@@ -23,7 +24,7 @@ const makeMove = () => {
 }
 
 const rewardsTaken = ref(false)
-const takeRewards = () => rewardsTaken.value = true
+const takeRewards = () => (rewardsTaken.value = true)
 
 const clearMove = () => {
   moveMade.value = false
@@ -54,20 +55,33 @@ const clearMove = () => {
           <p>
             You discover something helpful and specific. The path you must follow or action you must
             take to make progress is made clear. Envision what you learn. Then
-            <AdjustMomentumButton operation="adds" :amount="2" @click="takeRewards" :disabled="rewardsTaken" />.
+            <AdjustMomentumButton
+              operation="adds"
+              :amount="2"
+              @click="takeRewards"
+              :disabled="rewardsTaken"
+            />.
           </p>
         </template>
         <template v-slot:weak>
           <p>
             The information provides new insight, but also complicates your quest. Envision what you
             discover. Then
-            <AdjustMomentumButton operation="adds" :amount="1" @click="takeRewards" :disabled="rewardsTaken" />.
+            <AdjustMomentumButton
+              operation="adds"
+              :amount="1"
+              @click="takeRewards"
+              :disabled="rewardsTaken"
+            />.
           </p>
         </template>
         <template v-slot:miss>
           <p>
             Your investigation unearths a dire threat or reveals an unwelcome truth that undermines
-            your quest. Pay the Price.
+            your quest.
+            <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >.
           </p>
         </template>
       </MoveOutcome>

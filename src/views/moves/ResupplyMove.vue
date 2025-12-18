@@ -13,6 +13,7 @@ import { movesList } from '@/moves'
 import { maxSupply } from '@/constants'
 
 const move = movesList.resupplyMove
+const payPrice = movesList.payPrice
 const characterStore = useCharacterStore()
 
 let selectedSupply = ref<string>('Equipped')
@@ -27,10 +28,10 @@ const allSupplyFull = computed(() => {
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
-const findLabel = (statToFind: string) => customStats.value.find((stat) => stat.value === statToFind)
+const findLabel = (statToFind: string) =>
+  customStats.value.find((stat) => stat.value === statToFind)
 
-const holdSelected = computed(() => selectedSupply.value === 'Hold' ? true : false)
-
+const holdSelected = computed(() => (selectedSupply.value === 'Hold' ? true : false))
 
 const customStats = computed(() => [
   {
@@ -114,7 +115,7 @@ const takeRewards = () => {
   rewardsTaken.value = true
 }
 
-const takeMomentumRewards = () => rewardsTaken.value = true
+const takeMomentumRewards = () => (rewardsTaken.value = true)
 
 const clearMove = () => {
   moveMade.value = false
@@ -165,21 +166,25 @@ const clearMove = () => {
           >, envision the opportunity and your approach. If you...
         </p>
         <fieldset v-if="selectedStatName === ''">
-          <div v-for="(stat, index) in customStats" :key="`stat-${index}`" >
-            <input 
-              type="radio" 
+          <div v-for="(stat, index) in customStats" :key="`stat-${index}`">
+            <input
+              type="radio"
               name="chooseStat"
-              :id="`${index}-${stat.value}`" 
+              :id="`${index}-${stat.value}`"
               :value="stat.value"
               v-model="selectedStatName"
               :disabled="stat.disabled"
             />
-            <label :for="`${index}-${stat.value}`">{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label>
+            <label :for="`${index}-${stat.value}`"
+              >{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label
+            >
           </div>
         </fieldset>
         <div v-else>
           <p>
-            {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findLabel(selectedStatName)?.score }})
+            {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{
+              findLabel(selectedStatName)?.score
+            }})
           </p>
           <p>
             <button @click="selectedStatName = ''">Change approach</button>
@@ -205,7 +210,10 @@ const clearMove = () => {
                   If you are unprepared, clear the impact and take +1 supply.
                 </span>
                 <span :class="{ disabled: isUnprepared }">Otherwise, take +2 supply</span
-                ><button :disabled="chosenReward !== 'general' || rewardsTaken" @click="takeRewards">
+                ><button
+                  :disabled="chosenReward !== 'general' || rewardsTaken"
+                  @click="takeRewards"
+                >
                   Take rewards
                 </button>
               </label>
@@ -250,7 +258,10 @@ const clearMove = () => {
                   If you are unprepared, clear the impact and take +1 supply.
                 </span>
                 <span :class="{ disabled: isUnprepared }">Otherwise, take +2 supply</span
-                ><button :disabled="chosenReward !== 'general' || rewardsTaken" @click="takeRewards">
+                ><button
+                  :disabled="chosenReward !== 'general' || rewardsTaken"
+                  @click="takeRewards"
+                >
                   Take rewards
                 </button>
               </label>
@@ -276,7 +287,12 @@ const clearMove = () => {
           </fieldset>
         </template>
         <template v-slot:miss>
-          <p>You gain nothing and the situation worsens. Pay the Price.</p>
+          <p>
+            You gain nothing and the situation worsens.
+            <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >.
+          </p>
         </template>
       </MoveOutcome>
     </template>

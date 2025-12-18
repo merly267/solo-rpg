@@ -10,6 +10,7 @@ import { useLogStore } from '@/stores/LogStore'
 import { movesList } from '@/moves'
 
 const move = movesList.faceDanger
+const payPrice = movesList.payPrice
 
 const logStore = useLogStore()
 
@@ -39,11 +40,14 @@ const moveAdds = 0
 const moveMade = ref(false)
 const cleared = ref(false)
 
-watch(() => childComponent.value?.selectedStat, () => {
-  if (childComponent.value?.selectedStat) {
-    cleared.value = false
+watch(
+  () => childComponent.value?.selectedStat,
+  () => {
+    if (childComponent.value?.selectedStat) {
+      cleared.value = false
+    }
   }
-})
+)
 
 const makeMove = () => {
   moveMade.value = true
@@ -51,7 +55,7 @@ const makeMove = () => {
 }
 
 const rewardsTaken = ref(false)
-const takeRewards = () => rewardsTaken.value = true
+const takeRewards = () => (rewardsTaken.value = true)
 
 const clearMove = () => {
   moveMade.value = false
@@ -78,9 +82,17 @@ const clearMove = () => {
           <MakeLogEntry @logEntry="setupLogEntry" :cleared="cleared" move />
           <p>Then roll. If you act &hellip;</p> -->
 
-          <p>When you <strong>{{ move.trigger }}</strong>, envision your action. Then roll. If you act &hellip;</p>
+          <p>
+            When you <strong>{{ move.trigger }}</strong
+            >, envision your action. Then roll. If you act &hellip;
+          </p>
 
-          <RadioStatSelector v-if="move.stats" :stats="move.stats" :cleared="cleared" ref="childComponent" />
+          <RadioStatSelector
+            v-if="move.stats"
+            :stats="move.stats"
+            :cleared="cleared"
+            ref="childComponent"
+          />
         </div>
         <div v-if="moveMade">{{ setupLog }}</div>
       </ActionMove>
@@ -90,7 +102,12 @@ const clearMove = () => {
         <template v-slot:strong>
           <p>
             You are successful.
-            <AdjustMomentumButton operation="adds" :amount="1"  @click="takeRewards" :disabled="rewardsTaken" />
+            <AdjustMomentumButton
+              operation="adds"
+              :amount="1"
+              @click="takeRewards"
+              :disabled="rewardsTaken"
+            />
           </p>
         </template>
         <template v-slot:weak>
@@ -98,7 +115,10 @@ const clearMove = () => {
         </template>
         <template v-slot:miss>
           <p>
-            You fail, or a momentary success is undermined by a dire turn of events. Pay the Price.
+            You fail, or a momentary success is undermined by a dire turn of events.
+            <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >.
           </p>
         </template>
       </MoveOutcome>

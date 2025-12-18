@@ -7,7 +7,8 @@ import MoveLayout from '@/components/MoveLayout.vue'
 import { useCharacterStore } from '@/stores/CharacterStore'
 import { movesList } from '@/moves'
 
-const move = movesList.checkGear
+const move = movesList.setCourse
+const payPrice = movesList.payPrice
 const characterStore = useCharacterStore()
 
 const selectedSupplyType = ref<string>('')
@@ -97,7 +98,9 @@ const clearMove = () => {
         </template>
         <template v-slot:miss>
           <p>
-            You are waylaid by a significant threat, and must Pay the Price. If you overcome this obstacle, you may push on safely to your destination.
+            You are waylaid by a significant threat, and must <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >. If you overcome this obstacle, you may push on safely to your destination.
           </p>
         </template>
       </MoveOutcome>

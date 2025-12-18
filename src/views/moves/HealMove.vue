@@ -13,10 +13,12 @@ import { movesList } from '@/moves'
 type AdjustableTrack = 'momentum' | 'supply' | ''
 
 const move = movesList.healMove
+const payPrice = movesList.payPrice
 
 const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.name === statToFind)
 
-const findLabel = (statToFind: string) => customStats.value.find((stat) => stat.value === statToFind)
+const findLabel = (statToFind: string) =>
+  customStats.value.find((stat) => stat.value === statToFind)
 
 const ownWoundsStat = findStat('Wits')!.score <= findStat('Iron')!.score ? 'Wits' : 'Iron'
 
@@ -39,7 +41,7 @@ const customStats = computed(() => [
   {
     value: 'Wits',
     score: findStat('Wits')?.score,
-    label: "Provide care"
+    label: 'Provide care'
   }
 ])
 
@@ -113,20 +115,24 @@ const clearMove = () => {
           >, envision the situation and roll. If you...
         </p>
         <fieldset v-if="selectedStatName === ''">
-          <div v-for="(stat, index) in customStats" :key="`stat-${index}`" >
-            <input 
-              type="radio" 
+          <div v-for="(stat, index) in customStats" :key="`stat-${index}`">
+            <input
+              type="radio"
               name="chooseStat"
-              :id="`${index}-${stat.value}`" 
+              :id="`${index}-${stat.value}`"
               :value="stat.value"
               v-model="selectedStatName"
             />
-            <label :for="`${index}-${stat.value}`">{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label>
+            <label :for="`${index}-${stat.value}`"
+              >{{ stat.label }}: roll +{{ stat.value }} ({{ stat.score }})</label
+            >
           </div>
         </fieldset>
         <div v-else>
           <p>
-            {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{ findLabel(selectedStatName)?.score }})
+            {{ findLabel(selectedStatName)?.label }}: roll +{{ selectedStatName }} ({{
+              findLabel(selectedStatName)?.score
+            }})
           </p>
           <p>
             <button @click="selectedStatName = ''">Change approach</button>
@@ -192,7 +198,12 @@ const clearMove = () => {
           </fieldset>
         </template>
         <template v-slot:miss>
-          <p>The aid is ineffective and the situation worsens. Pay the Price.</p>
+          <p>
+            The aid is ineffective and the situation worsens.
+            <router-link :to="{ path: `/moves/${payPrice.slug}` }" class="move"
+              >Pay the Price</router-link
+            >.
+          </p>
         </template>
       </MoveOutcome>
     </template>
