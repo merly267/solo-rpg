@@ -5,7 +5,6 @@ import { useCharacterStore } from '@/stores/CharacterStore'
 import { useImpactsStore } from '@/stores/ImpactsStore'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
-import AdjustSupplyButton from '@/components/AdjustSupplyButton.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import type { StatName } from '@/types'
@@ -16,7 +15,7 @@ const move = movesList.resupplyMove
 const payPrice = movesList.payPrice
 const characterStore = useCharacterStore()
 
-let selectedSupply = ref<string>('Equipped')
+const selectedSupply = ref<string>('Equipped')
 
 const allSupplyFull = computed(() => {
   if (characterStore.supply === maxSupply && characterStore.hold === maxSupply) {
@@ -62,7 +61,7 @@ const customStats = computed(() => [
   }
 ])
 
-let selectedStatName = ref<string>('')
+const selectedStatName = ref<string>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {

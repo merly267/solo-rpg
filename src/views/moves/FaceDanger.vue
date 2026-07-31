@@ -2,7 +2,6 @@
 import { computed, ref, watch } from 'vue'
 import ActionMove from '@/components/ActionMove.vue'
 import AdjustMomentumButton from '@/components/AdjustMomentumButton.vue'
-import MakeLogEntry from '@/components/MakeLogEntry.vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import MoveOutcome from '@/components/MoveOutcome.vue'
 import RadioStatSelector from '@/components/RadioStatSelector.vue'
@@ -15,10 +14,6 @@ const payPrice = movesList.payPrice
 const logStore = useLogStore()
 
 const setupLog = ref('')
-
-const setupLogEntry = (text: string) => {
-  setupLog.value = text
-}
 
 const childComponent = ref<InstanceType<typeof RadioStatSelector>>()
 

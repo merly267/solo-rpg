@@ -19,7 +19,7 @@ const findStat = (statToFind: StatName) => statsList.value.find((stat) => stat.n
 
 const findLabel = (statToFind: StatName) => stats.find((stat) => stat.value === statToFind)
 
-let selectedStatName = ref<StatName>('')
+const selectedStatName = ref<StatName>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {

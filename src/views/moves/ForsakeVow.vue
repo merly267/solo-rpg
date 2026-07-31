@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRaw } from 'vue'
+import { computed, ref } from 'vue'
 import MoveLayout from '@/components/MoveLayout.vue'
 import TrackInfo from '@/components/TrackInfo.vue'
 import { movesList } from '@/moves'
@@ -36,7 +36,7 @@ const setLastTouched = (event: Event) => {
 
 const clearedVow = ref(selectedVow.value)
 
-let moveMade = ref(false)
+const moveMade = ref(false)
 
 const makeMove = () => {
   moveMade.value = true
