@@ -4,7 +4,7 @@ import { movesList } from '@/moves'
 import { moveTypeList } from '@/constants'
 import type { MoveType } from '@/types'
 
-let visibleSections = ref<MoveType[]>([])
+const visibleSections = ref<MoveType[]>([])
 </script>
 <template>
   <h2>Moves</h2>

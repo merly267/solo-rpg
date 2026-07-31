@@ -8,8 +8,6 @@ const { move, cleared } = defineProps<{
 }>()
 const logStore = useLogStore()
 
-const label = move ? 'Envision your action' : 'Add to journal'
-
 const logText = ref('')
 
 const saveEntry = () => {

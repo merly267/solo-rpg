@@ -56,7 +56,7 @@ const multipleExpeditions = computed(() => {
 const addNewExpedition = ref<boolean>(false)
 
 const createNewExpedition = () => {
-  addNewExpedition.value === false ? addNewExpedition.value = true : addNewExpedition.value = false
+  addNewExpedition.value = !addNewExpedition.value
 }
 
 const addTrack = () => {

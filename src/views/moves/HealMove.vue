@@ -45,7 +45,7 @@ const customStats = computed(() => [
   }
 ])
 
-let selectedStatName = ref<string>('')
+const selectedStatName = ref<string>('')
 
 const selectedStat = computed(() => {
   if (selectedStatName.value.length) {

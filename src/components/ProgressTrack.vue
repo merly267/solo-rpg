@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { progress, experience, legacy } = defineProps<{
+const { progress, legacy } = defineProps<{
   progress: number
   experience?: number
   legacy?: boolean
